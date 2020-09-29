@@ -1,2 +1,9 @@
 # Quick_Project
-Portfolo Project with NodeJS and MongoDB
+Portfolio Project with NodeJS and MongoDB
+
+By
+
+Andres Santiago Reyes
+Juan Carlos Rengifo
+Jefferson Alexander Leon
+Eduard Sneyder Amador
