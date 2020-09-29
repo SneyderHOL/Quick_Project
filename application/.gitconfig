@@ -1,0 +1,7 @@
+[user]
+	name = name
+	email = mail@holbertonschool.com
+[credential]
+	helper = cache --timeout=99999999
+[core]
+	editor = emacs
