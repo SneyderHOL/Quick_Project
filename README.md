@@ -1,4 +1,4 @@
-# Quick project
+# Quick project ⚡️
 ## API rest
 
 This project solves the problem of calculating the total cost of the trip by a route with precision.
@@ -43,7 +43,7 @@ Before starting, it is important to consider the following programs in order to 
   - Git
 
 
-# start
+# start 🚀
 To be able to run the application and use it in a local development environment you can follow the following steps:
 
 Clone the repository to have the local project:
@@ -51,7 +51,6 @@ Clone the repository to have the local project:
 git clone git@github.com:SneyderHOL/Quick_Project.git
 ```
 
-## installation
 The following command will run a container for local testing and will have port 3000
 available for communication.
 ```
@@ -64,7 +63,8 @@ docker-compose down
 ```
 
 
-# Running the tests
+### Running the tests
+Coming...
 
 
 ### Built with 🛠️
@@ -82,7 +82,7 @@ Frameworks:
 
 
 ### authors 🗒
-- Andres Santiago Reyes DevOps
-- Juan Carlos Rengifo Back-end/
 - Jefferson Alexander Leon Back-end
+- Juan Carlos Rengifo Back-end
 - Eduard Sneyder Amador DevOps
+- Andres Santiago Reyes DevOps
