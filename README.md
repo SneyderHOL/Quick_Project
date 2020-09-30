@@ -1,16 +1,18 @@
 # Quick project
 ## API rest
 
-Este proyecto da solucion al problema de calcular el costo total del viaje por una ruta con precision.
-Este problema se da ya debido a la falta de informacion, por ende el proyecto brinda la solucion del
-desarrollo de una API Rest que realice el cálculo de gastos incurridos en un trayecto que incluya gastos
-fijos y variables así como los costos incurridos en peajes según la ruta.
+This project solves the problem of calculating the total cost of the trip by a route with precision.
+This problem already occurs due to the lack of information, therefore the project provides the solution to the
+development of an API Rest that performs the calculation of costs incurred on a journey that includes expenses
+fixed and variable as well as the costs incurred in tolls according to the route.
 
-Para poder ver el funcionamiento de este se hara una interfaz grafica donde se mostraran las ruta donde
-consultar y una guia para el uso de esta API
+In order to see the operation of this API, swagger will be used where the documentation will be. There you can
+interact and find the route that suits you best.
 ![](img/docs.png)
 
-El siguiente JSON es el resultado que esperamos entregar a la hora de solicitar nuestro servicio.
+Within the documentation will be the specification of which parameters will have to be passed to see
+an exact result and as you wish. The following JSON is the result we hope to deliver on time
+to request our service.
 ```
 {
     "fuel_price": 420000,
@@ -24,35 +26,39 @@ El siguiente JSON es el resultado que esperamos entregar a la hora de solicitar 
 }
 ```
 
-Para el desarrollo de este proyecto se necesitaron los siguientes recuros
+The following resources were needed for the development of this project:
+
+[API peajes](https://api-tolls.herokuapp.com/api-docs): It is a service with updated toll prices
+in Colombia
 
 
+[API Google Routes](https://developers.google.com/maps): A service provided by google where it predicts
+which is the most suitable route to reach the destination.
 
+---
 
-se tiene una api en esta ruta
-
-https://github.com/jeffleon/Quick/tree/master
-
-
-## start
-The following instructions will allow you to obtain a copy of the local project for development and testing purposes
-
-
-
-# installation and use the proyect
 ### pre-requisite
-It is advisable to run the project on Ubuntu 14.04 LTS to have no failures in the program and in the project
+Before starting, it is important to consider the following programs in order to execute the project
+  - Docker
+  - Git
 
 
-For start this proyect you need docker
+# start
+To be able to run the application and use it in a local development environment you can follow the following steps:
 
+Clone the repository to have the local project:
+```
+git clone git@github.com:SneyderHOL/Quick_Project.git
+```
 
+## installation
+The following command will run a container for local testing and will have port 3000
+available for communication.
 ```
 docker-compose up -d
 ```
-
-if you end to develop or fix execute this:
-
+When you have finished testing and running the project you can remove the container with the
+next command
 ```
 docker-compose down
 ```

@@ -10,7 +10,6 @@ RUN npm install -g express-generator && \
 
 RUN npm install
 
-
 WORKDIR /home/
 
-EXPOSE 3000
+CMD ["/bin/bash"]
