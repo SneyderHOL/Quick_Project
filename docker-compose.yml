@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: 'test'
+    working_dir: '/home/'
+    ports:
+      - 3000:3000
+    command: "sh -c 'npm start'"
+    volumes:
+      - ./:/home/
