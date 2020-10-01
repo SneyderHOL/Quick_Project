@@ -26,7 +26,7 @@ app.use('/', indexRouter);
 
 // moongose configuration
 const mongoose = require('mongoose');
-//const mongoDB = process.env.DB || 'mongodb://localhost:27017/Peajes';
+// const mongoDB = process.env.DB || 'mongodb://localhost:27017/Peajes';
 const mongoDB = 'mongodb+srv://quick:quick@cluster0.rq3kf.mongodb.net/sample_airbnb?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 mongoose.Promise = global.Promise;

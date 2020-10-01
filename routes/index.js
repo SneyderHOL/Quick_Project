@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 /**
  * @swagger
- * /status:
+ *  /status:
  *  get:
  *    description: Shows API status
  *    responses:
