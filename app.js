@@ -3,10 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-const tollRouter = require('./routes/copytolls.js');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJSDocs = require('swagger-jsdoc');
+const tollRouter = require('./routes/tolls.js');
+const indexRouter = require('./routes/index.js');
 
 const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', tollRouter);
+app.use('/', indexRouter);
 
 // moongose configuration
 const mongoose = require('mongoose');
