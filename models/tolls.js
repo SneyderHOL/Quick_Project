@@ -21,19 +21,19 @@ TollSchema.statics.deleteToll = async function (id) {
 };
 
 TollSchema.statics.findTollById = async function (id, callback) {
-  console.log('Before find toll models');
-  const toll = await this.findById(id, callback);
-  console.log('After search');
-  return toll;
+    var toll = null;
+    if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec();}
+    return toll
 };
 
-TollSchema.statics.getTolls = async function (callback) {
+TollSchema.statics.getTolls = async function () {
   const tolls = await this.find();
   return tolls;
 };
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
-  const toll = await this.findByIdAndUpdate(id, data);
+  var toll = null
+  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data);}
   return toll;
 };
 

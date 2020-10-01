@@ -6,7 +6,6 @@ const logger = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJSDocs = require('swagger-jsdoc');
 const tollRouter = require('./routes/tolls.js');
-const indexRouter = require('./routes/index.js');
 
 const app = express();
 
@@ -21,13 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', tollRouter);
-app.use('/', indexRouter);
+app.use('/tolls', tollRouter);
 
 // moongose configuration
 const mongoose = require('mongoose');
-// const mongoDB = process.env.DB || 'mongodb://localhost:27017/Peajes';
-const mongoDB = 'mongodb+srv://quick:quick@cluster0.rq3kf.mongodb.net/sample_airbnb?retryWrites=true&w=majority';
+//const mongoDB = process.env.DB || 'mongodb://localhost:27017/Peajes';
+const mongoDB =  'mongodb://localhost:27017/Peajes' || 'mongodb+srv://quick:quick@cluster0.rq3kf.mongodb.net/sample_airbnb?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
