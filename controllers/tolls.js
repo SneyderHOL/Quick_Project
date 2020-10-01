@@ -1,4 +1,3 @@
-const fetchTolls = require('../service/tolls');
 const Toll = require('../models/tolls');
 
 exports.getTolls = async (req, res, error) => {
@@ -29,7 +28,7 @@ exports.createToll = async (req, res) => {
     newToll.operator = req.body.operator;
     newToll.name = req.body.name;
     Toll.createToll(newToll);
-    res.status(200).send(newToll);
+    res.status(201).send(newToll);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -46,7 +45,11 @@ exports.deleteToll = async (req, res) => {
 
 exports.updateToll = async (req, res) => {
   try {
-    const toll = await Toll.findTollId(req.params.id);
+    console.log('Before find toll');
+    const toll = await Toll.findTollById(req.params.id, () => {
+      // callback function in case toll not found
+    });
+    console.log('After search');
     if (!toll) {
       res.status(404).send(`Toll with id ${req.params.id} not found`);
     } else {

@@ -1,14 +1,40 @@
-const express = require('express');
-const router = express.Router();
-const controllerTolls = require('../controllers/tolls');
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const TollSchema = new Schema({
+  name: String,
+  coordenates: { lat: Number, lng: Number },
+  operator: String,
+  direction: { type: Number, default: 0 },
+  toll_cost: mongoose.SchemaTypes.Mixed,
+  date_modification: { type: Date, default: Date.now },
+  department: { type: String, default: '' },
+  id: Number
 });
 
-router.get('/tolls', controllerTolls.getTolls);
-router.post('/tolls', controllerTolls.createToll);
-router.get('/tolls/:id', controllerTolls.getTollById);
-router.patch('/tolls/:id', controllerTolls.updateToll);
-router.delete('/tolls/:id', controllerTolls.deleteToll);
-module.exports = router;
+TollSchema.statics.createToll = function (toll) {
+  this.create(toll, (error) => { console.log(error); });
+};
+
+TollSchema.statics.deleteToll = async function (id) {
+  await this.findByIdAndDelete(id);
+};
+
+TollSchema.statics.findTollById = async function (id, callback) {
+  console.log('Before find toll models');
+  const toll = await this.findById(id, callback);
+  console.log('After search');
+  return toll;
+};
+
+TollSchema.statics.getTolls = async function (callback) {
+  const tolls = await this.find();
+  return tolls;
+};
+
+TollSchema.statics.updateToll = async function (id, data, callback) {
+  const toll = await this.findByIdAndUpdate(id, data);
+  return toll;
+};
+
+module.exports = mongoose.model('Toll', TollSchema);
