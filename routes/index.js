@@ -1,21 +1,16 @@
-const express = require('express');
+const express = require('express'); 
 const router = express.Router();
-const controllerIndex = require('../controllers/index');
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const tollRouter = require('./tolls.js');
+const statusRouter = require('./status.js');
+const taxesRouter = require('./taxes.js');
+const vehiclesRouter = require('./vehicles.js');
+const tripRouter = require('./trip.js');
 
 
-/**
- * @swagger
- * /status:
- *  get:
- *    description: Shows API status
- *    responses:
- *      '200':
- *        description: A successful response
- */
-router.get('/status', controllerIndex.getStatus);
+router.use('/tolls', tollRouter);
+router.use('/status', statusRouter);
+router.use('/taxes', taxesRouter);
+router.use('/vehicles', vehiclesRouter);
+router.use('/trip', tripRouter);
 
 module.exports = router;

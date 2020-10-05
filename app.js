@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJSDocs = require('swagger-jsdoc');
-const tollRouter = require('./routes/tolls.js');
+const apiRouter = require('./routes/index.js');
 
 const app = express();
 
@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/tolls', tollRouter);
+app.use('/api', apiRouter);
+app.get('*',function (req, res) {
+  res.redirect('/api/tolls');
+});
 
 // moongose configuration
 const mongoose = require('mongoose');
