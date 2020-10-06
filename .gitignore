@@ -4,10 +4,15 @@
 
 ## Others ##
 .env
+.DS_Store
 
 
 ### Node js ###
 node_modules
+package-lock.json
+file.json
+error1.json
+eduard.js
 
 
 ### Emacs ###

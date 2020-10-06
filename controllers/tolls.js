@@ -14,7 +14,7 @@ exports.getTollById = async (req, res) => {
     catch(e){
       if (!toll) {
         res.status(404).send(`Toll with id ${req.params.id} not found`);
-      } 
+      }
     }
   } catch (error) {
     res.status(500).send(error);
