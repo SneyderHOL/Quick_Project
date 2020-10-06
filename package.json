@@ -3,20 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "test": "jasmine",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.6",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
-    "pug": "2.0.0-beta11",
-    "puppeteer": "^5.3.1",
     "swagger-jsdoc": "^4.2.0",
     "swagger-ui-express": "^4.1.4"
   },

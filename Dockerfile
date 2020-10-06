@@ -5,10 +5,10 @@ RUN apt update -y && \
 
 COPY ./package.json /home
 
-RUN npm install -g express-generator && \
-  npm install semistandard --global
+RUN npm install && npm install -g nodemon \
+  express-generator && npm install \
+  semistandard --global
 
-RUN npm install
 
 WORKDIR /home/
 
