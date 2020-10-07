@@ -30,7 +30,7 @@ exports.createToll = async (req, res) => {
     newToll.department = req.body.department;
     newToll.operator = req.body.operator;
     newToll.name = req.body.name;
-    Toll.createToll(newToll);
+    await Toll.createToll(newToll);
     res.status(201).send(newToll);
   } catch (error) {
     res.status(500).send(error);

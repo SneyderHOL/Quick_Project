@@ -9,11 +9,14 @@ const TollSchema = new Schema({
   toll_cost: mongoose.SchemaTypes.Mixed,
   date_modification: { type: Date, default: Date.now },
   department: { type: String, default: '' },
-  id: Number
-});
+  id: { type: Number, unique: true}
 
-TollSchema.statics.createToll = function (toll) {
-  this.create(toll, (error) => { console.log(error); });
+}, { versionKey: false });
+
+
+// check this function
+TollSchema.statics.createToll = async function (toll) {
+  return await this.create(toll);
 };
 
 TollSchema.statics.deleteToll = async function (id) {
