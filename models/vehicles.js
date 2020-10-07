@@ -12,34 +12,33 @@ const Vehicles = new Schema({
   features: mongoose.SchemaTypes.Mixed
 }, { versionKey: false });
 
-
 Vehicles.statics.createVehicle = async (vehicle) => {
-  const v = await Vehicles.create({...vehicle});
-  return v
-}
+  const v = await Vehicles.create({ ...vehicle });
+  return v;
+};
 
 Vehicles.statics.findAllVehicles = async function () {
   const vehicles = await this.find();
   return vehicles;
-}
+};
 
 Vehicles.statics.findVehicleById = async function (id) {
   const vehicles = await this.findById(id);
   return vehicles;
-}
+};
 
 Vehicles.statics.findBySpecification = async function (axis) {
-  const vehicles = await this.find({ axis: axis }, { category: 0});
+  const vehicles = await this.find({ axis: axis }, { category: 0 });
   return vehicles;
-}
+};
 
 Vehicles.statics.updateVehicles = async function (id, vehicle) {
-  const v = await this.findByIdAndUpdate(id, vehicle, {new: true});
+  const v = await this.findByIdAndUpdate(id, vehicle, { new: true });
   return v;
-}
+};
 
 Vehicles.statics.deleteVehicle = async function (id) {
   await this.findByIdAndDelete(id);
-}
+};
 
-module.exports = mongoose.model('Vehicles', Vehicles)
+module.exports = mongoose.model('Vehicles', Vehicles);

@@ -1,17 +1,16 @@
 const Toll = require('../models/tolls');
 
 exports.getTolls = async (req, res) => {
-  const tolls = { tolls: await Toll.getTolls()};
+  const tolls = { tolls: await Toll.getTolls() };
   res.status(200).send({ data: tolls });
 };
 
 exports.getTollById = async (req, res) => {
   try {
-    try{
+    try {
       var toll = await Toll.findTollById(req.params.id);
       res.status(200).send(toll);
-    }
-    catch(e){
+    } catch (e) {
       if (!toll) {
         res.status(404).send(`Toll with id ${req.params.id} not found`);
       }
@@ -48,16 +47,16 @@ exports.deleteToll = async (req, res) => {
 
 exports.updateToll = async (req, res) => {
   try {
-    var toll = null
-      try{
-        toll = await Toll.findTollById(req.params.id);
-        const updatedToll = await Toll.updateToll(req.params.id, req.body);
-        res.status(200).send(updatedToll);
-      } catch(e){
-        if (!toll) {
-          res.status(404).send(`Toll with id ${req.params.id} not found`);
-        }
+    var toll = null;
+    try {
+      toll = await Toll.findTollById(req.params.id);
+      const updatedToll = await Toll.updateToll(req.params.id, req.body);
+      res.status(200).send(updatedToll);
+    } catch (e) {
+      if (!toll) {
+        res.status(404).send(`Toll with id ${req.params.id} not found`);
       }
+    }
   } catch (error) {
     res.status(500).send(error);
   }

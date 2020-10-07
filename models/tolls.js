@@ -10,10 +10,9 @@ const TollSchema = new Schema({
   update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
   id: Number,
-  status: {type: Boolean, default: true},
-  group: {type: Number, default: 2}
+  status: { type: Boolean, default: true },
+  group: { type: Number, default: 2 }
 }, { versionKey: false });
-
 
 // check this function
 TollSchema.statics.createToll = async function (toll) {
@@ -25,9 +24,9 @@ TollSchema.statics.deleteToll = async function (id) {
 };
 
 TollSchema.statics.findTollById = async function (id, callback) {
-    var toll = null;
-    if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec();}
-    return toll
+  var toll = null;
+  if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec(); }
+  return toll;
 };
 
 TollSchema.statics.getTolls = async function () {
@@ -36,8 +35,8 @@ TollSchema.statics.getTolls = async function () {
 };
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
-  var toll = null
-  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data);}
+  var toll = null;
+  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data); }
   return toll;
 };
 

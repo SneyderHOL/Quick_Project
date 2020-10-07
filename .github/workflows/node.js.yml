@@ -25,5 +25,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install semistandard -gy
-    - run: semistandard application/*.js application/controllers/*.js application/routes/*.js application/services/*.js
-
+    - run: semistandard *.js controllers/*.js routes/*.js services/*.js models/*.js

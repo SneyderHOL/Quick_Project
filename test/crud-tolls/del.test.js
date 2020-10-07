@@ -1,37 +1,28 @@
 'use strict';
 
-const mongoose = require('mongoose');
-
+// const mongoose = require('mongoose');
 const dbHandler = require('../jest-mongodb-config');
 const toll = require('../../models/tolls');
-
 
 /**
  * Connect to a new in-memory database before running any tests.
  */
 beforeAll(async () => {
-    await dbHandler.connect();
+  await dbHandler.connect();
 });
-
-/**
- * fill the database
- */
-// beforeEach(async () => {
-//   await generateTolls();
-// });
 
 /**
  * Clear all test data after every test.
  */
 afterEach(async () => {
-    await dbHandler.clearDatabase();
+  await dbHandler.clearDatabase();
 });
 
 /**
  * Remove and close the db and server.
  */
 afterAll(async () => {
-    await dbHandler.closeDatabase();
+  await dbHandler.closeDatabase();
 });
 
 /**
@@ -45,25 +36,25 @@ describe('Test create tolls in data base', () => {
   });
 
   it('It will validate if return the correct object and has not __v', async () => {
-      const testToll = await toll.createToll(newToll)
+    const testToll = await toll.createToll(newToll)
 
-      expect(testToll.__v)
-        .toBeUndefined();
+    expect(testToll.__v)
+      .toBeUndefined();
 
-      expect(testToll)
-        .toHaveProperty('coordenates');
+    expect(testToll)
+      .toHaveProperty('coordenates');
 
-      expect(testToll)
-        .toHaveProperty('direction');
+    expect(testToll)
+      .toHaveProperty('direction');
 
-      expect(testToll)
-        .toHaveProperty('department');
+    expect(testToll)
+      .toHaveProperty('department');
 
-      expect(testToll)
-        .toHaveProperty('name');
+    expect(testToll)
+      .toHaveProperty('name');
 
-      expect(testToll)
-        .toHaveProperty('toll_cost');
+    expect(testToll)
+      .toHaveProperty('toll_cost');
   });
 
   it('Will validate the schema to recive an incorrect parameters', async () => {
@@ -77,36 +68,22 @@ describe('Test create tolls in data base', () => {
     expect(testToll)
         .not.toHaveProperty('testing');
   });
-
 });
 
-/**
- * Seed the database with tolls.
- */
-// const generateTolls = async () => {
-//     const createdIphone = await productModel.create(productIphone);
-//     productIphoneId = createdIphone.id;
-//     await productModel.create(productFitbit);
-// };
-// let productIphoneId;
-
 const newToll = {
-    "coordenates": {
-      "lat": 0,
-      "lng": -1
-    },
-    "direction": 0,
-    'department': "ANTIOQUIA",
-    "name": "Testing with base",
-    "operator": "INCO",
-    'toll_cost': {
-      "I": 16800,
-      "II": 19000,
-      "III": 41400,
-      "IV": 53900,
-      "V": 64500
-    }
+  "coordenates": {
+    "lat": 0,
+    "lng": -1
+  },
+  "direction": 0,
+  'department': "ANTIOQUIA",
+  "name": "Testing with base",
+  "operator": "INCO",
+  'toll_cost': {
+    "I": 16800,
+    "II": 19000,
+    "III": 41400,
+    "IV": 53900,
+    "V": 64500
+  }
 };
-
-
-
