@@ -24,9 +24,9 @@ exports.getTollById = async (req, res) => {
 exports.createToll = async (req, res) => {
   try {
     const newToll = new Toll();
-    newToll.coordenates = req.body.coordenates;
+    newToll.coordinates = req.body.coordinates;
     newToll.direction = req.body.direction;
-    newToll.toll_cost = req.body.toll_cost;
+    newToll.costs = req.body.costs;
     newToll.department = req.body.department;
     newToll.operator = req.body.operator;
     newToll.name = req.body.name;
