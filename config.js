@@ -6,7 +6,7 @@ dotenv.config();
  */
 module.exports = {
   keyGoogle: process.env.GOOGLE_API,
-  user: process.env.NAME_DB,
+  userDb: process.env.USER_DB,
   passwdDb: process.env.PASSWORD_DB,
   dbName: process.env.DB_NAME,
   keyOpenRoute: process.env.API_OPENROUTES

@@ -12,7 +12,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const mongoDB = `mongodb+srv://${user}:${passwdDb}@` +
+const mongoDB = `mongodb+srv://${userDb}:${passwdDb}@` +
   `cluster0.rq3kf.mongodb.net/${dbName}?retryWrites=true&w=majority` || 'mongodb://localhost:27017/Peajes';
 
 
