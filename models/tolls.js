@@ -3,13 +3,15 @@ const Schema = mongoose.Schema;
 
 const TollSchema = new Schema({
   name: String,
-  coordenates: { lat: Number, lng: Number },
+  coordinates: { lat: Number, lng: Number },
   operator: String,
   direction: { type: Number, default: 0 },
-  toll_cost: mongoose.SchemaTypes.Mixed,
-  date_modification: { type: Date, default: Date.now },
+  costs: mongoose.SchemaTypes.Mixed,
+  update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
-  id: Number
+  id: Number,
+  status: {type: Boolean, default: true},
+  group: {type: Number, default: 2}
 });
 
 TollSchema.statics.createToll = function (toll) {
