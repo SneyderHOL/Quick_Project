@@ -21,29 +21,29 @@ function tollsInSection (originPoint, destinationPoint, TotalTolls) {
 
     // North to South and West to East
     if (sectionDirection.lat === 1 && sectionDirection.lng === 4) {
-      if (tolls[toll].coordenates.lat >= destinationPoint.lat && tolls[toll].coordenates.lat <= originPoint.lat) {
-	      if (tolls[toll].coordenates.lng >= originPoint.lng && tolls[toll].coordenates.lng <= destinationPoint.lng) {
+      if (tolls[toll].coordinates.lat >= destinationPoint.lat && tolls[toll].coordinates.lat <= originPoint.lat) {
+	      if (tolls[toll].coordinates.lng >= originPoint.lng && tolls[toll].coordinates.lng <= destinationPoint.lng) {
 	        validToll = isValidToll(sectionDirection, tolls[toll]);
 	      }
       }
     // North to South and East to West
     } else if (sectionDirection.lat === 1 && sectionDirection.lng === 3) {
-      if (tolls[toll].coordenates.lat >= destinationPoint.lat && tolls[toll].coordenates.lat <= originPoint.lat) {
-        if (tolls[toll].coordenates.lng >= destinationPoint.lng && tolls[toll].coordenates.lng <= originPoint.lng) {
+      if (tolls[toll].coordinates.lat >= destinationPoint.lat && tolls[toll].coordinates.lat <= originPoint.lat) {
+        if (tolls[toll].coordinates.lng >= destinationPoint.lng && tolls[toll].coordinates.lng <= originPoint.lng) {
           validToll = isValidToll(sectionDirection, tolls[toll]);
         }
       }
     // South to North and West to East ->
     } else if (sectionDirection.lat === 2 && sectionDirection.lng === 4) {
-      if (tolls[toll].coordenates.lat >= originPoint.lat && tolls[toll].coordenates.lat <= destinationPoint.lat) {
-        if (tolls[toll].coordenates.lng >= originPoint.lng && tolls[toll].coordenates.lng <= destinationPoint.lng) {
+      if (tolls[toll].coordinates.lat >= originPoint.lat && tolls[toll].coordinates.lat <= destinationPoint.lat) {
+        if (tolls[toll].coordinates.lng >= originPoint.lng && tolls[toll].coordinates.lng <= destinationPoint.lng) {
           validToll = isValidToll(sectionDirection, tolls[toll]);
         }
       }
     // South to North and East to West <-
     } else if (sectionDirection.lat === 2 && sectionDirection.lng === 3) {
-      if (tolls[toll].coordenates.lat >= originPoint.lat && tolls[toll].coordenates.lat <= destinationPoint.lat) {
-        if (tolls[toll].coordenates.lng >= destinationPoint.lng && tolls[toll].coordenates.lng <= originPoint.lng) {
+      if (tolls[toll].coordinates.lat >= originPoint.lat && tolls[toll].coordinates.lat <= destinationPoint.lat) {
+        if (tolls[toll].coordinates.lng >= destinationPoint.lng && tolls[toll].coordinates.lng <= originPoint.lng) {
           validToll = isValidToll(sectionDirection, tolls[toll]);
         }
       }
@@ -110,8 +110,8 @@ function findTollInRoute(sectionPoints, originPoint, destinationPoint, TotalToll
   const sectionTolls = tollsInSection(originPoint, destinationPoint, TotalTolls);
 
   for (let toll in sectionTolls) {
-    const tollLatitude = parseFloat(sectionTolls[toll].coordenates.lat.toString().slice(0,5))
-    const tollLongitude = sectionTolls[toll].coordenates.lng
+    const tollLatitude = parseFloat(sectionTolls[toll].coordinates.lat.toString().slice(0,5))
+    const tollLongitude = sectionTolls[toll].coordinates.lng
 
     const searchRangeLatitudeMin = tollLatitude - 0.003;
     const searchRangeLatitudeMax = tollLatitude + 0.003;

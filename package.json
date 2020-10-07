@@ -25,6 +25,7 @@
     "supertest": "^5.0.0"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "supertest": "^5.0.0"
   }
 }

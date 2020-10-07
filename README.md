@@ -75,7 +75,6 @@ docker logs test
 ```
 
 
-
 When you have finished testing and running the project you can remove the container with the
 next command
 ```
