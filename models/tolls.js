@@ -16,6 +16,9 @@ const TollSchema = new Schema({
 
 // check this function
 TollSchema.statics.createToll = async function (toll) {
+  if (Object.keys(toll).length === 0) {
+    return null
+  }
   return await this.create(toll);
 };
 
@@ -25,7 +28,9 @@ TollSchema.statics.deleteToll = async function (id) {
 
 TollSchema.statics.findTollById = async function (id, callback) {
   var toll = null;
-  if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec(); }
+  if (mongoose.isValidObjectId(id)) {
+    toll = await this.findById(id).exec();
+  }
   return toll;
 };
 

@@ -3,8 +3,9 @@ const controllerVehicles = require('../controllers/vehicles');
 
 router.get('/', controllerVehicles.getVehicles);
 // validar que reciva un numero
-router.get('find/:axis', controllerVehicles.getVehiclesByFeatures);
+router.get('/find/:axis', controllerVehicles.getVehiclesByFeatures);
 // verificar esa id
+// devolver que no encontro nada
 router.get('/:id', controllerVehicles.findVehicleById);
 
 router.post('/', controllerVehicles.createVehicles);

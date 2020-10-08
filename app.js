@@ -1,18 +1,21 @@
 const express = require('express');
 const logger = require('morgan');
+const yaml = require('yamljs')
 
 // will use in the future
-// const swaggerUI = require('swagger-ui-express');
 // const swaggerJSDocs = require('swagger-jsdoc');
 const { nameDb, passwdDb, dbName } = require('./config');
 const mongoose = require('mongoose');
 
 const app = express();
+const swaggerUI = require('swagger-ui-express');
+const swaggerJS = yaml.load('./documentation.yaml');
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const mongoDB = `mongodb+srv://${nameDb}:${passwdDb}@` +
+const mongoDB = `mongodb+srv://quick:quick@` +
   `cluster0.lwjfu.mongodb.net/${dbName}?retryWrites=true&w=majority` || 'mongodb://localhost:27017/Peajes';
 
 mongoose.connect(mongoDB, {

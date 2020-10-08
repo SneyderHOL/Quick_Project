@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  description: "Esta es una API que permite el pago de arrendamientos de una serie de inmuebles"
+  version: "0.0.1"
+  title: "API Arrendamiento"
+  contact:
+    email: "jeffersonleon1527@gmail.com"
+  host: "localhost:8084"
+  schemes: ["https"]
+basePath: "/api/"
+paths:
+  /api/pagos:
+    get:
+      summary: lista de arriendos a pagar
+      description: 
+        retorna una lista de objetos que tienen todos los arriendos de los inmuebles a pagar
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: OK
+          
+    post:
+      summary: "añade un pago a un inmueble especificado por el id del inmueble y el documento de identidad solo se puede pagar en dias impares"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "body"
+          in: "body"
+          description: "ID of contact to be deleted"
+          required: true
+          type: "string"
+          schema:
+            $ref: "#/definitions/Pago"
+      responses:
+        200:
+          description: OK
+        500:
+          description: "Server Error"
+
+definitions:
+  Pago:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      fechaPago:
+        type: date
+        example: "04/07/2008"
+        description: "debe ser un dia inpar"
+      documentoIdentificacionArrendatario:
+        type: integer
+        example: 1254872552
+      codigoInmueble:
+        type: "string"
+        example: "8872"
+      valorPagado:
+        type: integer
+        example: 1000000
+        description: "valor cancelado de el arrendamiento"
+    xml:
+      name: "Pago"

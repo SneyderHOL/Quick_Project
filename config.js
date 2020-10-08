@@ -1,5 +1,4 @@
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv').config()
 
 /**
  * This is for manage enviroment variables
