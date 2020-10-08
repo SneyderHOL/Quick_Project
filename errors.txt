@@ -1,0 +1,226 @@
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/app.js
+  10:18  error  `mongoose` import should occur before import of `./config`  import/order
+  18:55  error  '+' should be placed at the beginning of the line           operator-linebreak
+  18:55  error  Operator '+' must be spaced                                 space-infix-ops
+  25:26  error  Missing trailing comma                                      comma-dangle
+  37:9   error  Unexpected function expression                              prefer-arrow-callback
+  37:29  error  'next' is defined but never used                            no-unused-vars
+  40:96  error  Missing trailing comma                                      comma-dangle
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/config.js
+   1:7   error  'dotenv' is assigned a value but never used  no-unused-vars
+   1:42  error  Missing semicolon                            semi
+  11:43  error  Missing trailing comma                       comma-dangle
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/controllers/route-tolls.js
+   1:7   error  Use object destructuring                             prefer-destructuring
+   4:35  error  'error' is defined but never used                    no-unused-vars
+   9:11  error  Expected parentheses around arrow function argument  arrow-parens
+   9:43  error  Expected property shorthand                          object-shorthand
+  10:12  error  Expected parentheses around arrow function argument  arrow-parens
+  12:70  error  Missing trailing comma                               comma-dangle
+  13:7   error  Unexpected newline before ')'                        function-paren-newline
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/controllers/tolls.js
+  11:7   error  All 'var' declarations must be at the top of the function scope  vars-on-top
+  11:7   error  Unexpected var, use let or const instead                         no-var
+  14:12  error  'toll' used outside of binding context                           block-scoped-var
+  50:5   error  All 'var' declarations must be at the top of the function scope  vars-on-top
+  50:5   error  Unexpected var, use let or const instead                         no-var
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/controllers/vehicles.js
+  35:12  error  Expected parentheses around arrow function argument  arrow-parens
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/eduard.js
+  706:7  error  Parsing error: Identifier 'fetch' has already been declared
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/models/tolls.js
+   1:1   error  Expected 1 empty line after require statement not followed by another require  import/newline-after-import
+   2:7   error  Use object destructuring                                                       prefer-destructuring
+  14:38  error  Missing trailing comma                                                         comma-dangle
+  20:16  error  Missing semicolon                                                              semi
+  22:10  error  Redundant use of `await` on a return value                                     no-return-await
+  29:55  error  'callback' is defined but never used                                           no-unused-vars
+  30:3   error  Unexpected var, use let or const instead                                       no-var
+  42:59  error  'callback' is defined but never used                                           no-unused-vars
+  43:3   error  Unexpected var, use let or const instead                                       no-var
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/models/vehicles.js
+   1:1   error  Expected 1 empty line after require statement not followed by another require  import/newline-after-import
+   2:7   error  Use object destructuring                                                       prefer-destructuring
+  10:28  error  Missing trailing comma                                                         comma-dangle
+  13:41  error  A space is required before '}'                                                 object-curly-spacing
+  13:42  error  Missing trailing comma                                                         comma-dangle
+  32:38  error  Expected property shorthand                                                    object-shorthand
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/tolls-in-route.js
+   7:25  error  Unexpected space before function parentheses           space-before-function-paren
+  17:1   error  This line has a length of 109. Maximum allowed is 100  max-len
+  20:1   error  This line has a length of 109. Maximum allowed is 100  max-len
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/tolls.js
+   7:25  error  Unexpected space before function parentheses           space-before-function-paren
+  17:1   error  This line has a length of 108. Maximum allowed is 100  max-len
+  20:1   error  This line has a length of 108. Maximum allowed is 100  max-len
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/services/routes-google.js
+    5:21  error  Unexpected space before function parentheses                                                                                                                           space-before-function-paren
+    6:1   error  This line has a length of 115. Maximum allowed is 100                                                                                                                  max-len
+   12:24  error  Unexpected space before function parentheses                                                                                                                           space-before-function-paren
+   14:28  error  'findDirection' was used before it was defined                                                                                                                         no-use-before-define
+   17:3   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+   17:3   error  The body of a for-in should be wrapped in an if statement to filter unwanted properties from the prototype                                                             guard-for-in
+   22:1   error  This line has a length of 114. Maximum allowed is 100                                                                                                                  max-len
+   23:1   error  This line has a length of 116. Maximum allowed is 100                                                                                                                  max-len
+   29:1   error  This line has a length of 114. Maximum allowed is 100                                                                                                                  max-len
+   30:1   error  This line has a length of 116. Maximum allowed is 100                                                                                                                  max-len
+   36:1   error  This line has a length of 114. Maximum allowed is 100                                                                                                                  max-len
+   37:1   error  This line has a length of 116. Maximum allowed is 100                                                                                                                  max-len
+   43:1   error  This line has a length of 114. Maximum allowed is 100                                                                                                                  max-len
+   44:1   error  This line has a length of 116. Maximum allowed is 100                                                                                                                  max-len
+   59:21  error  Unexpected space before function parentheses                                                                                                                           space-before-function-paren
+   61:3   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+   68:44  error  Missing trailing comma                                                                                                                                                 comma-dangle
+   79:23  error  Unexpected space before function parentheses                                                                                                                           space-before-function-paren
+   91:28  error  Missing trailing comma                                                                                                                                                 comma-dangle
+   98:25  error  Unexpected space before function parentheses                                                                                                                           space-before-function-paren
+  101:5   error  Assignment to property of function parameter 'originPoint'                                                                                                             no-param-reassign
+  102:5   error  Assignment to property of function parameter 'destinationPoint'                                                                                                        no-param-reassign
+  104:5   error  Assignment to property of function parameter 'originPoint'                                                                                                             no-param-reassign
+  105:5   error  Assignment to property of function parameter 'destinationPoint'                                                                                                        no-param-reassign
+  110:3   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+  110:3   error  The body of a for-in should be wrapped in an if statement to filter unwanted properties from the prototype                                                             guard-for-in
+  122:5   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+  123:1   error  This line has a length of 107. Maximum allowed is 100                                                                                                                  max-len
+  125:1   error  This line has a length of 101. Maximum allowed is 100                                                                                                                  max-len
+  133:7   error  Unexpected use of continue statement                                                                                                                                   no-continue
+  145:71  error  '+' should be placed at the beginning of the line                                                                                                                      operator-linebreak
+  146:40  error  '+' should be placed at the beginning of the line                                                                                                                      operator-linebreak
+  147:56  error  '+' should be placed at the beginning of the line                                                                                                                      operator-linebreak
+  164:3   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+  164:3   error  The body of a for-in should be wrapped in an if statement to filter unwanted properties from the prototype                                                             guard-for-in
+  167:78  error  '+' should be placed at the beginning of the line                                                                                                                      operator-linebreak
+  168:80  error  '+' should be placed at the beginning of the line                                                                                                                      operator-linebreak
+  170:22  error  Unexpected `await` inside a loop                                                                                                                                       no-await-in-loop
+  171:27  error  Unexpected `await` inside a loop                                                                                                                                       no-await-in-loop
+  181:13  error  Missing trailing comma                                                                                                                                                 comma-dangle
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/test/crud-tolls/dbtolls.test.js
+    1:1   error  'use strict' is unnecessary inside of modules                                                          strict
+    6:7   error  'e' is assigned a value but never used                                                                 no-unused-vars
+    6:11  error  `express` import should occur before import of `../jest-mongodb-config`                                import/order
+   11:1   error  'beforeAll' is not defined                                                                             no-undef
+   18:1   error  'afterEach' is not defined                                                                             no-undef
+   25:1   error  'afterAll' is not defined                                                                              no-undef
+   32:1   error  'describe' is not defined                                                                              no-undef
+   32:50  error  Block must not be padded by blank lines                                                                padded-blocks
+   34:3   error  'it' is not defined                                                                                    no-undef
+   34:79  error  Unexpected block statement surrounding arrow body; move the returned value immediately after the `=>`  arrow-body-style
+   35:12  error  'expect' is not defined                                                                                no-undef
+   35:19  error  Unary word operator 'typeof' must be followed by whitespace                                            space-unary-ops
+   35:48  error  'newToll' was used before it was defined                                                               no-use-before-define
+   36:16  error  Unary word operator 'typeof' must be followed by whitespace                                            space-unary-ops
+   39:3   error  'it' is not defined                                                                                    no-undef
+   40:44  error  'newToll' was used before it was defined                                                               no-use-before-define
+   40:52  error  Missing semicolon                                                                                      semi
+   42:5   error  'expect' is not defined                                                                                no-undef
+   42:12  error  Unexpected dangling '_' in '__v'                                                                       no-underscore-dangle
+   45:5   error  'expect' is not defined                                                                                no-undef
+   48:5   error  'expect' is not defined                                                                                no-undef
+   51:5   error  'expect' is not defined                                                                                no-undef
+   54:5   error  'expect' is not defined                                                                                no-undef
+   57:5   error  'expect' is not defined                                                                                no-undef
+   60:5   error  'expect' is not defined                                                                                no-undef
+   63:5   error  'expect' is not defined                                                                                no-undef
+   67:3   error  'it' is not defined                                                                                    no-undef
+   68:5   error  'newToll' was used before it was defined                                                               no-use-before-define
+   68:23  error  Strings must use singlequote                                                                           quotes
+   68:46  error  Missing semicolon                                                                                      semi
+   69:44  error  'newToll' was used before it was defined                                                               no-use-before-define
+   69:52  error  Missing semicolon                                                                                      semi
+   70:5   error  'expect' is not defined                                                                                no-undef
+   71:1   error  Expected indentation of 6 spaces but found 8                                                           indent
+   73:29  error  A constructor name should not start with a lowercase letter                                            new-cap
+   73:34  error  A space is required after '{'                                                                          object-curly-spacing
+   73:68  error  A space is required before '}'                                                                         object-curly-spacing
+   75:5   error  'expect' is not defined                                                                                no-undef
+   77:5   error  'expect' is not defined                                                                                no-undef
+   77:52  error  Missing semicolon                                                                                      semi
+   81:1   error  More than 1 blank line not allowed                                                                     no-multiple-empty-lines
+   98:1   error  'describe' is not defined                                                                              no-undef
+   99:3   error  'it' is not defined                                                                                    no-undef
+  100:27  error  'newToll' was used before it was defined                                                               no-use-before-define
+  100:35  error  Missing semicolon                                                                                      semi
+  101:43  error  Missing semicolon                                                                                      semi
+  102:5   error  'expect' is not defined                                                                                no-undef
+  102:36  error  Missing semicolon                                                                                      semi
+  106:3   error  'it' is not defined                                                                                    no-undef
+  107:31  error  Strings must use singlequote                                                                           quotes
+  107:46  error  Missing semicolon                                                                                      semi
+  108:35  error  Strings must use singlequote                                                                           quotes
+  108:50  error  Missing semicolon                                                                                      semi
+  113:3   error  Unnecessarily quoted property 'coordinates' found                                                      quote-props
+  113:3   error  Strings must use singlequote                                                                           quotes
+  114:5   error  Unnecessarily quoted property 'lat' found                                                              quote-props
+  114:5   error  Strings must use singlequote                                                                           quotes
+  115:5   error  Unnecessarily quoted property 'lng' found                                                              quote-props
+  115:5   error  Strings must use singlequote                                                                           quotes
+  115:14  error  Missing trailing comma                                                                                 comma-dangle
+  117:3   error  Unnecessarily quoted property 'direction' found                                                        quote-props
+  117:3   error  Strings must use singlequote                                                                           quotes
+  118:3   error  Unnecessarily quoted property 'department' found                                                       quote-props
+  118:17  error  Strings must use singlequote                                                                           quotes
+  119:3   error  Unnecessarily quoted property 'name' found                                                             quote-props
+  119:3   error  Strings must use singlequote                                                                           quotes
+  119:11  error  Strings must use singlequote                                                                           quotes
+  120:3   error  Unnecessarily quoted property 'operator' found                                                         quote-props
+  120:3   error  Strings must use singlequote                                                                           quotes
+  120:15  error  Strings must use singlequote                                                                           quotes
+  121:3   error  Unnecessarily quoted property 'costs' found                                                            quote-props
+  122:5   error  Unnecessarily quoted property 'I' found                                                                quote-props
+  122:5   error  Strings must use singlequote                                                                           quotes
+  123:5   error  Unnecessarily quoted property 'II' found                                                               quote-props
+  123:5   error  Strings must use singlequote                                                                           quotes
+  124:5   error  Unnecessarily quoted property 'III' found                                                              quote-props
+  124:5   error  Strings must use singlequote                                                                           quotes
+  125:5   error  Unnecessarily quoted property 'IV' found                                                               quote-props
+  125:5   error  Strings must use singlequote                                                                           quotes
+  126:5   error  Unnecessarily quoted property 'V' found                                                                quote-props
+  126:5   error  Strings must use singlequote                                                                           quotes
+  126:15  error  Missing trailing comma                                                                                 comma-dangle
+  128:3   error  Unnecessarily quoted property 'status' found                                                           quote-props
+  128:3   error  Strings must use singlequote                                                                           quotes
+  129:3   error  Unnecessarily quoted property 'group' found                                                            quote-props
+  129:3   error  Strings must use singlequote                                                                           quotes
+  129:13  error  Missing trailing comma                                                                                 comma-dangle
+  131:1   error  Too many blank lines at the end of file. Max of 0 allowed                                              no-multiple-empty-lines
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/test/crud-tolls/delete.js
+   10:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   24:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   28:1  error  This line has a length of 120. Maximum allowed is 100      max-len
+   32:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   58:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   69:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   76:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   88:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+   89:1  error  This line has a length of 110. Maximum allowed is 100      max-len
+   98:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+  103:1  error  More than 1 blank line not allowed                         no-multiple-empty-lines
+  113:1  error  This line has a length of 115. Maximum allowed is 100      max-len
+  134:1  error  This line has a length of 116. Maximum allowed is 100      max-len
+  135:1  error  This line has a length of 124. Maximum allowed is 100      max-len
+  156:1  error  Too many blank lines at the end of file. Max of 0 allowed  no-multiple-empty-lines
+
+/Users/imac/Documents/proyects/whole-quick-project/service-find-toll/test/jest-mongodb-config.js
+   1:1   error  'use strict' is unnecessary inside of modules                                                                                                                          strict
+  24:30  error  Missing trailing comma                                                                                                                                                 comma-dangle
+  43:9   error  Use object destructuring                                                                                                                                               prefer-destructuring
+  45:3   error  for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array  no-restricted-syntax
+  45:3   error  The body of a for-in should be wrapped in an if statement to filter unwanted properties from the prototype                                                             guard-for-in
+  47:5   error  Unexpected `await` inside a loop                                                                                                                                       no-await-in-loop
+
+✖ 194 problems (194 errors, 0 warnings)
+  113 errors and 0 warnings potentially fixable with the `--fix` option.
+
