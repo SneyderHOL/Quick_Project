@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "debug": "~2.6.9",
+    "yamljs": "^0.3.0",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "mongoose": "^5.10.6",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
     "swagger-jsdoc": "^4.2.0",
-    "swagger-ui-express": "^4.1.4",
-    "yamljs": "^0.3.0"
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "jest": "^26.5.2",
