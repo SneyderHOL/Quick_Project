@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TollSchema = new Schema({
+  id: Number,
   name: String,
   coordinates: { lat: Number, lng: Number },
   operator: String,
@@ -9,13 +10,14 @@ const TollSchema = new Schema({
   costs: mongoose.SchemaTypes.Mixed,
   update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
-  id: Number,
-  status: {type: Boolean, default: true},
-  group: {type: Number, default: 2}
-});
+  status: { type: Boolean, default: true },
+  group: { type: Number, default: 2 }
+}, { versionKey: false });
 
+// check this function
 TollSchema.statics.createToll = async function (toll) {
-  await this.create(toll, (error) => { console.log(error); });
+  if (Object.keys(toll).length === 0) return null;
+  return await this.create(toll);
 };
 
 TollSchema.statics.deleteToll = async function (id) {
@@ -24,7 +26,9 @@ TollSchema.statics.deleteToll = async function (id) {
 
 TollSchema.statics.findTollById = async function (id, callback) {
   var toll = null;
-  if (mongoose.isValidObjectId(id)) { toll = await this.findById(id); }
+  if (mongoose.isValidObjectId(id)) {
+    toll = await this.findById(id).exec();
+  }
   return toll;
 };
 

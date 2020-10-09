@@ -1,15 +1,15 @@
-FROM node:12.16.1
+FROM node:14.13.1-alpine3.10
+# Setting working directory. All the path will be relative to WORKDIR
+# keep this first to copy the package json
+WORKDIR /app
+ENV NPM_CONFIG_LOGLEVEL=warn
+COPY ./package.json /app
 
-RUN apt update -y && \
-  apt -y install emacs-nox
+RUN npm config set package-lock false
+# and/or set it with a command-line option
+RUN npm install --loglevel=warn --only=prod
 
-COPY ./package.json /home
+COPY . /app
 
-RUN npm install && npm install -g nodemon \
-  express-generator && npm install \
-  semistandard --global
-
-
-WORKDIR /home/
-
-CMD ["/bin/bash"]
+# CMD node index.js
+EXPOSE 3000

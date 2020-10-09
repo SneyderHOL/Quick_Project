@@ -5,7 +5,8 @@
 ## Others ##
 .env
 .DS_Store
-
+quickapi.pem
+test.yaml
 
 ### Node js ###
 node_modules
