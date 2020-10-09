@@ -12,4 +12,4 @@ RUN npm install --loglevel=warn --only=prod
 COPY . /app
 
 # CMD node index.js
-EXPOSE 8081
+EXPOSE 3000

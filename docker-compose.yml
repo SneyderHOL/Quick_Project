@@ -4,9 +4,9 @@ services:
   web:
     build: .
     container_name: 'test'
-    working_dir: '/home/'
+    working_dir: '/app/'
+    volumes:
+      - ./:/app/
     ports:
       - 3000:3000
     command: "sh -c 'npm run dev'"
-    volumes:
-      - ./:/home/
