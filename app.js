@@ -1,12 +1,14 @@
+const swaggerUI = require('swagger-ui-express');
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
-const swaggerUI = require('swagger-ui-express');
+const dotenv = require('dotenv');
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
 const swaggerJS = yaml.load('./documentation.yaml');
+dotenv.config();
 const { nameDb, passwdDb, dbName } = require('./config');
 
 const app = express();
@@ -15,8 +17,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const mongoDB = `mongodb+srv://${nameDb}:${passwdDb}@`
-  + `cluster0.lwjfu.mongodb.net/${dbName}?retryWrites=true&w=majority` || 'mongodb://localhost:27017/Peajes';
+const mongoDB = process.env.URL_DB || 'mongodb://localhost:27017/Peajes';
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
