@@ -9,7 +9,6 @@ const dotenv = require('dotenv');
 // const swaggerJSDocs = require('swagger-jsdoc');
 const swaggerJS = yaml.load('./documentation.yaml');
 dotenv.config();
-const { nameDb, passwdDb, dbName } = require('./config');
 
 const app = express();
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
@@ -23,7 +22,7 @@ mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false,
+  useFindAndModify: false
 });
 
 mongoose.Promise = global.Promise;
@@ -33,9 +32,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 /**
  * Redirection
  */
-app.get('/', function(req, res) {
-  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs' );
-  return;
+app.get('/', function (req, res) {
+  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
 });
 
 app.use('/api', require('./routes/index.js'));

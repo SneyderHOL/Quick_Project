@@ -38,8 +38,8 @@ TollSchema.statics.getTolls = async function () {
 };
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
-  var toll = null
-  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data, { new: true });}
+  var toll = null;
+  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data, { new: true }); }
   return toll;
 };
 

@@ -2,11 +2,11 @@ const Toll = require('../models/tolls');
 
 exports.getTolls = async (req, res) => {
   try {
-    const tolls = { tolls: await Toll.getTolls()};
+    const tolls = { tolls: await Toll.getTolls() };
     res.status(200).send({ data: tolls });
   } catch (error) {
     console.error(error);
-    res.status(500).send({error: 'Internal Server Error'});
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
 
@@ -14,13 +14,13 @@ exports.getTollById = async (req, res) => {
   try {
     var toll = await Toll.findTollById(req.params.id);
     if (!toll) {
-      res.status(404).send({error: "Not Found"});
+      res.status(404).send({ error: 'Not Found' });
       return;
     }
     res.status(200).send(toll);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error'});
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
 
@@ -53,20 +53,20 @@ exports.deleteToll = async (req, res) => {
 
 exports.updateToll = async (req, res) => {
   if (req.body === {}) {
-    res.status(400).send({error: 'Bad Request'});
+    res.status(400).send({ error: 'Bad Request' });
     return;
   }
   try {
-    var toll = null
+    var toll = null;
     toll = await Toll.findTollById(req.params.id);
     if (!toll) {
-      res.status(404).send({ error: "Not found" });
+      res.status(404).send({ error: 'Not found' });
       return;
     }
     const updatedToll = await Toll.updateToll(req.params.id, req.body);
     res.status(200).send(updatedToll);
   } catch (error) {
     console.error(error);
-    res.status(500).send({error: 'Internal Server Error'});
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
