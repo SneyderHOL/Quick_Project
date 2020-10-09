@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJSDocs = require('swagger-jsdoc');
-const { nameDb, passwdDb, dbName } = require('./config')
+const { userDb, passwdDb, dbName } = require('./config')
 const mongoose = require('mongoose');
 
 const app = express();
@@ -11,10 +11,11 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+console.log(userDb, passwdDb, dbName);
 const mongoDB = `mongodb+srv://${userDb}:${passwdDb}@` +
-  `cluster0.rq3kf.mongodb.net/${dbName}?retryWrites=true&w=majority` || 'mongodb://localhost:27017/Peajes';
+  `cluster0.lwjfu.mongodb.net/${dbName}?retryWrites=true&w=majority` || 'mongodb://localhost:27017/Peajes';
 
+console.log(mongoDB);
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 mongoose.Promise = global.Promise;
@@ -24,10 +25,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //const mongoDB = process.env.DB || 'mongodb://localhost:27017/Peajes';
 // Use VR
 app.use('/api', require('./routes/index.js'));
-
-app.get('*',function (req, res) {
-  res.redirect('/api/tolls');
-});
 
 
 /**
