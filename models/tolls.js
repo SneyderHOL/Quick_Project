@@ -16,9 +16,7 @@ const TollSchema = new Schema({
 
 // check this function
 TollSchema.statics.createToll = async function (toll) {
-  if (Object.keys(toll).length === 0) {
-    return null
-  }
+  if (Object.keys(toll).length === 0) return null;
   return await this.create(toll);
 };
 
@@ -40,8 +38,8 @@ TollSchema.statics.getTolls = async function () {
 };
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
-  var toll = null;
-  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data); }
+  var toll = null
+  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data, { new: true });}
   return toll;
 };
 
