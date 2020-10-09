@@ -5,7 +5,7 @@
 ## Others ##
 .env
 .DS_Store
-
+quickapi.pem
 
 ### Node js ###
 node_modules

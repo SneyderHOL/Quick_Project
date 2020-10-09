@@ -30,14 +30,21 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+/**
+ * Redirection
+ */
+app.get('/', function(req, res) {
+  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs' );
+  return;
+});
+
 app.use('/api', require('./routes/index.js'));
 
 /**
  * redirect 404 errors in ExpressJS
  */
 app.use((req, res, next) => {
-  res.status(404);
-  res.send({ error: 'Not found. Please following this guide https://github.com/SneyderHOL/Quick_Project' });
+  res.status(404).send({ error: 'Not found. Please following this guide https://github.com/SneyderHOL/Quick_Project' });
   next();
 });
 

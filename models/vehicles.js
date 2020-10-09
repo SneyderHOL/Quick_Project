@@ -10,7 +10,7 @@ const Vehicles = new Schema({
     enum: ['diesel', 'gas']
   },
   features: mongoose.SchemaTypes.Mixed,
-  status: { type: Boolean, default: true}
+  stade: { type: Boolean, default: true}
 }, { versionKey: false });
 
 Vehicles.statics.createVehicle = async (vehicle) => {
