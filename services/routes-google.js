@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
-const { keyGoogle, keyOpenRoute } = require('../config');
+//const { keyGoogle, keyOpenRoute } = require('../config');
+const keyGoogle = process.env.GOOGLE_API;
+const keyOpenRoute = process.env.API_OPENROUTES;
 const Toll = require('../models/tolls');
 
 function isValidToll (sectionDirection, toll) {
@@ -69,7 +71,7 @@ function findSection (steps) {
       });
     }
   }
-  // console.log(sections)
+  console.log(sections); //pantalla o archivo
   return sections;
 }
 
@@ -170,7 +172,7 @@ const requestAll = async (origin, destination) => {
     const response = await fetch(url);
     const dataOpenRoute = await response.json();
     const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
-
+    console.log(dataPoints);
     const toll = findTollInRoute(dataPoints, startSection, endSection, TotalTolls);
     if (toll) tolls.push(toll);
   }
