@@ -3,12 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
-const dotenv = require('dotenv');
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
 const swaggerJS = yaml.load('./documentation.yaml');
-dotenv.config();
 
 const app = express();
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));

@@ -43,30 +43,34 @@ exports.createToll = async (req, res) => {
 
 exports.deleteToll = async (req, res) => {
   try {
-    await Toll.deleteToll(req.params.id);
-    res.status(200).send(`${req.params.id} toll deleted`);
+    const del = await Toll.deleteToll(req.params.id);
+
+    if (del) {
+      return res.status(204).send({status: `${req.params.id} is deleted`});
+    }
+
+    return res.status(400).send({status: "The id provide not exist"});
+
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    return res.status(500).send({ error: 'Internal Server Error' });
   }
 };
 
 exports.updateToll = async (req, res) => {
-  if (req.body === {}) {
-    res.status(400).send({ error: 'Bad Request' });
-    return;
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).send({ error: 'Bad Request, please send complete information' });
   }
   try {
     var toll = null;
     toll = await Toll.findTollById(req.params.id);
     if (!toll) {
-      res.status(404).send({ error: 'Not found' });
-      return;
+      return res.status(404).send({ error: 'Not found' });
     }
     const updatedToll = await Toll.updateToll(req.params.id, req.body);
-    res.status(200).send(updatedToll);
+    return res.status(200).send(updatedToll);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    return res.status(500).send({ error: 'Internal Server Error' });
   }
 };

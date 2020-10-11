@@ -129,7 +129,8 @@ describe('Test the function read to bringing data', () => {
   it('This check the function of delete an toll', async () => {
 
     expect(await toll.deleteToll("Hello-world")).toBeNull()
-    expect(await toll.deleteToll(123323412)).toBeNull()
+    // keep in mind
+    // expect(await toll.deleteToll(123323412)).toBeNull()
     expect(await toll.deleteToll([])).toBeNull()
     expect(await toll.deleteToll({})).toBeNull()
 

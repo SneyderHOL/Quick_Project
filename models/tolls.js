@@ -1,3 +1,4 @@
+const isValid = require('mongoose').Types.ObjectId.isValid;
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -23,12 +24,10 @@ TollSchema.statics.createToll = async function (toll) {
 };
 
 TollSchema.statics.deleteToll = async function (id) {
-  if (typeof(id) !== typeof({})) { return null; }
-  if (mongoose.Types.ObjectId.isValid(id)) {
-    await this.findByIdAndDelete(id)
-    return 'Nan'
-  }
-  return null
+  // will check the id of the value
+  if (!isValid(id)) { return null; }
+  return await this.findByIdAndDelete(id)
+
 };
 
 TollSchema.statics.findTollById = async function (id) {
