@@ -16,6 +16,7 @@
     "node-fetch": "^2.6.1",
     "swagger-jsdoc": "^4.2.0",
     "swagger-ui-express": "^4.1.4",
+    "unirest": "^0.6.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
