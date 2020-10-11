@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest --testEnvironment=node --verbose --forceExit --watchAll --detectOpenHandles --runInBand ./test",
+    "test": "jest --preset --testEnvironment=node --verbose --forceExit --watchAll --detectOpenHandles --runInBand ./test",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {

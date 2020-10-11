@@ -17,6 +17,7 @@ const TollSchema = new Schema({
 
 
 TollSchema.statics.createToll = async function (toll) {
+  // the object.keys is for test how long is the object
   if (Object.keys(toll).length === 0) return null;
   return await this.create(toll);
 };

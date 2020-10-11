@@ -1,5 +1,6 @@
-const dbHandler = require('../jest-mongodb-config');
+const dbHandler = require('../jest.config');
 const toll = require('../../models/tolls');
+
 
 /**
  * Connect to a new in-memory database before running any tests.
@@ -63,13 +64,14 @@ describe('Test create tolls in data base', () => {
  */
 describe('Test the function read to bringing data', () => {
   it('create & save user successfully', async () => {
-    const validToll = new UserModel(newToll);
+    const validToll = new toll(newToll);
     const savedToll = await validToll.save();
+
     // Object Id should be defined when successfully saved to MongoDB.
     expect(savedToll._id).toBeDefined();
     expect(savedToll.name).toBe(newToll.name);
-    expect(savedToll.coordinates).toBe(newToll.coordinates);
-    expect(savedToll.cost).toBe(newToll.cost);
+    expect(savedToll.coordinates).toEqual(newToll.coordinates);
+    expect(savedToll.cost).toEqual(newToll.cost);
     expect(savedToll.direction).toBe(newToll.direction);
     expect(savedToll.group).toBe(newToll.group);
   });
@@ -146,10 +148,10 @@ const newToll = {
     "lng": -1
   },
   "direction": 0,
-  'department': "ANTIOQUIA",
+  "department": "ANTIOQUIA",
   "name": "Testing with base",
   "operator": "INCO",
-  'costs': {
+  "costs": {
     "I": 16800,
     "II": 19000,
 
@@ -160,4 +162,3 @@ const newToll = {
   "status": 1,
   "group": 0
 };
-

@@ -24,24 +24,15 @@ const mongoose = require("mongoose");
 
   done()
 
+
+
+
 const test = async (done) => {
   const response = await request.get("/api/tolls");
   console.log(response.status === 200)
   console.log(response.body)
 
 }
-
-
-
-
-    // Test Schema is working!!!
-    // You shouldn't be able to add in any field that isn't defined in the schema
-    it('insert user successfully, but the field does not defined in schema should be undefined', async () => {
-        const userWithInvalidField = new UserModel({ name: 'TekLoon', gender: 'Male', nickname: 'Handsome TekLoon' });
-        const savedUserWithInvalidField = await userWithInvalidField.save();
-        expect(savedUserWithInvalidField._id).toBeDefined();
-        expect(savedUserWithInvalidField.nickkname).toBeUndefined();
-    });
 
     // Test Validation is working!!!
     // It should us told us the errors in on gender field.

@@ -4,22 +4,28 @@ const controllerTolls = require('../controllers/tolls');
 /**
  * validet this input using middle ware
 */
-function inputValidation (req, res, next) {
-  if (req.headers['content-type'] !== 'application/json') {
-    res.status(400).send('Server requires application/json');
+function validatePost (req, res, next) {
+  if (req.get('content-type') !== 'application/json') {
+    return res.status(400).send({error: 'Server requires application/json'});
   }
-  if (req.body === {} || req.body.points === undefined) {
-    res.status(400).send({ error: 'Send the complete information' });
+  // the object.keys is for test how long is the object
+  if (Object.keys(req.body).length === 0 || req.body.coordinates === undefined
+    || req.body.name === undefined) {
+    return res.status(400).send({
+      error: 'Send the complete information, missing coordinates or the name of toll'
+    });
   }
-  if (req.body.co === {} || req.body.points === undefined) {
-    res.status(400).send({ error: 'Send the complete information' });
+
+  // the object.keys is for test how long is the object
+  if (Object.keys(req.body.costs).length === 0) {
+    return res.status(400).send({ error: 'Please give costs of tolls' });
   }
 
   next();
 }
 
 router.get('/', controllerTolls.getTolls);
-router.post('/', inputValidation, controllerTolls.createToll);
+router.post('/', validatePost, controllerTolls.createToll);
 router.get('/:id', controllerTolls.getTollById);
 router.patch('/:id', controllerTolls.updateToll);
 router.delete('/:id', controllerTolls.deleteToll);
