@@ -4,6 +4,7 @@ const controllerTollsInRoute = require('../controllers/route-tolls');
 /**
  * validet this input using middle ware
 */
+/*
 function inputValidation (req, res, next) {
   if (req.headers['content-type'] !== 'application/json') {
     res.status(400).send('Server requires application/json');
@@ -23,7 +24,8 @@ function inputValidation (req, res, next) {
 
   next();
 }
+*/
 
-router.get('/', inputValidation, controllerTollsInRoute.tollsInRoute);
+router.post('/', controllerTollsInRoute.tollsInRoute);
 
 module.exports = router;

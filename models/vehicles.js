@@ -2,15 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Vehicles = new Schema({
-  category: Number,
+  // aprueba mientras sneider lo aprueba puede que no lo haga lo mas seguro es que no lo haga
+  name: String,
+  category: {
+    group1: Number,
+    group2: Number,
+    group3: Number
+  },
+  "typeOf": {type: String,
+    enum: ["automovil", "bus", "camion", "moto"]
+  },
   weight: Number,
   axis: Number,
   fuel_type: {
     type: String,
     enum: ['diesel', 'gas']
   },
-  features: mongoose.SchemaTypes.Mixed,
-  stade: { type: Boolean, default: true }
+  volume: Number,
+  features: {type: mongoose.SchemaTypes.Mixed, default: null},
+  state: { type: Boolean, default: true}
 }, { versionKey: false });
 
 Vehicles.statics.createVehicle = async (vehicle) => {
@@ -28,8 +38,8 @@ Vehicles.statics.findVehicleById = async function (id) {
   return vehicles;
 };
 
-Vehicles.statics.findBySpecification = async function (axis) {
-  const vehicles = await this.find({ axis: axis }, { category: 0 });
+Vehicles.statics.findBySpecification = async function (name) {
+  const vehicles = await this.find({ name: name });
   return vehicles;
 };
 

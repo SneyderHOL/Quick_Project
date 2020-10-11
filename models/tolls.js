@@ -30,11 +30,9 @@ TollSchema.statics.deleteToll = async function (id) {
   return null
 };
 
-TollSchema.statics.findTollById = async function (id, callback) {
+TollSchema.statics.findTollById = async function (id) {
   var toll = null;
-  if (mongoose.isValidObjectId(id)) {
-    toll = await this.findById(id).exec();
-  }
+  if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec(); }
   return toll;
 };
 
