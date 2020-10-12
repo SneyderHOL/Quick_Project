@@ -46,11 +46,10 @@ exports.deleteToll = async (req, res) => {
     const del = await Toll.deleteToll(req.params.id);
 
     if (del) {
-      return res.status(204).send({status: `${req.params.id} is deleted`});
+      return res.status(204).send({ status: `${req.params.id} is deleted` });
     }
 
-    return res.status(400).send({status: "The id provide not exist"});
-
+    return res.status(400).send({ status: 'The id provide not exist' });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: 'Internal Server Error' });

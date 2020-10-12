@@ -6,11 +6,11 @@ const controllerTolls = require('../controllers/tolls');
 */
 function validatePost (req, res, next) {
   if (req.get('content-type') !== 'application/json') {
-    return res.status(400).send({error: 'Server requires application/json'});
+    return res.status(400).send({ error: 'Server requires application/json' });
   }
   // the object.keys is for test how long is the object
-  if (Object.keys(req.body).length === 0 || req.body.coordinates === undefined
-    || req.body.name === undefined) {
+  if (Object.keys(req.body).length === 0 || req.body.coordinates === undefined ||
+    req.body.name === undefined) {
     return res.status(400).send({
       error: 'Send the complete information, missing coordinates or the name of toll'
     });

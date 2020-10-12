@@ -1,7 +1,6 @@
 const dbHandler = require('../jest.config');
 const toll = require('../../models/tolls');
 
-
 /**
  * Connect to a new in-memory database before running any tests.
  */
@@ -27,14 +26,13 @@ afterAll(async () => {
  * Test the function createToll data base
  */
 describe('Test create tolls in data base', () => {
-
   it('This will create a new toll and validate return an object', async () => {
-    return expect(typeof(await toll.createToll(newToll)))
-      .toEqual(typeof({}));
+    return expect(typeof (await toll.createToll(newToll)))
+      .toEqual(typeof ({}));
   });
 
   it('It will validate if return the correct object and has not __v', async () => {
-    const testToll = await toll.createToll(newToll)
+    const testToll = await toll.createToll(newToll);
     expect(testToll.__v).toBeUndefined();
 
     expect(testToll).toHaveProperty('coordinates');
@@ -44,18 +42,17 @@ describe('Test create tolls in data base', () => {
     expect(testToll).toHaveProperty('operator');
     expect(testToll).toHaveProperty('group');
     expect(testToll).toHaveProperty('status');
-
   });
 
   it('Will validate the schema and validate to recive an incorrect parameters', async () => {
-    newToll.testing = "This will not save it"
+    newToll.testing = 'This will not save it';
     expect(await toll.createToll(newToll)).not.toHaveProperty('testing');
 
-    const newTollTest = new toll({coordinates: null, direction: 112});
+    const newTollTest = new toll({ coordinates: null, direction: 112 });
     const err = await newTollTest.validate();
     expect(err).toBe(undefined);
 
-    expect(toll.createToll({})).resolves.toBeNull()
+    expect(toll.createToll({})).resolves.toBeNull();
   });
 });
 
@@ -93,50 +90,49 @@ describe('Test the function read to bringing data', () => {
 
   it('This will to avoid errors on the function', async () => {
     // console.log(await toll.createToll(newToll))
-    expect(await toll.getTolls("Hello world")).not.toBeNull()
-    expect(await toll.findTollById("Hello world")).toBeNull()
-    expect(await toll.findTollById(123)).toBeNull()
-    expect(await toll.findTollById([])).toBeNull()
-    expect(await toll.findTollById({})).toBeNull()
+    expect(await toll.getTolls('Hello world')).not.toBeNull();
+    expect(await toll.findTollById('Hello world')).toBeNull();
+    expect(await toll.findTollById(123)).toBeNull();
+    expect(await toll.findTollById([])).toBeNull();
+    expect(await toll.findTollById({})).toBeNull();
   });
 
   it('This will check the function of update toll', async () => {
-    const newsToll = await toll.createToll({ "name": "testing" });
-    const id  = newsToll._id;
+    const newsToll = await toll.createToll({ name: 'testing' });
+    const id = newsToll._id;
 
-    expect(await toll.updateToll({})).toBeNull()
-    expect(await toll.updateToll(1234)).toBeNull()
-    expect(await toll.updateToll([])).toBeNull()
-    expect(await toll.updateToll('delete it')).toBeNull()
-    expect(await toll.updateToll('1A2A3B')).toBeNull()
+    expect(await toll.updateToll({})).toBeNull();
+    expect(await toll.updateToll(1234)).toBeNull();
+    expect(await toll.updateToll([])).toBeNull();
+    expect(await toll.updateToll('delete it')).toBeNull();
+    expect(await toll.updateToll('1A2A3B')).toBeNull();
 
-    expect(await toll.updateToll({}, {})).toBeNull()
-    expect(await toll.updateToll(1234, 1234)).toBeNull()
-    expect(await toll.updateToll([], [])).toBeNull()
-    expect(await toll.updateToll('delete it','delete it')).toBeNull()
-    expect(await toll.updateToll('1A2A3B', 'delete it')).toBeNull()
+    expect(await toll.updateToll({}, {})).toBeNull();
+    expect(await toll.updateToll(1234, 1234)).toBeNull();
+    expect(await toll.updateToll([], [])).toBeNull();
+    expect(await toll.updateToll('delete it', 'delete it')).toBeNull();
+    expect(await toll.updateToll('1A2A3B', 'delete it')).toBeNull();
 
-    expect(await toll.updateToll(id, {})).toBeNull()
-    expect(await toll.updateToll(id, 1234)).toBeNull()
-    expect(await toll.updateToll(id, [])).toBeNull()
-    expect(await toll.updateToll(id,'delete it')).toBeNull()
-    expect(await toll.updateToll(id, 'delete it')).toBeNull()
+    expect(await toll.updateToll(id, {})).toBeNull();
+    expect(await toll.updateToll(id, 1234)).toBeNull();
+    expect(await toll.updateToll(id, [])).toBeNull();
+    expect(await toll.updateToll(id, 'delete it')).toBeNull();
+    expect(await toll.updateToll(id, 'delete it')).toBeNull();
 
-    const test = await toll.updateToll(id, {"costs": 0})
-    expect(test.costs).toBe(0)
+    const test = await toll.updateToll(id, { costs: 0 });
+    expect(test.costs).toBe(0);
   });
 
   it('This check the function of delete an toll', async () => {
-
-    expect(await toll.deleteToll("Hello-world")).toBeNull()
+    expect(await toll.deleteToll('Hello-world')).toBeNull();
     // keep in mind
     // expect(await toll.deleteToll(123323412)).toBeNull()
-    expect(await toll.deleteToll([])).toBeNull()
-    expect(await toll.deleteToll({})).toBeNull()
+    expect(await toll.deleteToll([])).toBeNull();
+    expect(await toll.deleteToll({})).toBeNull();
 
-    const newsToll = await toll.createToll({ "name": "testing" });
+    const newsToll = await toll.createToll({ name: 'testing' });
     const id = newsToll._id;
-    expect(await toll.deleteToll(id)).not.toBeNull()
+    expect(await toll.deleteToll(id)).not.toBeNull();
 
     const testToll = await toll.getTolls();
     expect(testToll.length).toBe(0);
@@ -144,22 +140,22 @@ describe('Test the function read to bringing data', () => {
 });
 
 const newToll = {
-  "coordinates": {
-    "lat": 0,
-    "lng": -1
+  coordinates: {
+    lat: 0,
+    lng: -1
   },
-  "direction": 0,
-  "department": "ANTIOQUIA",
-  "name": "Testing with base",
-  "operator": "INCO",
-  "costs": {
-    "I": 16800,
-    "II": 19000,
+  direction: 0,
+  department: 'ANTIOQUIA',
+  name: 'Testing with base',
+  operator: 'INCO',
+  costs: {
+    I: 16800,
+    II: 19000,
 
-    "III": 41400,
-    "IV": 53900,
-    "V": 64500
+    III: 41400,
+    IV: 53900,
+    V: 64500
   },
-  "status": 1,
-  "group": 0
+  status: 1,
+  group: 0
 };

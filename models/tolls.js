@@ -16,7 +16,6 @@ const TollSchema = new Schema({
   group: { type: Number, default: 2 }
 }, { versionKey: false });
 
-
 TollSchema.statics.createToll = async function (toll) {
   // the object.keys is for test how long is the object
   if (Object.keys(toll).length === 0) return null;
@@ -26,8 +25,7 @@ TollSchema.statics.createToll = async function (toll) {
 TollSchema.statics.deleteToll = async function (id) {
   // will check the id of the value
   if (!isValid(id)) { return null; }
-  return await this.findByIdAndDelete(id)
-
+  return await this.findByIdAndDelete(id);
 };
 
 TollSchema.statics.findTollById = async function (id) {
@@ -43,7 +41,7 @@ TollSchema.statics.getTolls = async function () {
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
   var toll = null;
-  if (typeof(data) !== typeof({})) return null;
+  if (typeof (data) !== typeof ({})) return null;
   if (Object.keys(data).length === 0) return null;
   if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data, { new: true }); }
   return toll;

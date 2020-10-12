@@ -9,8 +9,9 @@ const Vehicles = new Schema({
     group2: Number,
     group3: Number
   },
-  "typeOf": {type: String,
-    enum: ["automovil", "bus", "camion", "moto"]
+  typeOf: {
+    type: String,
+    enum: ['automovil', 'bus', 'camion', 'moto']
   },
   weight: Number,
   axis: Number,
@@ -19,8 +20,8 @@ const Vehicles = new Schema({
     enum: ['diesel', 'gas']
   },
   volume: Number,
-  features: {type: mongoose.SchemaTypes.Mixed, default: null},
-  state: { type: Boolean, default: true}
+  features: { type: mongoose.SchemaTypes.Mixed, default: null },
+  state: { type: Boolean, default: true }
 }, { versionKey: false });
 
 Vehicles.statics.createVehicle = async (vehicle) => {
