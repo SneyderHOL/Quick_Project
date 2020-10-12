@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-//const { keyGoogle, keyOpenRoute } = require('../config');
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
 const Toll = require('../models/tolls');
@@ -71,7 +70,9 @@ function findSection (steps) {
       });
     }
   }
-  console.log(sections); //pantalla o archivo
+
+  // fs.writeFile('test.txt', sections, 'utf8',(err) => console.error(err))
+  // console.log(); //pantalla o archivo
   return sections;
 }
 
@@ -100,11 +101,11 @@ function findDirection (origin, destination) {
 function findTollInRoute (sectionPoints, originPoint, destinationPoint, TotalTolls) {
   const sectionDirection = findDirection(originPoint, destinationPoint);
   if (sectionDirection.lat === 1) {
-    originPoint.lat += 0.003;
-    destinationPoint.lat -= 0.003;
+    originPoint.lat += 0.1;
+    destinationPoint.lat -= 0.1;
   } else {
-    originPoint.lat -= 0.003;
-    destinationPoint.lat += 0.003;
+    originPoint.lat -= 0.1;
+    destinationPoint.lat += 0.1;
   }
 
   const sectionTolls = tollsInSection(originPoint, destinationPoint, TotalTolls);
@@ -130,7 +131,6 @@ function findTollInRoute (sectionPoints, originPoint, destinationPoint, TotalTol
         }
       }
     }
-
     if (index === -1) {
       continue;
     } else {
@@ -172,7 +172,6 @@ const requestAll = async (origin, destination) => {
     const response = await fetch(url);
     const dataOpenRoute = await response.json();
     const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
-    console.log(dataPoints);
     const toll = findTollInRoute(dataPoints, startSection, endSection, TotalTolls);
     if (toll) tolls.push(toll);
   }

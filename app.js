@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
+require('dotenv').config()
+
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
