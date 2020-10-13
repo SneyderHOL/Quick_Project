@@ -13,6 +13,7 @@ router.use('/vehicles', vehicle);
  */
 router.use('/', (_, res) => res.redirect('/api-docs'));
 
+
 // keep in the last because is the last route the app it will search
 /**
  * Redirection to the documentation for the endpoint /api/
