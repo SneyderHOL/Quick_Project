@@ -71,7 +71,6 @@ const requestAll = async (origin, destination, vehicleName) => {
       }
     }
   }
-  // console.log(tolls);
   tollsCost = await costTolls.total(tolls, vehicleName);
   const cleanPath = cleanPathFunction(dataGoogle.steps);
   const cleanTolls = cleanTollsFunction(tolls);
