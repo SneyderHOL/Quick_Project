@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
 const Toll = require('../models/tolls');
+const costTolls = require('./cost_tolls');
 
 function isValidToll (sectionDirection, toll) {
   if (toll.direction === 0 || toll.direction === sectionDirection.lat || toll.direction === sectionDirection.lng) {
@@ -270,7 +271,7 @@ const requestRoutesAsync = async (origin, destination) => {
 /**
  * Will request to google direction api return a promise
  */
-const requestAll = async (origin, destination) => {
+const requestAll = async (origin, destination, vehicleName) => {
   // reciba un tercer argumento/parametro
   // busqueda del vehicle en la bd -> objeto vehicle
   const dataGoogle = await requestRoutesAsync(origin, destination);
@@ -298,6 +299,7 @@ const requestAll = async (origin, destination) => {
   }
   //console.log(tolls);
   // formular/armar el objeto de respuesta
+  tollsCost = await costTolls.total(tolls, vehicleName)
   const cleanPath = cleanPathFunction(dataGoogle.steps);
   const cleanTolls = cleanTollsFunction(tolls);
   payload = {
