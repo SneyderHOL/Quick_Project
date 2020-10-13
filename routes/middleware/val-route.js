@@ -56,6 +56,9 @@ exports.validateRoutes = async function (req, res, next) {
   if (req.body === undefined || Object.keys(req.body).length === 0)
     return badRes(res, 400);
 
+  if (req.body.id)
+    return badRes(res, 400);
+
   if (validWrongObj(req.body.points) || validWrongObj(req.body.vehicle))
     return badRes(res, 422);
 
