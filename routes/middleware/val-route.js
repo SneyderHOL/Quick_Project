@@ -71,7 +71,7 @@ export function validateRoutes(req, res, next) {
   if (!geolib.isValidCoordinate([ req.body.coordinates.dest.lat, req.body.coordinates.dest.lng ]))
     return badRes(res, 422);
 
-  if (Object.keys(req.body.vehicle).length > 1 || validWrongStr(req.body.vehicle.name))
+  if (Object.keys(req.body.vehicle).length >= 1 || validWrongStr(req.body.vehicle.name))
     return badRes(res, 422);
 
   next();
