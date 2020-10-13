@@ -1,9 +1,6 @@
 const geolib = require('geolib');
 
 /**
- * validet this input using middle ware
-*/
-/*
 function inputValidationRead(req, res) {}
 function inputValidationUpdate(req, res) {
   if (req.body === null || req.body === undefined || req.body === {}) {
