@@ -1,8 +1,7 @@
-'use strict';
-
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 
+jest.setTimeout(5000);
 /**
  * MongoDB memory server provides you the ability to store your data in memory only.
  * With this preset, we can ignore most of the setup that demotivates us from and
@@ -14,14 +13,16 @@ const mongod = new MongoMemoryServer();
  * Connect to the in-memory database.
  */
 module.exports.connect = async () => {
-  const uri = await mongod.getConnectionString();
+  const uri = await mongod.getUri();
 
   const mongooseOpts = {
     useNewUrlParser: true,
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 1000,
-    useUnifiedTopology: false
+    // autoReconnect: true,
+    // reconnectTries: Number.MAX_VALUE,
+    // reconnectInterval: 1000,
+    useUnifiedTopology: false,
+    useFindAndModify: false,
+    useUnifiedTopology: true
   };
 
   await mongoose.connect(uri, mongooseOpts);

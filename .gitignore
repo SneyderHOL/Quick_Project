@@ -7,6 +7,8 @@
 .DS_Store
 quickapi.pem
 test.yaml
+.vscode
+
 
 ### Node js ###
 node_modules
@@ -14,6 +16,9 @@ package-lock.json
 file.json
 error1.json
 eduard.js
+dummies-data.js
+testing.js
+peajes.json
 
 
 ### Emacs ###

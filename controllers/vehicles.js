@@ -10,12 +10,14 @@ exports.getVehicles = (req, res) => {
 };
 
 exports.createVehicles = (req, res) => {
-  Vehicles.create({ ...req.body })
-    .then((data) => res.status(201).send({ vehicle: data, status: 'Success' }))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Internal error, try again');
-    });
+  req.body.map((element) => {
+    Vehicles.create({ ...element })
+      .then((data) => res.status(201).send({ vehicle: data, status: 'Success' }))
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Internal error, try again');
+      });
+  });
 };
 
 exports.getVehiclesByFeatures = async (req, res) => {

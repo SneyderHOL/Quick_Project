@@ -3,13 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
 const swaggerJS = yaml.load('./documentation.yaml');
-dotenv.config();
-const { nameDb, passwdDb, dbName } = require('./config');
 
 const app = express();
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
@@ -17,13 +15,13 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const mongoDB = process.env.URL_DB || 'mongodb://localhost:27017/Peajes';
+const mongoDB = process.env.URL_DB;
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false,
+  useFindAndModify: false
 });
 
 mongoose.Promise = global.Promise;
@@ -33,9 +31,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 /**
  * Redirection
  */
-app.get('/', function(req, res) {
-  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs' );
-  return;
+app.get('/', function (req, res) {
+  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
 });
 
 app.use('/api', require('./routes/index.js'));
