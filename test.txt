@@ -1,4 +1,0 @@
-  /Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/tolls.js:4:1: More than 1 blank line not allowed.
-  /Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/vehicles.js:4:1: More than 1 blank line not allowed.
-  /Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/vehicles.js:8:1: More than 1 blank line not allowed.
-  /Users/imac/Documents/proyects/whole-quick-project/service-find-toll/routes/vehicles.js:21:1: More than 1 blank line not allowed.
