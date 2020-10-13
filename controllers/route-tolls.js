@@ -5,13 +5,15 @@ const requestAll = require('../services/routes-google').requestAll;
 exports.tollsInRoute = async (req, res, error) => {
   const origin = req.body.points[0];
   const destination = req.body.points[1];
-  // const vehicle = req.body.name;
-
+  // enviar un tercer parametro
+  // const vehicleName = req.body.vehicle.name;
+  // busqueda del vehicle en la bd -> objeto vehicle
   try {
-    const tolls = await requestAll(origin, destination);
+    const payload = await requestAll(origin, destination);
     // const total = await costTolls.total(tolls, vehicle);
-    return res.status(200).send({ total: tolls });
+    return res.status(200).send(payload);
   } catch (e) {
+    console.log(e);
     return res.status(500).send({ error: 'There is a problem, try again' });
   }
 };
