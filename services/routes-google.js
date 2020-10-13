@@ -41,8 +41,8 @@ const requestRoutesAsync = async (origin, destination) => {
 
   const responseApi = await fetch(url);
   const responseData = await responseApi.json();
-  if (responseData.status === 'ZERO_RESULTS')
-    return null
+  if (responseData.status === 'ZERO_RESULTS') return null;
+
   return responseData.routes[0].legs[0];
 };
 
@@ -56,8 +56,9 @@ const requestAll = async (origin, destination, vehicleName) => {
   const TotalTolls = await Toll.findBySpecification(true);
 
   // check for wrong request or missing key
-  if (!dataGoogle || !vehicle.length || !TotalTolls.length)
+  if (!dataGoogle || !vehicle.length || !TotalTolls.length) {
     return null;
+  }
 
   const sections = findSection(dataGoogle.steps);
   const tolls = [];
@@ -83,7 +84,6 @@ const requestAll = async (origin, destination, vehicleName) => {
     }
   }
 
-
   const cleanPath = cleanPathFunction(dataGoogle.steps);
   const cleanTolls = cleanTollsFunction(tolls);
   const tollsCost = await costTolls.total(tolls, vehicle);
@@ -95,7 +95,6 @@ const requestAll = async (origin, destination, vehicleName) => {
     path: cleanPath,
     toll_expenses: tollsCost
   };
-
 };
 
 module.exports = {

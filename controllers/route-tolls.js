@@ -8,12 +8,13 @@ exports.totalCosts = async (req, res, error) => {
   try {
     const payload = await requestAll(origin, destination, vehicleName);
 
-    if (payload === null)
-      return res.status(502).send({ error: "Bad gateway" });
+    if (payload === null) {
+      return res.status(502).send({ error: 'Bad gateway' });
+    }
 
     return res.status(200).send(payload);
   } catch (e) {
     console.error(e);
-    return res.status(500).send({ error: "There is a problem, try again" });
+    return res.status(500).send({ error: 'There is a problem, try again' });
   }
 };

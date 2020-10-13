@@ -52,5 +52,4 @@ TollSchema.statics.findBySpecification = async function (status) {
   return tolls;
 };
 
-
 module.exports = mongoose.model('Toll', TollSchema);
