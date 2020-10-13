@@ -47,4 +47,10 @@ TollSchema.statics.updateToll = async function (id, data, callback) {
   return toll;
 };
 
+TollSchema.statics.findBySpecification = async function (status) {
+  const tolls = await this.find({ status: status });
+  return tolls;
+};
+
+
 module.exports = mongoose.model('Toll', TollSchema);
