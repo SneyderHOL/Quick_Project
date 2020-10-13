@@ -1,13 +1,15 @@
 const fetch = require('node-fetch');
-const keyGoogle = process.env.GOOGLE_API;
-const keyOpenRoute = process.env.API_OPENROUTES;
 const Toll = require('../models/tolls');
 const costTolls = require('./cost-tolls');
+const Vehicle = require('../models/vehicles');
 const findTollInSection = require('./searchFunctions').findTollInSection;
 const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
 const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
 
+// ENV variables
+const keyGoogle = process.env.GOOGLE_API;
+const keyOpenRoute = process.env.API_OPENROUTES;
 /**
  * find a section where there might be a toll
  * return: list of sections
@@ -39,6 +41,8 @@ const requestRoutesAsync = async (origin, destination) => {
 
   const responseApi = await fetch(url);
   const responseData = await responseApi.json();
+  if (responseData.status === 'ZERO_RESULTS')
+    return null
   return responseData.routes[0].legs[0];
 };
 
@@ -48,11 +52,15 @@ const requestRoutesAsync = async (origin, destination) => {
  */
 const requestAll = async (origin, destination, vehicleName) => {
   const dataGoogle = await requestRoutesAsync(origin, destination);
+  const vehicle = await Vehicle.findBySpecification(vehicleName);
+  const TotalTolls = await Toll.findBySpecification(true);
+
+  // check for wrong request or missing key
+  if (!dataGoogle || !vehicle.length || !TotalTolls.length)
+    return null;
+
   const sections = findSection(dataGoogle.steps);
-  let payload = null;
-  let tollsCost = 0;
   const tolls = [];
-  const TotalTolls = await Toll.getTolls();
 
   for (const section in sections) {
     const startSection = sections[section].start_location;
@@ -63,6 +71,9 @@ const requestAll = async (origin, destination, vehicleName) => {
 
     const response = await fetch(url);
     const dataOpenRoute = await response.json();
+
+    if (dataOpenRoute.error) return null;
+
     const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
     const toll = findTollInSection(dataPoints, startSection, endSection, TotalTolls);
     if (toll) {
@@ -71,17 +82,20 @@ const requestAll = async (origin, destination, vehicleName) => {
       }
     }
   }
-  tollsCost = await costTolls.total(tolls, vehicleName);
+
+
   const cleanPath = cleanPathFunction(dataGoogle.steps);
   const cleanTolls = cleanTollsFunction(tolls);
-  payload = {
+  const tollsCost = await costTolls.total(tolls, vehicle);
+
+  return {
     total_kms: dataGoogle.distance.value,
     duration: dataGoogle.duration.text,
     tolls: cleanTolls,
     path: cleanPath,
     toll_expenses: tollsCost
   };
-  return payload;
+
 };
 
 module.exports = {
