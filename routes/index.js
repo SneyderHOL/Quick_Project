@@ -4,8 +4,8 @@ const tollsInRoute = require('./tolls-in-route.js');
 const vehicle = require('./vehicles');
 
 router.use('/tolls', tollRouter);
-router.use('/route/tolls', tollsInRoute);
-router.use('/vehicle', vehicle);
+router.use('/routes/tolls', tollsInRoute);
+router.use('/vehicles', vehicle);
 
 // keep in the last because is the last route the app it will search
 /**
