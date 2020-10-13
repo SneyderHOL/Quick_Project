@@ -6,10 +6,10 @@ function inputValidationUpdate(req, res) {
   if (req.body === null || req.body === undefined || req.body === {}) {
     return badRequest(res);
   }
-  if (validWrongObj(req.body.coordinates)) {
+  if (validWrongObj(req.body.poinst)) {
     return badRequest(res);
   }
-  if (validateNumber(req.body.coordinates.lat) || validateNumber(req.body.coordinates.lng)) {
+  if (validateNumber(req.body.poinst.lat) || validateNumber(req.body.poinst.lng)) {
     return badRequest(res);
   }
 }
@@ -49,26 +49,30 @@ const badRes = (response, status) => {
   return response.status(status).send({error: 'Bad request'});
 }
 
-export function validateRoutes(req, res, next) {
+
+
+exports.validateRoutes = (req, res, next)  => {
   if (req.headers['content-type'] !== 'application/json')
     return res.status(400).send('Server requires application/json');
 
   if (req.body === undefined || Object.keys(req.body).length === 0)
     return badRes(res, 400);
 
-  if (validWrongObj(req.body.coordinates) || validWrongObj(req.body.vehicle))
+  if (validWrongObj(req.body.poinst) || validWrongObj(req.body.vehicle))
     return badRes(res, 422);
 
-  if (Object.keys(req.body.coordinates).length === 2)
+  if (Object.keys(req.body.poinst).length === 2)
     return badRes(res, 400);
 
-  if (validWrongObj(req.body.coordinates.start) || validWrongObj(req.body.coordinates.dest))
+  if (validWrongObj(req.body.poinst[0]) || validWrongObj(req.body.poinst[1]))
     return badRes(res, 422);
 
-  if (!geolib.isValidCoordinate([ req.body.coordinates.start.lat, req.body.coordinates.start.lng ]))
+  // validate where start
+  if (!geolib.isValidCoordinate([ req.body.poinst[0].lat, req.body.poinst[0].lng ]))
     return badRes(res, 422);
 
-  if (!geolib.isValidCoordinate([ req.body.coordinates.dest.lat, req.body.coordinates.dest.lng ]))
+  // validate the destination
+  if (!geolib.isValidCoordinate([ req.body.poinst[1].lat, req.body[1].dest.lng ]))
     return badRes(res, 422);
 
   if (Object.keys(req.body.vehicle).length >= 1 || validWrongStr(req.body.vehicle.name))
