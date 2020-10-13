@@ -16,7 +16,7 @@ function tollsInSection (originPoint, destinationPoint, TotalTolls) {
   const tollArray = [];
   const startLatitude = originPoint.lat;
   const endLatitude = destinationPoint.lat;
-  
+
   for (const index in tolls) {
     let validToll = null;
     const tollLat = tolls[index].coordinates.lat;
@@ -126,6 +126,7 @@ function adjustSearchAreaPoints(areaPoints, originPoint, destinationPoint, secti
     }
   }
 }
+
 /**
  * find in a section (point a point b) a toll
  */
@@ -194,7 +195,6 @@ function findTollInRoute (sectionPoints, originPoint, destinationPoint, TotalTol
     const tollLatitude = parseFloat(auxString[0] + '.' + auxString[1].slice(0, 3));
     const tollLongitude = sectionTolls[toll].coordinates.lng;
     const errorFactor = 0.005;
-    
     const searchRangeLatitudeMin = tollLatitude - errorFactor;
     const searchRangeLatitudeMax = tollLatitude + errorFactor;
 
@@ -292,7 +292,7 @@ const requestAll = async (origin, destination) => {
     const toll = findTollInRoute(dataPoints, startSection, endSection, TotalTolls);
     if (toll) {
       for (let element in toll) {
-	tolls.push(toll[element]);
+	      tolls.push(toll[element]);
       }
     }
   }
@@ -308,13 +308,13 @@ const requestAll = async (origin, destination) => {
     toll_expenses: tollsCost
   };
   /*
-  payload = {
-    total_kms: dataGoogle.distance.value,
-    duration: dataGoogle.duration.text,
-    tolls: tolls,
-    path: dataGoogle.steps,
-    toll_expenses: tollsCost
-  };
+    payload = {
+      total_kms: dataGoogle.distance.value,
+      duration: dataGoogle.duration.text,
+      tolls: tolls,
+      path: dataGoogle.steps,
+      toll_expenses: tollsCost
+    };
   */
   return payload;
 };
