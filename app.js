@@ -15,7 +15,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const mongoDB = 'mongodb+srv://quick:quick@cluster0.lwjfu.mongodb.net/testdb?retryWrites=true&w=majority';
+const mongoDB = process.env.URL_DB;
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
