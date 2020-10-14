@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TollSchema = new Schema({
-  id: Number,
   name: { type: String, required: true },
   coordinates: {
     lat: { type: Number, required: true },

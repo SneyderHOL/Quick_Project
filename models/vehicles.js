@@ -20,7 +20,7 @@ const Vehicles = new Schema({
     enum: ['diesel', 'gas'],
     required: true
   },
-  volume: Number,
+  volume: { type: Number },
   features: { type: mongoose.SchemaTypes.Mixed, default: null },
   state: { type: Boolean, default: true }
 }, { versionKey: false });
