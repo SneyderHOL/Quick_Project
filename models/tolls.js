@@ -5,15 +5,18 @@ const Schema = mongoose.Schema;
 
 const TollSchema = new Schema({
   id: Number,
-  name: String,
-  coordinates: { lat: Number, lng: Number },
+  name: { type: String, required: true },
+  coordinates: {
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true }
+  },
   operator: String,
-  direction: { type: Number, default: 0 },
+  direction: { type: Number, default: 0, min: 0, max: 4 },
   costs: mongoose.SchemaTypes.Mixed,
   update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
   status: { type: Boolean, default: true },
-  group: { type: Number, default: 2 }
+  group: { type: Number, default: 1 }
 }, { versionKey: false });
 
 TollSchema.statics.createToll = async function (toll) {

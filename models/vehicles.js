@@ -2,22 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Vehicles = new Schema({
-  // aprueba mientras sneider lo aprueba puede que no lo haga lo mas seguro es que no lo haga
-  name: String,
+  name: { type:String, required: true },
   category: {
-    group1: Number,
-    group2: Number,
-    group3: Number
+    group1: { type: Number, required: true },
+    group2: { type: Number, required: true },
+    group3: { type: Number, required: true }
   },
   typeOf: {
     type: String,
-    enum: ['automovil', 'bus', 'camion', 'moto']
+    enum: ['automovil', 'bus', 'camion', 'moto'],
+    required: true
   },
-  weight: Number,
-  axis: Number,
+  weight: { type: Number, required: true },
+  axis: { type:Number, required: true, min: 2, max: 10 } ,
   fuel_type: {
     type: String,
-    enum: ['diesel', 'gas']
+    enum: ['diesel', 'gas'],
+    required: true
   },
   volume: Number,
   features: { type: mongoose.SchemaTypes.Mixed, default: null },
