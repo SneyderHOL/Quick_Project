@@ -35,7 +35,12 @@ exports.createToll = async (req, res) => {
   try {
     const newToll = new Toll();
     newToll.coordinates = req.body.coordinates;
-    newToll.direction = req.body.direction;
+    if (req.body.direction) {
+      newToll.direction = parseInt(req.body.direction, 10);
+    }
+    if (req.body.group) {
+      newToll.group = parseInt(req.body.group, 10);
+    }
     newToll.costs = req.body.costs;
     newToll.department = req.body.department;
     newToll.operator = req.body.operator;
@@ -63,10 +68,8 @@ exports.deleteToll = async (req, res) => {
 };
 
 exports.updateToll = async (req, res) => {
-  if (req.body.group) {
-    if (req.body.group === 0) {
-      return res.status(404).send({ error: 'Input validation failed Wrong value' });
-    }
+  if (req.body.group === 0) {
+    return res.status(400).send({ error: 'Input validation failed Wrong value' });
   }
   const validation = validateUpdate(req);
   if (validation.status) {
