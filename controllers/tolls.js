@@ -14,7 +14,7 @@ exports.getTollById = async (req, res) => {
   try {
     var toll = await Toll.findTollById(req.params.id);
     if (!toll) {
-      res.status(404).send({ error: 'Not Found' });
+      res.status(404).send({ error: 'Toll Not Found' });
       return;
     }
     res.status(200).send(toll);
@@ -46,10 +46,10 @@ exports.deleteToll = async (req, res) => {
     const del = await Toll.deleteToll(req.params.id);
 
     if (del) {
-      return res.status(204).send({ status: `${req.params.id} is deleted` });
+      return res.status(204).send({ status: 'The Toll was deleted successfully' });
     }
 
-    return res.status(400).send({ status: 'The id provide not exist' });
+    return res.status(404).send({ status: 'Toll Not Found' });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: 'Internal Server Error' });
@@ -57,14 +57,11 @@ exports.deleteToll = async (req, res) => {
 };
 
 exports.updateToll = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    return res.status(400).send({ error: 'Bad Request, please send complete information' });
-  }
   try {
     var toll = null;
     toll = await Toll.findTollById(req.params.id);
     if (!toll) {
-      return res.status(404).send({ error: 'Not found' });
+      return res.status(404).send({ error: 'Toll Not found' });
     }
     const updatedToll = await Toll.updateToll(req.params.id, req.body);
     return res.status(200).send(updatedToll);
