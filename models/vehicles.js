@@ -1,8 +1,10 @@
+const isValid = require('mongoose').Types.ObjectId.isValid;
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const Vehicles = new Schema({
-  name: { type:String, required: true },
+  name: { type: String, required: true },
   category: {
     group1: { type: Number, required: true },
     group2: { type: Number, required: true },
@@ -14,7 +16,7 @@ const Vehicles = new Schema({
     required: true
   },
   weight: { type: Number, required: true },
-  axis: { type:Number, required: true, min: 2, max: 10 } ,
+  axis: { type: Number, required: true, min: 2, max: 10 },
   fuel_type: {
     type: String,
     enum: ['diesel', 'gas'],
@@ -22,12 +24,24 @@ const Vehicles = new Schema({
   },
   volume: { type: Number },
   features: { type: mongoose.SchemaTypes.Mixed, default: null },
-  state: { type: Boolean, default: true }
+  status: { type: Boolean, default: true }
 }, { versionKey: false });
 
-Vehicles.statics.createVehicle = async (vehicle) => {
-  const v = await Vehicles.create({ ...vehicle });
-  return v;
+Vehicles.statics.createVehicle = async function (vehicle) {
+  const vehicles = await this.create(vehicle);
+  return vehicles;
+};
+
+Vehicles.statics.deleteVehicle = async function (id) {
+  // will check the id of the value
+  if (!isValid(id)) { return null; }
+  return await this.findByIdAndDelete(id);
+};
+
+Vehicles.statics.findVehicleById = async function (id) {
+  let vehicle = null;
+  if (mongoose.isValidObjectId(id)) { vehicle = await this.findById(id); }
+  return vehicle;
 };
 
 Vehicles.statics.findAllVehicles = async function () {
@@ -35,23 +49,32 @@ Vehicles.statics.findAllVehicles = async function () {
   return vehicles;
 };
 
-Vehicles.statics.findVehicleById = async function (id) {
-  const vehicles = await this.findById(id);
-  return vehicles;
+Vehicles.statics.updateVehicles = async function (id, data) {
+  let vehicle = null;
+  const query = {};
+  for (const key in data) {
+    if (typeof (data[key]) === 'object') {
+      for (const value in data[key]) {
+        query[key + '.' + value] = data[key][value];
+      }
+    } else {
+      query[key] = data[key];
+    }
+  }
+  if (mongoose.isValidObjectId(id)) {
+    vehicle = await this.findByIdAndUpdate(id, { $set: query }, { new: true });
+  }
+  return vehicle;
 };
-
-Vehicles.statics.findBySpecification = async function (name) {
-  const vehicles = await this.find({ name: name });
-  return vehicles;
-};
-
+/*
 Vehicles.statics.updateVehicles = async function (id, vehicle) {
   const v = await this.findByIdAndUpdate(id, vehicle, { new: true });
   return v;
 };
-
-Vehicles.statics.deleteVehicle = async function (id) {
-  await this.findByIdAndDelete(id);
+*/
+Vehicles.statics.findBySpecification = async function (name) {
+  const vehicles = await this.find({ name: name });
+  return vehicles;
 };
 
 module.exports = mongoose.model('Vehicles', Vehicles);

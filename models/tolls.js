@@ -15,13 +15,14 @@ const TollSchema = new Schema({
   update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
   status: { type: Boolean, default: true },
-  group: { type: Number, default: 1 }
+  group: { type: Number, default: 1, min: 1, max: 3 }
 }, { versionKey: false });
 
 TollSchema.statics.createToll = async function (toll) {
   // the object.keys is for test how long is the object
   if (Object.keys(toll).length === 0) return null;
-  return await this.create(toll);
+  const tolls = await this.create(toll);
+  return tolls;
 };
 
 TollSchema.statics.deleteToll = async function (id) {
@@ -31,7 +32,7 @@ TollSchema.statics.deleteToll = async function (id) {
 };
 
 TollSchema.statics.findTollById = async function (id) {
-  var toll = null;
+  let toll = null;
   if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec(); }
   return toll;
 };
@@ -42,10 +43,20 @@ TollSchema.statics.getTolls = async function () {
 };
 
 TollSchema.statics.updateToll = async function (id, data, callback) {
-  var toll = null;
-  if (typeof (data) !== typeof ({})) return null;
-  if (Object.keys(data).length === 0) return null;
-  if (mongoose.isValidObjectId(id)) { toll = await this.findByIdAndUpdate(id, data, { new: true }); }
+  let toll = null;
+  const query = {};
+  for (const key in data) {
+    if (typeof (data[key]) === 'object') {
+      for (const value in data[key]) {
+        query[key + '.' + value] = data[key][value];
+      }
+    } else {
+      query[key] = data[key];
+    }
+  }
+  if (mongoose.isValidObjectId(id)) {
+    toll = await this.findByIdAndUpdate(id, { $set: query }, { new: true });
+  }
   return toll;
 };
 
