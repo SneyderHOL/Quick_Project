@@ -14,6 +14,15 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(function(err, req, res, next) {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    // Handle the error here
+    console.error('Bad JSON');
+    res.status(400).send({ error: 'JSON parse error' });
+  }
+  // Pass the error to the next middleware if it wasn't a JSON parse error
+  next(err);
+});
 app.use(express.urlencoded({ extended: false }));
 const mongoDB = process.env.URL_DB;
 
