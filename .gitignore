@@ -13,7 +13,12 @@ package-lock.json
 file.json
 error1.json
 eduard.js
-
+.deploy.env
+.vscode/
+as/
+peajes.json
+test.yaml
+testing.js
 
 ### Emacs ###
 *~
