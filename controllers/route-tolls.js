@@ -1,10 +1,8 @@
 const requestAll = require('../services/routes-google').requestAll;
 const validateRoute = require('./validationRoutes').validateRoutes;
-const redis = require('redis');
-
+//const redisClient = require('../init_redis').redisClient;
 // /api/tolls
 exports.totalCosts = async (req, res, error) => {
-  let isActiveRedis = true;
   const validation = validateRoute(req);
   if (validation.status) {
     const message = 'Input validation failed' + ' ' + validation.message;
@@ -15,31 +13,28 @@ exports.totalCosts = async (req, res, error) => {
   const vehicleName = req.body.vehicle.name;
 
   const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();  
-  
-  console.log('Creating redis client');
-  const client = redis.createClient(6379);
-  client.on("error", (error) => {
-    console.error(error);
-    isActiveRedis = false;
-  });
+  let jsonData = null;
   try {
-    if (isActiveRedis) {
-      console.log('Client redis OK');
-      client.get(key, async (err, data) => {
-	if (data) {
-	  const jsonData = JSON.parse(data);
-	  return res.status(200).send(jsonData);
-	}
-      });
+    /*
+    if (redisClient) {
+      const data = await redisClient.get(key);
+      if (data){
+        jsonData = JSON.parse(data);
+        return res.status(200).send(jsonData);
+      }
     }
+    */
     const payload = await requestAll(origin, destination, vehicleName);
 
     if (payload === null) {
+      console.log('if del payload');
       return res.status(502).send({ error: 'Bad gateway' });
     }
-    if (isActiveRedis) {
-      client.setex(key, 1440, JSON.stringify(payload));
+    /*
+    if (redisClient) {
+      redisClient.setex(key, 1440, JSON.stringify(payload));
     }
+    */
     return res.status(200).send(payload);
   } catch (e) {
     console.error(e);
