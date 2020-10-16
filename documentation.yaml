@@ -1,0 +1,211 @@
+swagger: "2.0"
+
+info:
+  description: "API Rest that performs the calculation of expenses incurred
+    in a route that includes fixed and variable expenses as well as the costs
+    incurred in tolls according to the route."
+  version: "1.2"
+  title: "LaDificil"
+  contact:
+    email: "fulldevs0@gmail.com"
+
+externalDocs:
+  description: "Find out more about how the API works"
+  url: "dazzling-noether-69888d.netlify.app"
+
+basePath: "/api/"
+schemes:
+  - "https"
+  - "http"
+
+tags:
+- name: "tolls"
+  description: "This will show the tolls"
+
+- name: "Costs"
+  description: "If you want to see how the API looks like"
+  externalDocs:
+    description: "This will provide the porpouse of the app"
+    url: "https://dazzling-noether-69888d.netlify.app/"
+
+- name: "Vehicles"
+  description: "Will provide of calculation we have for vehicles"
+  externalDocs:
+    description: "Find out more information in the sections"
+    url: "http://swagger.io"
+
+
+paths:
+  /tolls:
+    get:
+      tags:
+      - "tolls"
+      summary: "You will get the total list of tolls"
+      description:
+        "Will get the list of tolls how contains his owns categories and features of the tolls"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Pet not found"
+        "405":
+          description: "Validation exception"
+    post:
+      tags: ["tolls"]
+      summary: "Create a new toll before to search in te algorithm"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        200:
+          description: OK
+        500:
+          description: "Server Error"
+
+definitions:
+  Toll:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Id of the toll"
+      name:
+        type: "string"
+        # description: "The name of the toll"
+      coordinates:
+        type: "object"
+      operator:
+        type: "string"
+        description: "Is wich company manage this toll"
+      direction:
+        type: "integer"
+        format: "int64"
+        description: "It is in what sense you have to pay at the toll"
+      costs:
+        type: "integer"
+        format: "object"
+        description: "Is how cost the category of the vehicle in the toll"
+      update_at:
+        type: "string"
+        format: "date-time"
+      department:
+        type: "string"
+      status:
+        type: "integer"
+        format: "int64"
+        description: "To see if the toll is in operation"
+        enum:
+          - 0
+          - 1
+      group:
+        type: "integer"
+        format: "int64"
+        description: "It is to formalize the tolls and use standard values"
+        maxLength: 8
+    xml:
+      name: "Toll"
+
+
+  Category:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Category"
+    enum:
+      - "available"
+      - "pending"
+      - "sold"
+  Vehicles:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "User"
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Tag"
+  Pet:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      category:
+        $ref: "#/definitions/Category"
+      name:
+        type: "string"
+        example: "doggie"
+      photoUrls:
+        type: "array"
+        xml:
+          name: "photoUrl"
+          wrapped: true
+        items:
+          type: "string"
+      tags:
+        type: "array"
+        xml:
+          name: "tag"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Tag"
+      status:
+        type: "string"
+        description: "pet status in the store"
+        enum:
+        - "available"
+        - "pending"
+        - "sold"
+    xml:
+      name: "Pet"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"

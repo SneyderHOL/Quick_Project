@@ -7,5 +7,4 @@ router.get('/:id', controllerTolls.getTollById);
 router.patch('/:id', controllerTolls.updateToll);
 router.delete('/:id', controllerTolls.deleteToll);
 
-
 module.exports = router;

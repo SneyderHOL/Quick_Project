@@ -5,7 +5,10 @@
 ## Others ##
 .env
 .DS_Store
-
+quickapi.pem
+test.yaml
+.vscode
+pack.back.json
 
 ### Node js ###
 node_modules
@@ -19,6 +22,10 @@ as/
 peajes.json
 test.yaml
 testing.js
+dummies-data.js
+testing.js
+peajes.json
+
 
 ### Emacs ###
 *~
