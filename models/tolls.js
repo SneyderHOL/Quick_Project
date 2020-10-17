@@ -12,13 +12,13 @@ const TollSchema = new Schema({
   operator: String,
   direction: { type: Number, default: 0, min: 0, max: 4 },
   costs: {
-    I: { type: Number, required: true, min: 0},
-    II: { type: Number, required: true, min: 0},
-    III: { type: Number, required: true, min: 0},
-    IV: { type: Number, default: 0, min: 0},
-    V: { type: Number, default: 0, min: 0},
-    VI: { type: Number, default: 0, min: 0},
-    VII: { type: Number, default: 0, min: 0}
+    I: { type: Number, required: true, min: 0 },
+    II: { type: Number, required: true, min: 0 },
+    III: { type: Number, required: true, min: 0 },
+    IV: { type: Number, default: 0, min: 0 },
+    V: { type: Number, default: 0, min: 0 },
+    VI: { type: Number, default: 0, min: 0 },
+    VII: { type: Number, default: 0, min: 0 }
   },
   update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
