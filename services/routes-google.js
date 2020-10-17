@@ -53,7 +53,8 @@ const requestRoutesAsync = async (origin, destination) => {
 const requestAll = async (origin, destination, vehicleName) => {
   const dataGoogle = await requestRoutesAsync(origin, destination);
   const vehicle = await Vehicle.findBySpecification(vehicleName);
-  const TotalTolls = await Toll.findBySpecification(true);
+  // const TotalTolls = await Toll.findBySpecification(true);
+  const TotalTolls = await Toll.getTolls();
 
   // check for wrong request or missing key
   if (!dataGoogle || !vehicle.length || !TotalTolls.length) {
