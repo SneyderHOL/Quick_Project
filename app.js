@@ -50,11 +50,11 @@ db.on('error', console.error.bind(console, 'connection error:'));
 /**
  * Connect to reddis client localy
  */
-// const redis = new Redis(6379);
-// redis.on('connect', () => console.log('Connected to Redis'));
-// redis.on('error', (err) => console.error("Redis error encountered", err));
+const redis = new Redis(6379);
+redis.on('connect', () => console.log('Connected to Redis'));
+redis.on('error', (err) => console.error("Redis error encountered", err));
 
-// exports.redis = redis;
+exports.redis = redis;
 
 /**
  * Redirection

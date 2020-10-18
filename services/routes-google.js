@@ -6,7 +6,7 @@ const findTollInSection = require('./searchFunctions').findTollInSection;
 const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
 const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
-const redisClient = require('../init_redis').redisClient;
+const redisClient = require('./app').redis;
 
 // ENV variables
 const keyGoogle = process.env.GOOGLE_API;
