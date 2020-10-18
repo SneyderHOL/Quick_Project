@@ -54,8 +54,8 @@ const requestRoutesAsync = async (origin, destination) => {
 const requestAll = async (origin, destination, vehicleName) => {
   const dataGoogle = await requestRoutesAsync(origin, destination);
   const vehicle = await Vehicle.findBySpecification(vehicleName);
-  const TotalTolls = await Toll.getTolls();
-  // const TotalTolls = await Toll.findBySpecification(true);
+  //const TotalTolls = await Toll.getTolls();
+  const TotalTolls = await Toll.findBySpecification(true);
   let isCache = false;
   let jsonData = null;
   // console.log(TotalTolls);
@@ -119,14 +119,14 @@ const requestAll = async (origin, destination, vehicleName) => {
   }
 
   const cleanPath = cleanPathFunction(dataGoogle.steps);
-  const cleanTolls = cleanTollsFunction(tolls);
+  // const cleanTolls = cleanTollsFunction(tolls);
   const tollsCost = await costTolls.total(tolls, vehicle);
   let kms = dataGoogle.distance.value;
   if (kms > 0) { kms /= 1000}
   return {
     total_kms: kms,
     duration: dataGoogle.duration.text,
-    tolls: cleanTolls,
+    tolls: tolls,
     path: cleanPath,
     toll_expenses: tollsCost
   };
