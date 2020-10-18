@@ -2,11 +2,6 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 
 jest.setTimeout(5000);
-/**
- * MongoDB memory server provides you the ability to store your data in memory only.
- * With this preset, we can ignore most of the setup that demotivates us from and
- * spends most of our time on the real stuff which is writing the unit test.
- */
 const mongod = new MongoMemoryServer();
 
 /**
