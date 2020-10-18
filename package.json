@@ -1,9 +1,11 @@
 {
   "name": "application",
+  "main": "app.js",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jest --preset --testEnvironment=node --verbose --forceExit --runInBand",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -11,6 +13,7 @@
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "geolib": "^3.3.1",
+    "ioredis": "^4.17.3",
     "mongoose": "^5.10.6",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
@@ -18,5 +21,16 @@
     "swagger-jsdoc": "^4.2.0",
     "swagger-ui-express": "^4.1.4",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "jest": "^26.5.2",
+    "mongodb-memory-server": "^6.9.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^5.0.0",
+    "uuid": "^8.3.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "supertest": "^5.0.0"
   }
 }

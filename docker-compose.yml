@@ -1,12 +1,32 @@
+
 version: "3.8"
 
+# servsices:
+  # web:
+  #   build: .
+  #   container_name: 'test'
+  #   working_dir: '/app/'
+  #   volumes:
+  #     - ./:/app/
+  #   ports:
+  #     - 3000:3000
+  #   command: "sh -c 'npm run test'"
+  # # redis:
+  # #   image: redis:6.0.8-alpine
+  # #   init: true
+  # redis_db:
+  #   image: redis
+  #   container_name: redisdb
+  #   # only needed to directly access Redis from host
+  #   ports:
+  #     - 6379:6379
+
 services:
-  web:
-    build: .
-    container_name: 'test'
-    working_dir: '/app/'
-    volumes:
-      - ./:/app/
+ redis:
+    image: "redis:alpine"
+
     ports:
-      - 3000:3000
-    command: "sh -c 'npm run dev'"
+     - "6379:6379"
+
+    environment:
+     - ALLOW_EMPTY_PASSWORD=yes
