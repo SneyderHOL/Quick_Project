@@ -1,37 +1,43 @@
 const requestAll = require('../services/routes-google').requestAll;
-const redis = require('../app').redis;
-// const validateRoute = require('./validationRoutes').validateRoutes;
-
+const validateRoute = require('./validationRoutes').validateRoutes;
+//const redisClient = require('../init_redis').redisClient;
 // /api/tolls
 exports.totalCosts = async (req, res, error) => {
-  // const validation = validateRoute(req);
-  // if (validation.status) {
-  //   const message = 'Input validation failed' + ' ' + validation.message;
-  //   return res.status(400).send({ error: message });
-  // }
+  const validation = validateRoute(req);
+  if (validation.status) {
+    const message = 'Input validation failed' + ' ' + validation.message;
+    return res.status(400).send({ error: message });
+  }
   const origin = req.body.points[0];
   const destination = req.body.points[1];
   const vehicleName = req.body.vehicle.name;
 
-  let payload = null
-  const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();
-
+  const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();  
+  let jsonData = null;
   try {
-    const cache = await redis.get(key);
-    if (cache === null) {
-      payload = await requestAll(origin, destination, vehicleName);
-      if (payload === null) {
-        return res.status(502).send({ error: 'Bad gateway' });
+    /*
+    if (redisClient) {
+      const data = await redisClient.get(key);
+      if (data){
+        jsonData = JSON.parse(data);
+        return res.status(200).send(jsonData);
       }
-      await redis.setex(key, 1440, JSON.stringify(payload));
-    } else {
-      payload = JSON.parse(cache);
     }
-    return res.status(200).send(payload);
+    */
+    const payload = await requestAll(origin, destination, vehicleName);
 
-  } catch (err) {
-    console.error(err);
+    if (payload === null) {
+      console.log('if del payload');
+      return res.status(502).send({ error: 'Bad gateway' });
+    }
+    /*
+    if (redisClient) {
+      redisClient.setex(key, 1440, JSON.stringify(payload));
+    }
+    */
+    return res.status(200).send(payload);
+  } catch (e) {
+    console.error(e);
     return res.status(500).send({ error: 'There is a problem, try again' });
   }
-
 };
