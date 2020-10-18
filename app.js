@@ -52,7 +52,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
  */
 const redis = new Redis(6379);
 redis.on('connect', () => console.log('Connected to Redis'));
-redis.on('error', (err) => console.error("Redis error encountered", err));
+redis.on('error', (err) => console.error('Redis error encountered', err));
 
 exports.redis = redis;
 

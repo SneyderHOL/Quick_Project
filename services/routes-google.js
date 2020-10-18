@@ -5,7 +5,7 @@ const Vehicle = require('../models/vehicles');
 const findTollInSection = require('./searchFunctions').findTollInSection;
 const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
-const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
+// const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
 const redisClient = require('./app').redis;
 
 // ENV variables
@@ -55,7 +55,7 @@ const requestAll = async (origin, destination, vehicleName) => {
   const dataGoogle = await requestRoutesAsync(origin, destination);
   const vehicle = await Vehicle.findBySpecification(vehicleName);
 
-  //const TotalTolls = await Toll.getTolls();
+  // const TotalTolls = await Toll.getTolls();
   const TotalTolls = await Toll.findBySpecification(true);
   let isCache = false;
   let jsonData = null;
@@ -75,19 +75,19 @@ const requestAll = async (origin, destination, vehicleName) => {
     isCache = false;
     const startSection = sections[section].start_location;
     const endSection = sections[section].end_location;
-    const key = startSection.lat.toString() + startSection.lng.toString() + endSection.lat.toString() + endSection.lng.toString();  
+    const key = startSection.lat.toString() + startSection.lng.toString() + endSection.lat.toString() + endSection.lng.toString();
 
     if (redisClient) {
       console.log('Usando redis');
       const data = await redisClient.get(key);
-      if (data){
-	console.log('Usando cashe');
-	console.log(data);
-	isCache = true;
-	jsonData = JSON.parse(data);
-	for (const item in jsonData) {
-	  tolls.push(jsonData[item]);
-	}
+      if (data) {
+        console.log('Usando cashe');
+        console.log(data);
+        isCache = true;
+        jsonData = JSON.parse(data);
+        for (const item in jsonData) {
+          tolls.push(jsonData[item]);
+        }
       }
     }
     if (!isCache) {
@@ -100,8 +100,8 @@ const requestAll = async (origin, destination, vehicleName) => {
       const dataOpenRoute = await response.json();
 
       if (dataOpenRoute.error) {
-	console.log('openroute fault');
-	return null;
+        console.log('openroute fault');
+        return null;
       }
 
       const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
@@ -109,13 +109,13 @@ const requestAll = async (origin, destination, vehicleName) => {
       // save data to redis
       if (redisClient) {
         // redisClient.set(key, JSON.stringify(toll));
-	redisClient.setex(key, 1440, JSON.stringify(toll));
+        redisClient.setex(key, 1440, JSON.stringify(toll));
       }
 
       if (toll) {
-	for (const element in toll) {
+        for (const element in toll) {
           tolls.push(toll[element]);
-	}
+        }
       }
     }
   }
@@ -124,7 +124,7 @@ const requestAll = async (origin, destination, vehicleName) => {
   // const cleanTolls = cleanTollsFunction(tolls);
   const tollsCost = await costTolls.total(tolls, vehicle);
   let kms = dataGoogle.distance.value;
-  if (kms > 0) { kms /= 1000}
+  if (kms > 0) { kms /= 1000; }
   return {
     total_kms: kms,
     duration: dataGoogle.duration.text,
