@@ -57,9 +57,9 @@ const requestAll = async (origin, destination, vehicleName) => {
   const TotalTolls = await Toll.findBySpecification(true);
 
   // check vehicles or tolls
-  if (!vehicle.length || TotalTolls.length === 0) {
+  if (!vehicle || TotalTolls.length === 0) {
     console.log('vehicles or tolls missing');
-    console.log(vehicle.length === 0, TotalTolls.length === 0);
+    console.log(vehicle === null, TotalTolls.length === 0);
     return null;
   }
 
