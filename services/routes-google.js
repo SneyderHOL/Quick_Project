@@ -6,8 +6,9 @@ const findTollInSection = require('./searchFunctions').findTollInSection;
 const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
 // const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
-const redisClient = require('../app').redis;
-
+// const redisClient = require('../init_redis').redisClient;
+// const redisClient = require('../app').redis;
+const redisClient = null
 // ENV variables
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
@@ -52,21 +53,27 @@ const requestRoutesAsync = async (origin, destination) => {
  * return: the response payload object
  */
 const requestAll = async (origin, destination, vehicleName) => {
-  const dataGoogle = await requestRoutesAsync(origin, destination);
   const vehicle = await Vehicle.findBySpecification(vehicleName);
-
-  // const TotalTolls = await Toll.getTolls();
   const TotalTolls = await Toll.findBySpecification(true);
-  let isCache = false;
-  let jsonData = null;
-  // console.log(TotalTolls);
 
-  // check for wrong request or missing key
-  if (!dataGoogle || !vehicle.length || TotalTolls.length === 0) {
-    console.log('wrong request or missing key');
-    console.log(dataGoogle === null, vehicle.length === 0, TotalTolls.length === 0);
+  // check vehicles or tolls
+  if (!vehicle || TotalTolls.length === 0) {
+    console.log('vehicles or tolls missing');
+    console.log(vehicle === null, TotalTolls.length === 0);
     return null;
   }
+
+  const dataGoogle = await requestRoutesAsync(origin, destination);
+  // check for wrong request or missing key
+  if (!dataGoogle) {
+    console.log('wrong request or missing key from google API');
+    console.log(dataGoogle === null);
+    return null;
+  }
+
+  // variables to use cache
+  let isCache = false;
+  let jsonData = null;
 
   const sections = findSection(dataGoogle.steps);
   const tolls = [];
@@ -81,7 +88,7 @@ const requestAll = async (origin, destination, vehicleName) => {
       console.log('Usando redis');
       const data = await redisClient.get(key);
       if (data) {
-        console.log('Usando cashe');
+        console.log('Usando cache');
         console.log(data);
         isCache = true;
         jsonData = JSON.parse(data);
@@ -100,7 +107,7 @@ const requestAll = async (origin, destination, vehicleName) => {
       const dataOpenRoute = await response.json();
 
       if (dataOpenRoute.error) {
-        console.log('openroute fault');
+        console.log('openroute error');
         return null;
       }
 
