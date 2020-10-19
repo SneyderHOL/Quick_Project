@@ -7,8 +7,8 @@ const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
 // const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
 // const redisClient = require('../init_redis').redisClient;
-const redisClient = require('../app').redis;
-
+// const redisClient = require('../app').redis;
+const redisClient = null
 // ENV variables
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
