@@ -8,7 +8,8 @@ const cleanPathFunction = cleanFunctions.cleanPathFunction;
 // const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
 // const redisClient = require('../init_redis').redisClient;
 // const redisClient = require('../app').redis;
-const redisClient = null
+// const checkForMissingTolls = require('./searchFunctions').checkForMissingTolls;
+const redisClient = null;
 // ENV variables
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
@@ -89,7 +90,7 @@ const requestAll = async (origin, destination, vehicleName) => {
       const data = await redisClient.get(key);
       if (data) {
         console.log('Usando cache');
-        console.log(data);
+        // console.log(data);
         isCache = true;
         jsonData = JSON.parse(data);
         for (const item in jsonData) {
@@ -126,7 +127,7 @@ const requestAll = async (origin, destination, vehicleName) => {
       }
     }
   }
-
+  // checkForMissingTolls(tolls, TotalTolls);
   const cleanPath = cleanPathFunction(dataGoogle.steps);
   // const cleanTolls = cleanTollsFunction(tolls);
   const tollsCost = await costTolls.total(tolls, vehicle);

@@ -265,8 +265,18 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     let foundIt = false;
     let searchIndex = 0;
     searchIndex = binarySearchLeft(sortedSectionPoints, searchRangeLatitudeMin);
+    /*
+    fs.appendFile('datos.txt', '\nFirstIndex\n', function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
+    fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
+    */
     for (; searchIndex < sortedSectionPoints.length; searchIndex++) {
-      const minimum = searchRangeLatitudeMin - errorFactor;
+      const minimum = searchRangeLatitudeMin - 0.003;
       const pointLat = sortedSectionPoints[searchIndex][1];
       const pointLng = sortedSectionPoints[searchIndex][0];
       if (pointLat >= minimum && pointLat <= searchRangeLatitudeMax) {
@@ -277,6 +287,16 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
       }
     }
     if (foundIt === false) {
+      /*
+      fs.appendFile('datos.txt', '\nLastIndex\n', function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
+      fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
+      */
       continue;
     } else {
       /*
