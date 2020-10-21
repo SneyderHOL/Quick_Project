@@ -57,8 +57,8 @@ function ok () {
   return { status: false };
 }
 
-function validateObject(input) {
-  if (typeof(input) !== 'object') {
+function validateObject (input) {
+  if (typeof (input) !== 'object') {
     return true;
   }
   return false;
