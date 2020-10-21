@@ -1,8 +1,8 @@
 /**
- * Module dependencies.
+ * Module dependencies
  */
-const debug = require('debug')('application:server');
 const http = require('http');
+const debug = require('debug')('application:server');
 const swaggerUI = require('swagger-ui-express');
 const express = require('express');
 const mongoose = require('mongoose');
