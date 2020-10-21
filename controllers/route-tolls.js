@@ -1,6 +1,6 @@
 const requestAll = require('../services/routes-google').requestAll;
 const validateRoute = require('./validationRoutes').validateRoutes;
-//const redisClient = require('../init_redis').redisClient;
+// const redisClient = require('../init_redis').redisClient;
 // /api/tolls
 exports.totalCosts = async (req, res, error) => {
   const validation = validateRoute(req);
@@ -12,7 +12,7 @@ exports.totalCosts = async (req, res, error) => {
   const destination = req.body.points[1];
   const vehicleName = req.body.vehicle.name;
 
-  const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();  
+  const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();
   let jsonData = null;
   try {
     /*

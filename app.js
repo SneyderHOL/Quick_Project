@@ -8,7 +8,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
-// const Redis = require('ioredis');
+const Redis = require('ioredis');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -49,14 +49,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 /**
  * Connect to reddis client localy
-<<<<<<< HEAD
  */
-//const redis = new Redis(6379);
-//redis.on('connect', () => console.log('Connected to Redis'));
-//redis.on('error', (err) => console.error('Redis error encountered', err));
+const redis = new Redis(6379);
+redis.on('connect', () => console.log('Connected to Redis'));
+redis.on('error', (err) => console.error('Redis error encountered', err));
 
-//exports.redis = redis;
-
+exports.redis = redis;
 
 /**
  * Redirection

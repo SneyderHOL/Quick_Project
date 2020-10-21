@@ -12,9 +12,7 @@ exports.total = async (tolls, vehicle) => {
   for (let i = 0; i < arrayLen; i++) {
     var category = vehicle[0].category;
     var group = category['group' + tolls[i].group.toString()];
-    // console.log(tolls[i].costs[numberToRome[group]]);
     costs.byTolls.push(tolls[i].costs[numberToRome[group]]);
-    // console.log(tolls[i].priceVehicle);
     costs.total += tolls[i].costs[numberToRome[group]];
   }
   return costs;
