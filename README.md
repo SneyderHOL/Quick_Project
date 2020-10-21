@@ -83,7 +83,7 @@ docker-compose down
 
 
 ### Running the tests
-Coming...
+![](img/testingJS.png)
 
 
 ### Built with 🛠️
