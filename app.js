@@ -15,7 +15,7 @@ require('dotenv').config();
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
-const swaggerJS = yaml.load('./documentation.yaml');
+const swaggerJS = yaml.load('./openAPI/openapi.yaml');
 
 const app = express();
 app.use(cors());
