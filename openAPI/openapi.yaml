@@ -501,7 +501,7 @@ components:
       type: "string"
       description: "Object's id"
       example: "5f6eb01217cele3104893ef36"
-    update_at:
+    updatedAt:
       type: "string"
       description: "Object's last date of modification"
       example: "2020-09-26T03:05:54.880Z"
@@ -698,16 +698,16 @@ components:
         _id:
           schema:
             $ref:'#/components/schemas/_id'
-        update_at:
+        updatedAt:
           schema:
-            $ref:'#/components/schemas/update_at'
+            $ref:'#/components/schemas/updatedAt'
         name:
           schema:
             $ref:'#/components/schemas/name'
         operator:
           schema:
             $ref:'#/components/schemas/operator'
-      example: {"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "update_at": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}
+      example: {"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "updatedAt": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}
     serviceRequest:
       type: "object"
       description: "Required JSON to use the service"
@@ -715,7 +715,7 @@ components:
     serviceResponse:
       type: "object"
       description: "Payload of a success response, containing the route's distance, time, tolls, path, total_expenses"
-      example: {"total_kms": 535.36, "duration": "1 hour 35 minutes", "tolls": [{"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "update_at": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}], "path": [{"start": {"lat": 4.264, "lng": -74.9456}}, {"end": {"lat": 6.624, "lng": -75.025}}], "toll_expenses": {"total": 29600, "byTolls": [29600]}}
+      example: {"total_kms": 535.36, "duration": "1 hour 35 minutes", "tolls": [{"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "updatedAt": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}], "path": [{"start": {"lat": 4.264, "lng": -74.9456}}, {"end": {"lat": 6.624, "lng": -75.025}}], "toll_expenses": {"total": 29600, "byTolls": [29600]}}
     errorInputMessage:
       type: "object"
       description: "Object with an error message"
