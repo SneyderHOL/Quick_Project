@@ -81,11 +81,11 @@ exports.getVehiclesByFeatures = async (req, res) => {
 };
 
 exports.updateVehicles = async (req, res) => {
-  const validation = validateUpdate(req);
-  if (validation.status) {
-    const message = 'Input validation failed' + ' ' + validation.message;
-    return res.status(400).send({ error: message });
-  }
+  // const validation = validateUpdate(req);
+  // if (validation.status) {
+    // const message = 'Input validation failed' + ' ' + validation.message;
+    // return res.status(400).send({ error: message });
+  // }
   try {
     let vehicle = null;
     vehicle = await Vehicles.findVehicleById(req.params.id);
