@@ -20,11 +20,10 @@ const TollSchema = new Schema({
     VI: { type: Number, default: 0, min: 0 },
     VII: { type: Number, default: 0, min: 0 }
   },
-  update_at: { type: Date, default: Date.now },
   department: { type: String, default: '' },
   status: { type: Boolean, default: true },
   group: { type: Number, default: 1, min: 1, max: 3 }
-}, { versionKey: false });
+}, { versionKey: false, timestamps: true });
 
 TollSchema.statics.createToll = async function (toll) {
   // the object.keys is for test how long is the object

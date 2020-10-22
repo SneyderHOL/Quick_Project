@@ -25,7 +25,7 @@ const Vehicles = new Schema({
   volume: { type: Number },
   features: { type: mongoose.SchemaTypes.Mixed, default: null },
   status: { type: Boolean, default: true }
-}, { versionKey: false });
+}, { versionKey: false, timestamps: true });
 
 Vehicles.statics.createVehicle = async function (vehicle) {
   const vehicles = await this.create(vehicle);
