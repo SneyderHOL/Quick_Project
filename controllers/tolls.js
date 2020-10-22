@@ -57,7 +57,7 @@ exports.deleteToll = async (req, res) => {
   try {
     const toll = await Toll.deleteToll(req.params.id);
     if (toll) {
-      return res.status(204).send({ status: 'The Toll was deleted successfully' });
+      return res.status(200).send({ status: 'The Toll was deleted successfully' });
     }
 
     return res.status(404).send({ error: 'Toll Not Found' });
