@@ -12,8 +12,8 @@ exports.totalCosts = async (req, res, error) => {
   const destination = req.body.points[1];
   const vehicleName = req.body.vehicle.name;
 
-  const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();
-  let jsonData = null;
+  // const key = origin.lat.toString() + origin.lng.toString() + destination.lat.toString() + destination.lng.toString();
+  // let jsonData = null;
   try {
     /*
     if (redisClient) {
