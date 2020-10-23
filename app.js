@@ -48,7 +48,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 /**
- * Connect to reddis client localy
+ * Connect to reddis client locally
  */
 const redis = new Redis(6379);
 redis.on('connect', () => console.log('Connected to Redis'));
@@ -58,11 +58,11 @@ exports.redis = redis;
 
 /**
  * Redirection
- */
-//app.get('/', function (req, res) {
-//  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
-//});
-
+ *//*
+app.get('/', function (req, res) {
+  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
+});
+*/
 app.use('/', require('./routes/index.js'));
 
 /**
