@@ -25,7 +25,7 @@ testing.js
 dummies-data.js
 testing.js
 peajes.json
-
+script/backups/*.json
 
 ### Emacs ###
 *~
