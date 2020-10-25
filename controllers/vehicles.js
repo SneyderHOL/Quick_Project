@@ -27,6 +27,7 @@ exports.findVehicleById = async (req, res) => {
 };
 
 exports.createVehicles = async (req, res) => {
+  // use of middleware validation for creation
   const validation = validateCreation(req);
   if (validation.status) {
     const message = 'Input validation failed' + ' ' + validation.message;
@@ -81,11 +82,12 @@ exports.getVehiclesByFeatures = async (req, res) => {
 };
 
 exports.updateVehicles = async (req, res) => {
-  // const validation = validateUpdate(req);
-  // if (validation.status) {
-    // const message = 'Input validation failed' + ' ' + validation.message;
-    // return res.status(400).send({ error: message });
-  // }
+  // use of middleware validation for update
+  const validation = validateUpdate(req);
+  if (validation.status) {
+    const message = 'Input validation failed' + ' ' + validation.message;
+    return res.status(400).send({ error: message });
+  }
   try {
     let vehicle = null;
     vehicle = await Vehicles.findVehicleById(req.params.id);
