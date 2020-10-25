@@ -10,7 +10,6 @@ const logger = require('morgan');
 const yaml = require('yamljs');
 const Redis = require('ioredis');
 const cors = require('cors');
-
 require('dotenv').config();
 
 // will use in the future
@@ -33,6 +32,7 @@ app.use(function (err, req, res, next) {
   // Pass the error to the next middleware if it wasn't a JSON parse error
   next(err);
 });
+
 app.use(express.urlencoded({ extended: false }));
 const mongoDB = process.env.URL_DB;
 

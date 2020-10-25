@@ -25,11 +25,16 @@ const TollSchema = new Schema({
   group: { type: Number, default: 1, min: 1, max: 3 }
 }, { versionKey: false, timestamps: true });
 
-TollSchema.statics.createToll = async function (toll) {
+TollSchema.statics.createToll = async function (newToll) {
   // the object.keys is for test how long is the object
-  if (Object.keys(toll).length === 0) return null;
-  const tolls = await this.create(toll);
-  return tolls;
+  if (Object.keys(newToll).length === 0) return null;
+
+  try {
+    return await this.create(newToll);
+  } catch (err) {
+    console.log('Schema not valid');
+    return null;
+  }
 };
 
 TollSchema.statics.deleteToll = async function (id) {
@@ -49,9 +54,17 @@ TollSchema.statics.getTolls = async function () {
   return tolls;
 };
 
-TollSchema.statics.updateToll = async function (id, data, callback) {
+TollSchema.statics.updateToll = async function (id, data) {
   let toll = null;
-  const query = {};
+  // console.log(Array.isArray(data))
+  if (data === undefined || Object.getPrototypeOf(data) !== Object.prototype ||
+      Object.keys(data).length === 0) {
+    return null;
+  }
+
+  if (data._id || data.id) return null;
+
+  const query = { update_at: new Date() };
   for (const key in data) {
     if (typeof (data[key]) === 'object') {
       for (const value in data[key]) {
@@ -62,6 +75,7 @@ TollSchema.statics.updateToll = async function (id, data, callback) {
     }
   }
   if (mongoose.isValidObjectId(id)) {
+    // console.log(query);
     toll = await this.findByIdAndUpdate(id, { $set: query }, { new: true });
   }
   return toll;
@@ -69,6 +83,14 @@ TollSchema.statics.updateToll = async function (id, data, callback) {
 
 TollSchema.statics.findBySpecification = async function (status) {
   const tolls = await this.find({ status: status });
+  return tolls;
+};
+
+TollSchema.statics.findTollbyCoordinates = async function (latStart, latEnd, lngStart, lngEnd) {
+  const tolls = await this.find({
+    'coordinates.lat': { $gte: latStart, $lte: latEnd },
+    'coordinates.lng': { $gte: lngStart, $lte: lngEnd }
+  });
   return tolls;
 };
 

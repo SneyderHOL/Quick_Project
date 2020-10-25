@@ -179,7 +179,6 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     if (err) return console.log(err);
     console.log('Saved');
   });
-
   fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
     if (err) return console.log(err);
     console.log('Saved');
@@ -210,7 +209,6 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     if (err) return console.log(err);
     console.log('Saved');
   });
-
   fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
     if (err) return console.log(err);
     console.log('Saved');
@@ -219,7 +217,6 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     if (err) return console.log(err);
     console.log('Saved');
   });
-
   fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
     if (err) return console.log(err);
     console.log('Saved');

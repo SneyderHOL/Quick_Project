@@ -80,6 +80,7 @@ function errorValueMessage () {
     message: 'Wrong Value'
   };
 }
+
 function ok () {
   return { status: false };
 }
