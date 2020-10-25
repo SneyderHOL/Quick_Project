@@ -5,8 +5,10 @@ const Vehicle = require('../models/vehicles');
 const findTollInSection = require('./searchFunctions').findTollInSection;
 const cleanFunctions = require('./cleanFunctions');
 const cleanPathFunction = cleanFunctions.cleanPathFunction;
-const cleanTollsFunction = cleanFunctions.cleanTollsFunction;
-
+const missingTolls = require('./missingTollsFunction').missingTollsArray;
+// const redisClient = require('../init_redis').redisClient;
+const redisClient = require('../app').redis;
+// const redisClient = null;
 // ENV variables
 const keyGoogle = process.env.GOOGLE_API;
 const keyOpenRoute = process.env.API_OPENROUTES;
@@ -14,9 +16,15 @@ const keyOpenRoute = process.env.API_OPENROUTES;
  * find a section where there might be a toll
  * return: list of sections
  */
-function findSection (steps) {
+function findSection (steps, array) {
   const sections = [];
   for (const i in steps) {
+    // checking for the missing tolls
+    for (const idx in array) {
+      if ((steps[i].start_location.lat === array[idx].surNorte.lat && steps[i].start_location.lng === array[idx].surNorte.lng) || (steps[i].start_location.lat === array[idx].norteSur.lat && steps[i].start_location.lng === array[idx].norteSur.lng)) {
+        array[idx].inRoute = true;
+      }
+    }
     if (steps[i].html_instructions.includes('Toll')) {
       /* iterate throught the result of the road and return it */
       sections.push({
@@ -51,47 +59,103 @@ const requestRoutesAsync = async (origin, destination) => {
  * return: the response payload object
  */
 const requestAll = async (origin, destination, vehicleName) => {
-  const dataGoogle = await requestRoutesAsync(origin, destination);
   const vehicle = await Vehicle.findBySpecification(vehicleName);
   const TotalTolls = await Toll.findBySpecification(true);
 
-  // check for wrong request or missing key
-  if (!dataGoogle || !vehicle.length || !TotalTolls.length) {
+  // check vehicles or tolls
+  if (!vehicle || TotalTolls.length === 0) {
+    console.log('vehicles or tolls missing');
+    console.log(vehicle === null, TotalTolls.length === 0);
     return null;
   }
 
-  const sections = findSection(dataGoogle.steps);
+  const dataGoogle = await requestRoutesAsync(origin, destination);
+  // check for wrong request or missing key
+  if (!dataGoogle) {
+    console.log('wrong request or missing key from google API');
+    console.log(dataGoogle === null);
+    return null;
+  }
+
+  // variables to use cache
+  let isCache = false;
+  let jsonData = null;
+
+  const sections = findSection(dataGoogle.steps, missingTolls);
   const tolls = [];
 
   for (const section in sections) {
+    isCache = false;
     const startSection = sections[section].start_location;
     const endSection = sections[section].end_location;
-    const url = 'https://api.openrouteservice.org/v2/directions/driving-car' +
-      `?api_key=${keyOpenRoute}&start=${startSection.lng},${startSection.lat}` +
-      `&end=${endSection.lng},${endSection.lat}`;
+    const key = startSection.lat.toString() + startSection.lng.toString() + endSection.lat.toString() + endSection.lng.toString();
 
-    const response = await fetch(url);
-    const dataOpenRoute = await response.json();
+    if (redisClient) {
+      const data = await redisClient.get(key);
+      if (data) {
+        console.log('Usando cache');
+        // console.log(data);
+        isCache = true;
+        jsonData = JSON.parse(data);
+        for (const item in jsonData) {
+          tolls.push(jsonData[item]);
+        }
+      }
+    }
+    if (!isCache) {
+      console.log('No cache');
+      const url = 'https://api.openrouteservice.org/v2/directions/driving-car' +
+        `?api_key=${keyOpenRoute}&start=${startSection.lng},${startSection.lat}` +
+        `&end=${endSection.lng},${endSection.lat}`;
 
-    if (dataOpenRoute.error) return null;
+      const response = await fetch(url);
+      const dataOpenRoute = await response.json();
 
-    const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
-    const toll = findTollInSection(dataPoints, startSection, endSection, TotalTolls);
-    if (toll) {
-      for (const element in toll) {
-        tolls.push(toll[element]);
+      if (dataOpenRoute.error) {
+        console.log('openroute error');
+        return null;
+      }
+
+      const dataPoints = dataOpenRoute.features[0].geometry.coordinates;
+      const toll = findTollInSection(dataPoints, startSection, endSection, TotalTolls);
+      // save data to redis
+      if (redisClient) {
+        // redisClient.set(key, JSON.stringify(toll));
+        redisClient.setex(key, 1440, JSON.stringify(toll));
+      }
+
+      if (toll) {
+        for (const element in toll) {
+          tolls.push(toll[element]);
+        }
       }
     }
   }
 
-  const cleanPath = cleanPathFunction(dataGoogle.steps);
-  const cleanTolls = cleanTollsFunction(tolls);
-  const tollsCost = await costTolls.total(tolls, vehicle);
+  for (const idx in missingTolls) {
+    if (missingTolls[idx].inRoute === true) {
+      const toll = TotalTolls.filter((element) => {
+        if (element._id.toString() === missingTolls[idx]._id) {
+          return element;
+        }
+      });
+      if (toll.length > 0) {
+        tolls.push(toll[0]);
+        missingTolls[idx].inRoute = false;
+      }
+    }
+  }
 
+  // checkForMissingTolls(tolls, TotalTolls);
+  const cleanPath = cleanPathFunction(dataGoogle.steps);
+  // const cleanTolls = cleanTollsFunction(tolls);
+  const tollsCost = await costTolls.total(tolls, vehicle);
+  let kms = dataGoogle.distance.value;
+  if (kms > 0) { kms /= 1000; }
   return {
-    total_kms: dataGoogle.distance.value,
+    total_kms: kms,
     duration: dataGoogle.duration.text,
-    tolls: cleanTolls,
+    tolls: tolls,
     path: cleanPath,
     toll_expenses: tollsCost
   };

@@ -1,19 +1,21 @@
 /**
- * Module dependencies.
+ * Module dependencies
  */
-const debug = require('debug')('application:server');
 const http = require('http');
+const debug = require('debug')('application:server');
 const swaggerUI = require('swagger-ui-express');
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const yaml = require('yamljs');
-require('dotenv').config();
+const Redis = require('ioredis');
 const cors = require('cors');
+
+require('dotenv').config();
 
 // will use in the future
 // const swaggerJSDocs = require('swagger-jsdoc');
-const swaggerJS = yaml.load('./documentation.yaml');
+const swaggerJS = yaml.load('./openAPI/openapi.yaml');
 
 const app = express();
 app.use(cors());
@@ -31,7 +33,6 @@ app.use(function (err, req, res, next) {
   // Pass the error to the next middleware if it wasn't a JSON parse error
   next(err);
 });
-
 app.use(express.urlencoded({ extended: false }));
 const mongoDB = process.env.URL_DB;
 
@@ -47,13 +48,22 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 /**
- * Redirection
+ * Connect to reddis client locally
  */
+const redis = new Redis(6379);
+redis.on('connect', () => console.log('Connected to Redis'));
+redis.on('error', (err) => console.error('Redis error encountered', err));
+
+exports.redis = redis;
+
+/**
+ * Redirection
+ *//*
 app.get('/', function (req, res) {
   res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
 });
-
-app.use('/api', require('./routes/index.js'));
+*/
+app.use('/', require('./routes/index.js'));
 
 /**
  * redirect 404 errors in ExpressJS
