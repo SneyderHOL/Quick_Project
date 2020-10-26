@@ -1,12 +1,10 @@
-## Welcome to GitHub Pages
+## Welcome to Quick Project
 
-You can use the [editor on GitHub](https://github.com/SneyderHOL/Quick_Project/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Quick Project is a RestAPI Portfolio Project where the main funcionality is the calculation of the cost that takes to a logistic company to transport a mercancy in a vehicle from an origin point to a destination point in Colombia, considering variables like route, tolls, vehicle, and more.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### About The Project
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The Quick Project is developed with nodeJS and Express Framework for the back-end, MongoDB Atlas for storage and Redis for cache, the front-end implementation is developed with Gatsby that is a React-based open source framework. The API integration with the FrontEnd allows to display the main service of the API.
 
 ```markdown
 Syntax highlighted code block
