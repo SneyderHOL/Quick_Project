@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const Toll = require('../models/tolls');
 const costTolls = require('./cost-tolls');
 const Vehicle = require('../models/vehicles');
+const { response } = require('express');
 const findTollInSection = require('./searchFunctions').findTollInSection;
 const validateArea = require('./area').limits;
 // const redisClient = require('../app').redis;
@@ -68,26 +69,20 @@ const requestRoutesAsync = async (origin, destination) => {
   const url = 'https://maps.googleapis.com/maps/api/directions/json?' +
   `origin=${origin}&destination=${destination}&key=${keyGoogle}`;
 
-  // console.log(url)
   const responseApi = await fetch(url);
-  // console.log(responseApi)
-  if (responseApi.status === 400) {
-    console.error('Wrong coordinates');
-    return null;
-  }
 
   let responseData = await responseApi.json();
-  // console.log(responseData)
-  if (responseData.status === 'ZERO_RESULTS' || responseData.status === 'NOT_FOUND') {
+  if (responseApi.status === 400 || responseData.status === 'ZERO_RESULTS' || responseData.status === 'NOT_FOUND') {
     console.error('Wrong coordinates');
-    return null;
+    return { error: 'Bad gateway', status: 502 };
   }
 
   responseData = responseData.routes[0].legs[0];
+
   if (!validateArea(responseData.start_location) || !validateArea(responseData.end_location)) {
     console.log(!validateArea(responseData.start_location), !validateArea(responseData.end_location));
     console.error('The direction is out of the colombia');
-    return null;
+    return { error: "out of colombia", status: 400 };
   }
 
   return responseData;
@@ -109,12 +104,7 @@ const requestAll = async (origin, destination, vehicleName) => {
   }
 
   const dataGoogle = await requestRoutesAsync(origin, destination);
-  // check for wrong request or missing key
-  if (!dataGoogle) {
-    console.log('wrong request or missing key from google API');
-    console.log(dataGoogle === null);
-    return null;
-  }
+  if (dataGoogle.error !== undefined) return dataGoogle;
 
   // variables to use cache
   let isCache = false;
@@ -204,8 +194,8 @@ const requestAll = async (origin, destination, vehicleName) => {
   return {
     total_expenses: Math.ceil(tollsCost.total + (totalFuel * priceFuel) + (value * kms)),
     toll_expenses: tollsCost,
-    vehicle_expenses: value,
-    total_fuel: totalFuel,
+    total_vehicle_expenses: value,
+    total_fuel_cost: totalFuel,
     total_kms: kms,
     duration: dataGoogle.duration.text,
     total_tolls: tolls.length,

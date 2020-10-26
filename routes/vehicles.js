@@ -9,7 +9,7 @@ router.post('/', controllerVehicles.createVehicles);
 router.patch('/features/:id', controllerVehicles.updateFeaturesById);
 router.patch('/features', controllerVehicles.updateTheWholeFeature);
 // keep the delete in the endpoint or change the method and just keep /features/:id
-router.patch('/delete/features/:id', controllerVehicles.deleteFeaturesForVehicle);
+router.delete('/features/:id', controllerVehicles.deleteFeaturesForVehicle);
 
 // verificar esa id
 // devolver que no encontro nada

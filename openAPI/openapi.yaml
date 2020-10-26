@@ -1,45 +1,42 @@
-openapi: "3.0.1"
-
+openapi: 3.0.1
+host: petstore.swagger.io
 info:
-  description: "API Rest that performs the calculation of expenses incurred
-    in a route that includes fixed and variable expenses as well as the costs
-    incurred in tolls according to the route."
-  version: "1.0"
-  title: "API Quick Routes Tolls"
+  description: >-
+    API Rest that performs the calculation of expenses incurred in a route that
+    includes fixed and variable expenses as well as the costs incurred in tolls
+    according to the route.
+  version: '1.0'
+  title: API Quick Routes Tolls
   contact:
-    name: "FullDevs Team"
-    email: "fulldevs0@gmail.com"
-
+    name: FullDevs Team
+    email: fulldevs0@gmail.com
 servers:
-  - url: "http://localhost:3000"
-    description: "Local server"
-
-  - url: "https://api.fulldevs.software"
-    description: "Production server"
-
-basePath: "/"
+  - url: 'http://localhost:3000'
+    description: Local server
+  - url: 'https://api.fulldevs.software'
+    description: Production server
+basePath: /
 schemes:
-  - "https"
-
+  - https
 tags:
-- name: "Toll's CRUD"
-  description: "Endpoint for tolls"
-
-- name: "Vehicle's CRUD"
-  description: "Endpoint for vehicles"
-
-- name: "Tolls In Route Service"
-  description: "Endpoint for tolls in route"
+  - name: Toll's CRUD
+    description: Endpoint for tolls
+  - name: Vehicle's CRUD
+    description: Endpoint for vehicles
+  - name: Tolls In Route Service
+    description: Endpoint for tolls in route
 
 paths:
   /tolls:
     get:
       tags:
-      - "Toll's CRUD"
-      summary: "Get a data object with the total list of tolls"
+        - Toll's CRUD
+      summary: Get a data object with the total list of tolls
       responses:
-        200:
-          description: "Correct response from server returning a data object with a list of Toll objects"
+        '200':
+          description: >-
+            Correct response from server returning a data object with a list of
+            Toll objects
           content:
             application/json:
               schema:
@@ -47,495 +44,657 @@ paths:
                 properties:
                   data:
                     type: object
-                    description: "Property containing the list of tolls"
+                    description: Property containing the list of tolls
                     properties:
                       tolls:
-                        type: "array"
+                        type: array
                         items:
-                          $ref: "#/components/schemas/tollResponse"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                          $ref: '#/components/schemas/tollResponse'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     post:
       tags:
-      - "Toll's CRUD"
-      summary: "Create a new toll object"
+        - Toll's CRUD
+      summary: Create a new toll object
       requestBody:
-        description: "JSON required to create a new toll object"
+        description: JSON required to create a new toll object
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/tollRequest"
+              $ref: '#/components/schemas/tollRequest'
       responses:
-        204:
-          description: "Correct response from server returning the created toll"
+        '204':
+          description: Correct response from server returning the created toll
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tollResponse"
-        400:
-          description: "Response from server returning an object with an Input validation failed message"
+                $ref: '#/components/schemas/tollResponse'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInputMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorInputMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
   /tolls/id:
     patch:
       tags:
-      - "Toll's CRUD"
-      summary: "Update a toll object"
+        - Toll's CRUD
+      summary: Update a toll object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: false
-        description: "Toll's id to perform an update operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: false
+          description: Toll's id to perform an update operation
       requestBody:
-        description: "JSON required to update a toll object"
+        description: JSON required to update a toll object
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/tollRequestUpdate"
+              $ref: '#/components/schemas/tollRequestUpdate'
       responses:
-        200:
-          description: "Correct response from server returning the updated toll"
+        '200':
+          description: Correct response from server returning the updated toll
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tollResponse"
-        400:
-          description: "Response from server returning an object with an Input validation failed message"
+                $ref: '#/components/schemas/tollResponse'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInputMessage"
-        404:
-          description: "Response from server returning a Toll not found message"
+                $ref: '#/components/schemas/errorInputMessage'
+        '404':
+          description: Response from server returning a Toll not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorTollNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorTollNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     get:
       tags:
-      - "Toll's CRUD"
-      summary: "Get a toll object"
+        - Toll's CRUD
+      summary: Get a toll object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: true
-        description: "Toll's id to perform a get operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Toll's id to perform a get operation
       responses:
-        200:
-          description: "Correct response from server returning the searched toll"
+        '200':
+          description: Correct response from server returning the searched toll
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tollResponse"
-        404:
-          description: "Response from server returning an Toll not found message"
+                $ref: '#/components/schemas/tollResponse'
+        '404':
+          description: Response from server returning an Toll not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorTollNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorTollNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     delete:
       tags:
-      - "Toll's CRUD"
-      summary: "Delete a toll object"
+        - Toll's CRUD
+      summary: Delete a toll object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: true
-        description: "Toll's id to perform a delete operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Toll's id to perform a delete operation
       responses:
-        200:
-          description: "Correct response from server an object with a succesful deletion toll message"
+        '200':
+          description: >-
+            Correct response from server an object with a succesful deletion
+            toll message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteTollMessage"
-        404:
-          description: "Response from server returning a Toll Not found message"
+                $ref: '#/components/schemas/deleteTollMessage'
+        '404':
+          description: Response from server returning a Toll Not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorTollNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorTollNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
-
+                $ref: '#/components/schemas/errorInternalMessage'
   /vehicles:
     get:
       tags:
-      - "Vehicle's CRUD"
-      summary: "Get a data object with the total list of vehicles"
+        - Vehicle's CRUD
+      summary: Get a data object with the total list of vehicles
       responses:
-        200:
-          description: "Correct response from server returning a data object with a list of Vehicle objects"
+        '200':
+          description: >-
+            Correct response from server returning a data object with a list of
+            Vehicle objects
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   vehicles:
-                    type: "array"
+                    type: array
                     items:
-                      $ref: "#/components/schemas/vehicleResponse"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                      $ref: '#/components/schemas/vehicleResponse'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     post:
       tags:
-      - "Vehicle's CRUD"
-      summary: "Create a new vehicle object"
+        - Vehicle's CRUD
+      summary: Create a new vehicle object
       requestBody:
-        description: "JSON required to create a new vehicle object"
+        description: JSON required to create a new vehicle object
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/vehicleRequest"
+              $ref: '#/components/schemas/vehicleRequest'
       responses:
-        204:
-          description: "Correct response from server returning the created vehicle"
+        '204':
+          description: Correct response from server returning the created vehicle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/vehicleResponse"
-        400:
-          description: "Response from server returning an object with an Input validation failed message"
+                $ref: '#/components/schemas/vehicleResponse'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInputMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorInputMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
   /vehicles/id:
     patch:
       tags:
-      - "Vehicle's CRUD"
-      summary: "Update a vehicle object"
+        - Vehicle's CRUD
+      summary: Update a vehicle object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: true
-        description: "Vehicle's id to perform an update operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Vehicle's id to perform an update operation
       requestBody:
-        description: "JSON required to update a vehicle object"
+        description: JSON required to update a vehicle object
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/vehicleRequestUpdate"
+              $ref: '#/components/schemas/vehicleRequestUpdate'
       responses:
-        200:
-          description: "Correct response from server returning the updated vehicle"
+        '200':
+          description: Correct response from server returning the updated vehicle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/vehicleResponse"
-        400:
-          description: "Response from server returning an object with an Input validation failed message"
+                $ref: '#/components/schemas/vehicleResponse'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInputMessage"
-        404:
-          description: "Response from server returning a Vehicle not found message"
+                $ref: '#/components/schemas/errorInputMessage'
+        '404':
+          description: Response from server returning a Vehicle not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorVehicleNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     get:
       tags:
-      - "Vehicle's CRUD"
-      summary: "Get a vehicle object"
+        - Vehicle's CRUD
+      summary: Get a vehicle object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: true
-        description: "Vehicle's id to perform a get operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Vehicle's id to perform a get operation
       responses:
-        200:
-          description: "Correct response from server returning the searched vehicle"
+        '200':
+          description: Correct response from server returning the searched vehicle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/vehicleResponse"
-        404:
-          description: "Response from server returning a Vehicle not found message"
+                $ref: '#/components/schemas/vehicleResponse'
+        '404':
+          description: Response from server returning a Vehicle not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorVehicleNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
     delete:
       tags:
-      - "Vehicle's CRUD"
-      summary: "Delete a vehicle object"
+        - Vehicle's CRUD
+      summary: Delete a vehicle object
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: "string"
-        required: true
-        description: "Vehicle's id to perform a delete operation"
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Vehicle's id to perform a delete operation
       responses:
-        200:
-          description: "Correct response from server an object with a succesful deletion vehicle message"
+        '200':
+          description: >-
+            Correct response from server an object with a succesful deletion
+            vehicle message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/deleteVehicleMessage"
-        404:
-          description: "Response from server returning a Vehicle not found message"
+                $ref: '#/components/schemas/deleteVehicleMessage'
+        '404':
+          description: Response from server returning a Vehicle not found message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorVehicleNotFoundMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
+                $ref: '#/components/schemas/errorInternalMessage'
+                
+  /vehicles/features:
+    patch:
+      tags:
+        - Vehicle's CRUD
+      summary: add and modify the prices of all vehicles
+      requestBody:
+        description: The following payload is an example of how you can go about
+          adding expenses, at least within the payload an attribute is required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vechicleRequestFeaturePayload'
+
+  /vehicles/features/id:
+    patch:
+      tags:
+        - Vehicle's CRUD
+      summary: add and modify the prices of certain vehicle
+      requestBody:
+        description: The following payload is an example of how you can go about
+          adding expenses, at least within the payload an attribute is required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vechicleRequestFeaturePayload'
+
+      responses:
+        '202':
+          description: >-
+            Correct response from server returning the updated features of the vehicle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vehiclesFeaturesResponseById'
+
+        '404':
+          description: >-
+            Response from server returning a Vehicle not found message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
+
+        '400':
+          description: >-
+            Response from server returning an object with an missing information
+            failed message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorInputMessage'
+
+        '401':
+          description: >-
+            the vehicle it cant update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorCantUpdate'
+
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorInternalMessage'
+    delete:
+      tags:
+        - Vehicle's CRUD
+      summary: Delete the features of the vehicle
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Vehicle's id to perform an update operation of features
+      requestBody:
+        description: The following payload is an example of how you can go about
+          deleting expenses, at least within the payload an attribute is required
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vechicleRequestFeaturePayload'
+
+      responses:
+        '200':
+          description: >-
+            Correct response from server an object with a succesful deletion of feature the vehicle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vehicleResponse'
+        '404':
+          description: Response from server returning a Vehicle not found message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorInternalMessage'
+  
 
   /routes/tolls:
     post:
       tags:
-      - "Tolls In Route Service"
-      summary: "Use of the service"
+        - Tolls In Route Service
+      summary: Use of the service
       requestBody:
-        description: "JSON required to use the service"
+        description: JSON required to use the service
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/serviceRequest"
+              $ref: '#/components/schemas/serviceRequest'
       responses:
-        200:
-          description: "Correct response from server returning the service response"
+        '200':
+          description: Correct response from server returning the service response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/serviceResponse"
-        400:
-          description: "Response from server returning an object with an Input validation failed message"
+                $ref: '#/components/schemas/serviceResponse'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInputMessage"
-        500:
-          description: "Response from server returning an object with an Internal Server Error message"
+                $ref: '#/components/schemas/errorInputMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorInternalMessage"
-
+                $ref: '#/components/schemas/errorInternalMessage'
 components:
   schemas:
     coordinates:
-      type: "object"
-      description: "Object coordinates containing latitude and longitude"
+      type: object
+      description: Object coordinates containing latitude and longitude
       properties:
         lat:
-          type: "number"
-          description: "Latitude value"
+          type: number
+          description: Latitude value
         lng:
-          type: "number"
-          description: "Langitude value"
+          type: number
+          description: Langitude value
       required:
         - lat
         - lng
-      example: {"coordinates": {"lat": 3.2462, "lng": -74.2654}}
+      example:
+        coordinates:
+          lat: 3.2462
+          lng: -74.2654
     costs:
-      type: "object"
-      description: "Toll costs by category"
+      type: object
+      description: Toll costs by category
       properties:
         I:
-          type: "integer"
-          description: "Category I"
+          type: integer
+          description: Category I
         II:
-          type: "integer"
-          description: "Category II"
+          type: integer
+          description: Category II
         III:
-          type: "integer"
-          description: "Category III"
+          type: integer
+          description: Category III
         IV:
-          type: "integer"
-          description: "Category IV"
+          type: integer
+          description: Category IV
         V:
-          type: "integer"
-          description: "Category V"
+          type: integer
+          description: Category V
         VI:
-          type: "integer"
-          description: "Category VI"
+          type: integer
+          description: Category VI
         VII:
-          type: "integer"
-          description: "Category VII"
+          type: integer
+          description: Category VII
       required:
         - I
         - II
         - III
-      example: {"costs": {"I": 3462, "II": 5654, "III": 8356}}
+      example:
+        costs:
+          I: 3462
+          II: 5654
+          III: 8356
     direction:
-      type: "integer"
-      description: "Toll's charge direction, North to south: 1, South to north: 2, East to West: 3, West to east: 4"
+      type: integer
+      description: >-
+        Toll's charge direction, North to south: 1, South to north: 2, East to
+        West: 3, West to east: 4
       example: 2
     department:
-      type: "string"
-      description: "Toll's state/region location"
-      example: "Antioquia"
+      type: string
+      description: Toll's state/region location
+      example: Antioquia
     status:
-      type: "boolean"
-      description: "Object's active/inactive state"
+      type: boolean
+      description: Object's active/inactive state
       example: true
     group:
-      type: "integer"
-      description: "Toll's group, group 1: contain 3 categories, group 2: contain 5 categories, group 3: contain 7 categories"
+      type: integer
+      description: >-
+        Toll's group, group 1: contain 3 categories, group 2: contain 5
+        categories, group 3: contain 7 categories
       example: 1
     name:
-      type: "string"
-      description: "Object's name"
-      example: "Some Name"
+      type: string
+      description: Object's name
+      example: Some Name
     operator:
-      type: "string"
-      description: "Toll's operator"
-      example: "DeviNorte"
+      type: string
+      description: Toll's operator
+      example: DeviNorte
     category:
-      type: "object"
-      description: "Vehicle's matching category"
+      type: object
+      description: Vehicle's matching category
       properties:
         group1:
-          type: "integer"
-          description: "Category's value match by group"
+          type: integer
+          description: Category's value match by group
         group2:
-          type: "integer"
-          description: "Category's value match by group"
+          type: integer
+          description: Category's value match by group
         group3:
-          type: "integer"
-          description: "Category's value match by group"
+          type: integer
+          description: Category's value match by group
       required:
         - lat
         - lng
-      example: {"category": {"group1": 3, "group2": 3, "group3": 5}}
+      example:
+        category:
+          group1: 3
+          group2: 3
+          group3: 5
     features:
-      type: "object"
-      description: "Vehicle's features"
-      example: {"features": {"fuel_consumption_per_km": 3}}
+      type: object
+      description: Vehicle's features
+      example:
+        features:
+          fuel_consumption_per_km: 3
     axis:
-      type: "integer"
-      description: "Vehicle's axis"
+      type: integer
+      description: Vehicle's axis
       example: 3
     volume:
-      type: "integer"
-      description: "Vehicle's volume"
+      type: integer
+      description: Vehicle's volume
       example: 66
     weight:
-      type: "integer"
-      description: "Vehicle's weight"
+      type: integer
+      description: Vehicle's weight
       example: 3400
     fuel_type:
-      type: "string"
-      enum: ["diesel", "gas"]
-      description: "Vehicle's fuel type"
-      example: "gas"
+      type: string
+      enum:
+        - diesel
+        - gas
+      description: Vehicle's fuel type
+      example: gas
     typeOf:
-      type: "string"
-      enum: ["automovil", "bus", "camion", "moto"]
-      description: "Toll's typeOf"
-      example: "camion"
+      type: string
+      enum:
+        - automovil
+        - bus
+        - camion
+        - moto
+      description: Toll's typeOf
+      example: camion
     _id:
-      type: "string"
-      description: "Object's id"
-      example: "5f6eb01217cele3104893ef36"
+      type: string
+      description: Object's id
+      example: 5f6eb01217cele3104893ef36
     updatedAt:
-      type: "string"
-      description: "Object's last date of modification"
-      example: "2020-09-26T03:05:54.880Z"
+      type: string
+      description: Object's last date of modification
+      example: '2020-09-26T03:05:54.880Z'
     vehicleRequest:
-      type: "object"
-      description: "Vehicle object"
+      type: object
+      description: Vehicle object
       properties:
         category:
-          schema:
-            $ref:'#/components/schemas/category'
+          schema: '$ref:''#/components/schemas/category'''
         features:
-          schema:
-            $ref:'#/components/schemas/features'
+          schema: '$ref:''#/components/schemas/features'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         axis:
-          schema:
-            $ref:'#/components/schemas/axis'
+          schema: '$ref:''#/components/schemas/axis'''
         volume:
-          schema:
-            $ref:'#/components/schemas/volume'
+          schema: '$ref:''#/components/schemas/volume'''
         weight:
-          schema:
-            $ref:'#/components/schemas/weight'
+          schema: '$ref:''#/components/schemas/weight'''
         fuel_type:
-          schema:
-            $ref:'#/components/schemas/fuel_type'
+          schema: '$ref:''#/components/schemas/fuel_type'''
         typeOf:
-          schema:
-            $ref:'#/components/schemas/typeOf'
+          schema: '$ref:''#/components/schemas/typeOf'''
       required:
         - category
         - axis
@@ -543,236 +702,363 @@ components:
         - weight
         - fuel_type
         - typeOf
-      example: {"category": {"group1": 3, "group2": 3, "group3": 5}, "features": {"fuel_consumption_per_km": 3}, "status": true, "name": "MiniMula hasta 34 Ton", "axis": 3, "volume": 66, "weight": 34000, "fuel_type": "gas", typeOf: "camion"}
+      example:
+        category:
+          group1: 3
+          group2: 3
+          group3: 5
+        features:
+          fuel_consumption_per_km: 3
+        status: true
+        name: MiniMula hasta 34 Ton
+        axis: 3
+        volume: 66
+        weight: 34000
+        fuel_type: gas
+        typeOf: camion
     vehicleRequestUpdate:
-      type: "object"
-      description: "Vehicle object"
+      type: object
+      description: Vehicle object
       properties:
         category:
-          schema:
-            $ref:'#/components/schemas/category'
+          schema: '$ref:''#/components/schemas/category'''
         features:
-          schema:
-            $ref:'#/components/schemas/features'
+          schema: '$ref:''#/components/schemas/features'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         axis:
-          schema:
-            $ref:'#/components/schemas/axis'
+          schema: '$ref:''#/components/schemas/axis'''
         volume:
-          schema:
-            $ref:'#/components/schemas/volume'
+          schema: '$ref:''#/components/schemas/volume'''
         weight:
-          schema:
-            $ref:'#/components/schemas/weight'
+          schema: '$ref:''#/components/schemas/weight'''
         fuel_type:
-          schema:
-            $ref:'#/components/schemas/fuel_type'
+          schema: '$ref:''#/components/schemas/fuel_type'''
         typeOf:
-          schema:
-            $ref:'#/components/schemas/typeOf'
-      example: {"category": {"group1": 3, "group2": 3}, "status": true, "axis": 3}
+          schema: '$ref:''#/components/schemas/typeOf'''
+      example:
+        category:
+          group1: 3
+          group2: 3
+        status: true
+        axis: 3
+    vehicleRequestUpdateFeatures:
+      type: object
+      description: 'Is the features of the vehicles, this will contains only prices per km'
+      properties:
+        cost:
+          type: integer
+          description: This
+      example:
+        category: 3
     vehicleResponse:
-      type: "object"
-      description: "Vehicle object"
+      type: object
+      description: Vehicle object
       properties:
         category:
-          schema:
-            $ref:'#/components/schemas/category'
+          schema: '$ref:''#/components/schemas/category'''
         features:
-          schema:
-            $ref:'#/components/schemas/features'
+          schema: '$ref:''#/components/schemas/features'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         _id:
-          schema:
-            $ref:'#/components/schemas/_id'
+          schema: '$ref:''#/components/schemas/_id'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         axis:
-          schema:
-            $ref:'#/components/schemas/axis'
+          schema: '$ref:''#/components/schemas/axis'''
         volume:
-          schema:
-            $ref:'#/components/schemas/volume'
+          schema: '$ref:''#/components/schemas/volume'''
         weight:
-          schema:
-            $ref:'#/components/schemas/weight'
+          schema: '$ref:''#/components/schemas/weight'''
         fuel_type:
-          schema:
-            $ref:'#/components/schemas/fuel_type'
+          schema: '$ref:''#/components/schemas/fuel_type'''
         typeOf:
-          schema:
-            $ref:'#/components/schemas/typeOf'
-      example: {"category": {"group1": 3, "group2": 3, "group3": 5}, "features": {"fuel_consumption_per_km": 3}, "status": true, "_id": "5f6eb01217cele3104893ce14", "name": "MiniMula hasta 34 Ton", "axis": 3, "volume": 66, "weight": 34000, "fuel_type": "gas", typeOf: "camion"}
+          schema: '$ref:''#/components/schemas/typeOf'''
+      example:
+        category:
+          group1: 3
+          group2: 3
+          group3: 5
+        features:
+          fuel_consumption_per_km: 3
+        status: true
+        _id: 5f6eb01217cele3104893ce14
+        name: MiniMula hasta 34 Ton
+        axis: 3
+        volume: 66
+        weight: 34000
+        fuel_type: gas
+        typeOf: camion
+
+    vehiclesFeaturesResponse:
+      type: object
+      description: >-
+        an object that represents the number of vehicles that changed their
+        prices
+      example:
+        state: 'Update succes # of vehicles updated values'
+
+    vehiclesFeaturesResponseById:
+      type: object
+      description: >-
+        an object that represents the vehicle was updated 
+      example:
+        state: 'Update succes values'
+
+
     tollRequest:
-      type: "object"
-      description: "Toll object"
+      type: object
+      description: Toll object
       properties:
         coordinates:
-          schema:
-            $ref:'#/components/schemas/coordinates'
+          schema: '$ref:''#/components/schemas/coordinates'''
         costs:
-          schema:
-            $ref:'#/components/schemas/costs'
+          schema: '$ref:''#/components/schemas/costs'''
         direction:
-          schema:
-            $ref:'#/components/schemas/direction'
+          schema: '$ref:''#/components/schemas/direction'''
         department:
-          schema:
-            $ref:'#/components/schemas/department'
+          schema: '$ref:''#/components/schemas/department'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         group:
-          schema:
-            $ref:'#/components/schemas/group'
+          schema: '$ref:''#/components/schemas/group'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         operator:
-          schema:
-            $ref:'#/components/schemas/operator'
+          schema: '$ref:''#/components/schemas/operator'''
       required:
         - coordinates
         - costs
         - name
-      example: {"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "name": "Andes", "operator": "DeviNorte"}
+      example:
+        coordinates:
+          lat: 3.2462
+          lng: -74.2654
+        cost:
+          I: 3462
+          II: 5654
+          III: 8356
+        direction: 2
+        department: Cundinamarca
+        status: true
+        group: 1
+        name: Andes
+        operator: DeviNorte
     tollRequestUpdate:
-      type: "object"
-      description: "Toll object"
+      type: object
+      description: Toll object
       properties:
         coordinates:
-          schema:
-            $ref:'#/components/schemas/coordinates'
+          schema: '$ref:''#/components/schemas/coordinates'''
         costs:
-          schema:
-            $ref:'#/components/schemas/costs'
+          schema: '$ref:''#/components/schemas/costs'''
         direction:
-          schema:
-            $ref:'#/components/schemas/direction'
+          schema: '$ref:''#/components/schemas/direction'''
         department:
-          schema:
-            $ref:'#/components/schemas/department'
+          schema: '$ref:''#/components/schemas/department'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         group:
-          schema:
-            $ref:'#/components/schemas/group'
+          schema: '$ref:''#/components/schemas/group'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         operator:
-          schema:
-            $ref:'#/components/schemas/operator'
-      example: {"coordinates": {"lat": 3.2462}, "cost": {"I": 3462, "II": 5654}, "direction": 2}
+          schema: '$ref:''#/components/schemas/operator'''
+      example:
+        coordinates:
+          lat: 3.2462
+        cost:
+          I: 3462
+          II: 5654
+        direction: 2
     tollResponse:
-      type: "object"
-      description: "Toll object"
+      type: object
+      description: Toll object
       properties:
         coordinates:
-          schema:
-            $ref:'#/components/schemas/coordinates'
+          schema: '$ref:''#/components/schemas/coordinates'''
         costs:
-          schema:
-            $ref:'#/components/schemas/costs'
+          schema: '$ref:''#/components/schemas/costs'''
         direction:
-          schema:
-            $ref:'#/components/schemas/direction'
+          schema: '$ref:''#/components/schemas/direction'''
         department:
-          schema:
-            $ref:'#/components/schemas/department'
+          schema: '$ref:''#/components/schemas/department'''
         status:
-          schema:
-            $ref:'#/components/schemas/status'
+          schema: '$ref:''#/components/schemas/status'''
         group:
-          schema:
-            $ref:'#/components/schemas/group'
+          schema: '$ref:''#/components/schemas/group'''
         _id:
-          schema:
-            $ref:'#/components/schemas/_id'
+          schema: '$ref:''#/components/schemas/_id'''
         updatedAt:
-          schema:
-            $ref:'#/components/schemas/updatedAt'
+          schema: '$ref:''#/components/schemas/updatedAt'''
         name:
-          schema:
-            $ref:'#/components/schemas/name'
+          schema: '$ref:''#/components/schemas/name'''
         operator:
-          schema:
-            $ref:'#/components/schemas/operator'
-      example: {"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "updatedAt": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}
+          schema: '$ref:''#/components/schemas/operator'''
+      example:
+        coordinates:
+          lat: 3.2462
+          lng: -74.2654
+        cost:
+          I: 3462
+          II: 5654
+          III: 8356
+        direction: 2
+        department: Cundinamarca
+        status: true
+        group: 1
+        _id: 5f6eb01217cele3104893
+        updatedAt: '2020-09-26T03:05:54.880Z'
+        name: Andes
+        operator: DeviNorte
+
     serviceRequest:
-      type: "object"
-      description: "Required JSON to use the service"
-      example: {"points": [{"lat": 3.451594, "lng": -76.532060}, {"lat": 10.475971, "lng": -73.244919}], "vehicle": {"name": "MiniMula hasta 34 Ton"}}
+      type: object
+      description: Required JSON to use the service
+      example:
+        points:
+          - lat: 3.451594
+            lng: -76.53206
+          - lat: 10.475971
+            lng: -73.244919
+        vehicle:
+          name: MiniMula hasta 34 Ton
+
     serviceResponse:
-      type: "object"
-      description: "Payload of a success response, containing the route's distance, time, tolls, path, total_expenses"
-      example: {"total_kms": 535.36, "duration": "1 hour 35 minutes", "tolls": [{"coordinates": {"lat": 3.2462, "lng": -74.2654}, "cost": {"I": 3462, "II": 5654, "III": 8356}, "direction": 2, "department": "Cundinamarca", "status": true, "group": 1, "_id": "5f6eb01217cele3104893", "updatedAt": "2020-09-26T03:05:54.880Z", "name": "Andes", "operator": "DeviNorte"}], "path": [{"start": {"lat": 4.264, "lng": -74.9456}}, {"end": {"lat": 6.624, "lng": -75.025}}], "toll_expenses": {"total": 29600, "byTolls": [29600]}}
+      type: object
+      description: >-
+        Payload of a success response, containing the route's distance, time,
+        tolls, path, total_expenses
+      example:
+        total_kms: 535.36
+        duration: 1 hour 35 minutes
+        tolls:
+          - coordinates:
+              lat: 3.2462
+              lng: -74.2654
+            cost:
+              I: 3462
+              II: 5654
+              III: 8356
+            direction: 2
+            department: Cundinamarca
+            status: true
+            group: 1
+            _id: 5f6eb01217cele3104893
+            updatedAt: '2020-09-26T03:05:54.880Z'
+            name: Andes
+            operator: DeviNorte
+        path:
+          - start:
+              lat: 4.264
+              lng: -74.9456
+          - end:
+              lat: 6.624
+              lng: -75.025
+        toll_expenses:
+          total: 29600
+          byTolls:
+            - 29600
+
+    vechicleRequestFeaturePayload:
+      type: object
+      description: >-
+        This payload contains will ask the information
+      example:
+        wearAndTear: 3
+        filter: 19.9771
+        lubricant: 87.8995
+        wheels: 456.621
+        unexpected: 10
+        services: 31.9634
+        insurance: 4060
+
+    vechicleRequestFeaturePayloadMin:
+      type: object
+      description: >-
+        This payload contains will ask the information
+      example:
+        wearAndTear: 3
+
     errorInputMessage:
-      type: "object"
-      description: "Object with an error message"
+      type: object
+      description: Object with an error message
       properties:
         error:
-          type: "string"
-          description: "Error Input message from server"
+          type: string
+          description: Error Input message from server
       required:
         - error
-      example: {error: "Input validation failed"}
+      example:
+        error: Input validation failed
+
+    errorCantUpdate:
+      type: object
+      description: Object with an error message
+      properties:
+        error:
+          type: string
+          description: Error Input message from server
+      required:
+        - error
+      example:
+        error: The vehicle it cant update
+
     errorInternalMessage:
-      type: "object"
-      description: "Object with an error message"
+      type: object
+      description: Object with an error message
       properties:
         error:
-          type: "string"
-          description: "Internal error message from server"
+          type: string
+          description: Internal error message from server
       required:
         - error
-      example: {error: "Internal Server Error"}
+      example:
+        error: Internal Server Error
     errorTollNotFoundMessage:
-      type: "object"
-      description: "Object with an error message"
+      type: object
+      description: Object with an error message
       properties:
         error:
-          type: "string"
-          description: "Error Toll Not Found message from server"
+          type: string
+          description: Error Toll Not Found message from server
       required:
         - error
-      example: {error: "Toll Not Found"}
+      example:
+        error: Toll Not Found
     errorVehicleNotFoundMessage:
-      type: "object"
-      description: "Object with an error message"
+      type: object
+      description: Object with an error message
       properties:
         error:
-          type: "string"
-          description: "Error Vehicle Not Found message from server"
+          type: string
+          description: Error Vehicle Not Found message from server
       required:
         - error
-      example: {error: "Vehicle Not Found"}
+      example:
+        error: Vehicle Not Found
     deleteTollMessage:
-      type: "object"
-      description: "Object with a succesful message"
+      type: object
+      description: Object with a succesful message
       properties:
         status:
-          type: "string"
-          description: "Successful deletion toll message from server"
+          type: string
+          description: Successful deletion toll message from server
       required:
         - status
-      example: {status: "The Toll was deleted successfully"}
+      example:
+        status: The Toll was deleted successfully
     deleteVehicleMessage:
-      type: "object"
-      description: "Object with a succesful message"
+      type: object
+      description: Object with a succesful message
       properties:
         status:
-          type: "string"
-          description: "Successful deletion vehicle message from server"
+          type: string
+          description: Successful deletion vehicle message from server
       required:
         - status
-      example: {status: "The Vehicle was deleted successfully"}
+      example:
+        status: The Vehicle was deleted successfully
