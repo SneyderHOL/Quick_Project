@@ -253,7 +253,7 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     // const tollLatitude = parseFloat(sectionTolls[toll].coordinates.lat.toString().slice(0, 5));
     const tollLatitude = parseFloat(auxString[0] + '.' + auxString[1].slice(0, 3));
     const tollLongitude = sectionTolls[toll].coordinates.lng;
-    const errorFactor = 0.001;
+    const errorFactor = 0.003;
 
     const searchRangeLatitudeMin = tollLatitude - errorFactor;
     const searchRangeLatitudeMax = tollLatitude + errorFactor;
