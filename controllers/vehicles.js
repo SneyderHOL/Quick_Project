@@ -27,6 +27,7 @@ exports.findVehicleById = async (req, res) => {
 };
 
 exports.createVehicles = async (req, res) => {
+  // use of middleware validation for creation
   const validation = validateCreation(req);
   if (validation.status) {
     const message = 'Input validation failed' + ' ' + validation.message;
@@ -52,7 +53,7 @@ exports.createVehicles = async (req, res) => {
 };
 
 exports.deleteVehicles = async (req, res) => {
-  console.log('A eliminar');
+  // console.log('A eliminar');
   try {
     const vehicle = await Vehicles.deleteVehicle(req.params.id);
     if (vehicle) {
@@ -81,11 +82,12 @@ exports.getVehiclesByFeatures = async (req, res) => {
 };
 
 exports.updateVehicles = async (req, res) => {
-  // const validation = validateUpdate(req);
-  // if (validation.status) {
-    // const message = 'Input validation failed' + ' ' + validation.message;
-    // return res.status(400).send({ error: message });
-  // }
+  // use of middleware validation for update
+  const validation = validateUpdate(req);
+  if (validation.status) {
+    const message = 'Input validation failed' + ' ' + validation.message;
+    return res.status(400).send({ error: message });
+  }
   try {
     let vehicle = null;
     vehicle = await Vehicles.findVehicleById(req.params.id);
@@ -95,6 +97,51 @@ exports.updateVehicles = async (req, res) => {
     }
     const updatedVehicle = await Vehicles.updateVehicles(req.params.id, req.body);
     return res.status(200).send(updatedVehicle);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
+exports.deleteFeaturesForVehicle = async (req, res) => {
+  try {
+    let vehicle = null;
+    vehicle = await Vehicles.findVehicleById(req.params.id);
+    if (!vehicle) {
+      res.status(404).send({ error: 'Vehicle Not Found' });
+      return;
+    }
+    const updatedVehicle = await Vehicles.deleteFeaturesById(req.params.id, req.body);
+    if (updatedVehicle === null) {
+      return res.status(400).send({ error: 'The vehicle it cant update' });
+    }
+    return res.status(202).send(updatedVehicle);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
+exports.updateTheWholeFeature = async (req, res) => {
+  try {
+    const updatedVehicle = await Vehicles.updateWholeVehicles(req.body);
+    if (updatedVehicle === null) {
+      return res.status(400).send({ error: 'The vehicle it cant update' });
+    }
+    return res.status(202).send({ state: `Update succes ${updatedVehicle.n} values` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
+exports.updateFeaturesById = async (req, res) => {
+  try {
+    const updatedVehicle = await Vehicles.updateFeaturesByid(req.params.id, req.body);
+    if (updatedVehicle === null) {
+      return res.status(400).send({ error: 'The vehicle it cant update' });
+    }
+    return res.status(202).send({ state: 'Update succes values' });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: 'Internal Server Error' });

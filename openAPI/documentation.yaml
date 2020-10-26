@@ -34,7 +34,6 @@ tags:
     description: "Find out more information in the sections"
     url: "http://swagger.io"
 
-
 paths:
   /tolls:
     get:

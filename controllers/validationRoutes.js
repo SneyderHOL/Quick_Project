@@ -46,13 +46,14 @@ function errorTypeMessage () {
     message: 'Wrong type'
   };
 }
-
+/*
 function errorValueMessage () {
   return {
     status: true,
     message: 'Wrong Value'
   };
 }
+*/
 function ok () {
   return { status: false };
 }
@@ -77,10 +78,11 @@ function validateNumber (input) {
   }
   return false;
 }
-
+/*
 function validateBoolean (input) {
   if (typeof (input) !== 'boolean') {
     return true;
   }
   return false;
 }
+*/

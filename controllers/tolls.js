@@ -27,13 +27,20 @@ exports.getTollById = async (req, res) => {
 };
 
 exports.createToll = async (req, res) => {
+  // validation move to middleware
   const validation = validateCreation(req);
   if (validation.status) {
     const message = 'Input validation failed' + ' ' + validation.message;
     return res.status(400).send({ error: message });
   }
+  // validation is out of the range
+  // if (!validateArea(req.body.direction)) {
+  //   return res.status(400).send({ error: "The coordinates is out of the colombia" });
+  // }
+
   try {
-    const newToll = new Toll();
+    // console.lof(req.body)
+    const newToll = new Toll({ ...req.body });
     newToll.coordinates = req.body.coordinates;
     if (req.body.direction) {
       newToll.direction = parseInt(req.body.direction, 10);

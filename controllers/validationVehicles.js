@@ -57,11 +57,6 @@ function checkForRequired (req) {
   if (req.body.volume && validateNumber(req.body.volume)) {
     return errorTypeMessage();
   }
-  // check for features
-  if (req.body.features && validateNumber(req.body.features)) {
-    return errorTypeMessage();
-  }
-
   return ok();
 }
 
@@ -85,6 +80,7 @@ function errorValueMessage () {
     message: 'Wrong Value'
   };
 }
+
 function ok () {
   return { status: false };
 }
@@ -154,10 +150,6 @@ function checkForOptional (req) {
   }
   // check for volume
   if (req.body.volume && validateNumber(req.body.volume)) {
-    return errorTypeMessage();
-  }
-  // check for features
-  if (req.body.features && validateNumber(req.body.features)) {
     return errorTypeMessage();
   }
   return ok();

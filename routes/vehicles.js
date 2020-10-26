@@ -3,16 +3,18 @@ const controllerVehicles = require('../controllers/vehicles');
 
 router.get('/', controllerVehicles.getVehicles);
 
-// validar que reciva un numero
-router.get('/find/:axis', controllerVehicles.getVehiclesByFeatures);
+router.post('/', controllerVehicles.createVehicles);
+
+// end points to manage the cost of the vehicles
+router.patch('/features/:id', controllerVehicles.updateFeaturesById);
+router.patch('/features', controllerVehicles.updateTheWholeFeature);
+// keep the delete in the endpoint or change the method and just keep /features/:id
+router.patch('/delete/features/:id', controllerVehicles.deleteFeaturesForVehicle);
 
 // verificar esa id
 // devolver que no encontro nada
 router.get('/:id', controllerVehicles.findVehicleById);
 
-router.post('/', controllerVehicles.createVehicles);
-
-// verificar esa id
 router.patch('/:id', controllerVehicles.updateVehicles);
 
 router.delete('/:id', controllerVehicles.deleteVehicles);

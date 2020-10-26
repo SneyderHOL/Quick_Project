@@ -8,10 +8,15 @@
 quickapi.pem
 test.yaml
 .vscode
-pack.back.json
+.deploy.env
+.vscode
+as
 
 ### Node js ###
 node_modules
+pack.back.json
+script/backups/*.json
+pacck.back.json
 package-lock.json
 file.json
 error1.json
