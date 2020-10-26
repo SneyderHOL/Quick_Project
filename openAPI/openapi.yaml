@@ -25,7 +25,6 @@ tags:
     description: Endpoint for vehicles
   - name: Tolls In Route Service
     description: Endpoint for tolls in route
-
 paths:
   /tolls:
     get:
@@ -381,50 +380,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInternalMessage'
-                
   /vehicles/features:
     patch:
       tags:
         - Vehicle's CRUD
       summary: add and modify the prices of all vehicles
       requestBody:
-        description: The following payload is an example of how you can go about
-          adding expenses, at least within the payload an attribute is required
+        description: >-
+          The following payload is an example of how you can go about adding
+          expenses, at least within the payload an attribute is required
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/vechicleRequestFeaturePayload'
-
   /vehicles/features/id:
     patch:
       tags:
         - Vehicle's CRUD
       summary: add and modify the prices of certain vehicle
       requestBody:
-        description: The following payload is an example of how you can go about
-          adding expenses, at least within the payload an attribute is required
+        description: >-
+          The following payload is an example of how you can go about adding
+          expenses, at least within the payload an attribute is required
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/vechicleRequestFeaturePayload'
-
       responses:
         '202':
           description: >-
-            Correct response from server returning the updated features of the vehicle
+            Correct response from server returning the updated features of the
+            vehicle
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/vehiclesFeaturesResponseById'
-
-        '404':
-          description: >-
-            Response from server returning a Vehicle not found message
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
-
         '400':
           description: >-
             Response from server returning an object with an missing information
@@ -433,15 +423,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInputMessage'
-
         '401':
-          description: >-
-            the vehicle it cant update
+          description: the vehicle it cant update
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorCantUpdate'
-
+        '404':
+          description: Response from server returning a Vehicle not found message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorVehicleNotFoundMessage'
         '500':
           description: >-
             Response from server returning an object with an Internal Server
@@ -462,18 +455,19 @@ paths:
           required: true
           description: Vehicle's id to perform an update operation of features
       requestBody:
-        description: The following payload is an example of how you can go about
-          deleting expenses, at least within the payload an attribute is required
+        description: >-
+          The following payload is an example of how you can go about deleting
+          expenses, at least within the payload an attribute is required
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/vechicleRequestFeaturePayload'
-
       responses:
         '200':
           description: >-
-            Correct response from server an object with a succesful deletion of feature the vehicle
+            Correct response from server an object with a succesful deletion of
+            feature the vehicle
           content:
             application/json:
               schema:
@@ -492,8 +486,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInternalMessage'
-  
-
   /routes/tolls:
     post:
       tags:
@@ -521,6 +513,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInputMessage'
+        '401':
+          description: >-
+            Response from server returning an object with an message that says
+            is out of colombia
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorOutColombia'
         '500':
           description: >-
             Response from server returning an object with an Internal Server
@@ -529,6 +529,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInternalMessage'
+        '502':
+          description: >-
+            Response from server returning an object with an error that our
+            API's they are failing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadgateway'
 components:
   schemas:
     coordinates:
@@ -792,7 +800,6 @@ components:
         weight: 34000
         fuel_type: gas
         typeOf: camion
-
     vehiclesFeaturesResponse:
       type: object
       description: >-
@@ -800,15 +807,23 @@ components:
         prices
       example:
         state: 'Update succes # of vehicles updated values'
-
-    vehiclesFeaturesResponseById:
+    ErrorBadgateway:
       type: object
       description: >-
-        an object that represents the vehicle was updated 
+        an object that represents that we recive a lot of request or some of our
+        API's are fallaing
       example:
-        state: 'Update succes values'
-
-
+        error: Bad gateway
+    ErrorOutColombia:
+      type: object
+      description: an object that represents that we recive coordinate out of colombias
+      example:
+        error: out of colombia
+    vehiclesFeaturesResponseById:
+      type: object
+      description: 'an object that represents the vehicle was updated '
+      example:
+        state: Update succes values
     tollRequest:
       type: object
       description: Toll object
@@ -914,7 +929,6 @@ components:
         updatedAt: '2020-09-26T03:05:54.880Z'
         name: Andes
         operator: DeviNorte
-
     serviceRequest:
       type: object
       description: Required JSON to use the service
@@ -926,7 +940,6 @@ components:
             lng: -73.244919
         vehicle:
           name: MiniMula hasta 34 Ton
-
     serviceResponse:
       type: object
       description: >-
@@ -962,11 +975,9 @@ components:
           total: 29600
           byTolls:
             - 29600
-
     vechicleRequestFeaturePayload:
       type: object
-      description: >-
-        This payload contains will ask the information
+      description: This payload contains will ask the information
       example:
         wearAndTear: 3
         filter: 19.9771
@@ -975,14 +986,11 @@ components:
         unexpected: 10
         services: 31.9634
         insurance: 4060
-
     vechicleRequestFeaturePayloadMin:
       type: object
-      description: >-
-        This payload contains will ask the information
+      description: This payload contains will ask the information
       example:
         wearAndTear: 3
-
     errorInputMessage:
       type: object
       description: Object with an error message
@@ -994,7 +1002,6 @@ components:
         - error
       example:
         error: Input validation failed
-
     errorCantUpdate:
       type: object
       description: Object with an error message
@@ -1006,7 +1013,6 @@ components:
         - error
       example:
         error: The vehicle it cant update
-
     errorInternalMessage:
       type: object
       description: Object with an error message

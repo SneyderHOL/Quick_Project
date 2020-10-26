@@ -82,7 +82,7 @@ const requestRoutesAsync = async (origin, destination) => {
   if (!validateArea(responseData.start_location) || !validateArea(responseData.end_location)) {
     console.log(!validateArea(responseData.start_location), !validateArea(responseData.end_location));
     console.error('The direction is out of the colombia');
-    return { error: "out of colombia", status: 400 };
+    return { error: "out of colombia", status: 401 };
   }
 
   return responseData;
@@ -113,7 +113,6 @@ const requestAll = async (origin, destination, vehicleName) => {
   const sections = findSection(dataGoogle.steps, missingTolls);
   const tolls = [];
 
-  // console.log(sections.tolls)
   for (const section in sections.tolls) {
     isCache = false;
     const startSection = sections.tolls[section].start_location;
@@ -180,24 +179,31 @@ const requestAll = async (origin, destination, vehicleName) => {
   let kms = dataGoogle.distance.value;
   if (kms > 0) { kms /= 1000; }
 
-  let value = 0;
-  Object.values(vehicle[0].features).forEach((element) => { value += element; });
-  const totalFuel = vehicle[0].literPer100Kilometer * (kms / 100);
-  let priceFuel;
+  let totalExpencesVehicle = 0;
+  Object.values(vehicle[0].features).forEach((element) => { totalExpencesVehicle += element; });
+  totalExpencesVehicle *= kms
 
+  let priceFuel;
   if (vehicle[0].fuel_type === 'gas') {
-    priceFuel = 8.500;
+    priceFuel = 8500;
   } else {
-    priceFuel = 6.000;
+    priceFuel = 6900;
   }
 
+  // first calculate how many liters consume the vehicles, and after that pass to galons
+  // and for the last multiplicate the price of the galon in colombia
+  const literPerGalon = 4.54609
+  const totalFuel = ((vehicle[0].literPer100Kilometer * (kms / 100)) / literPerGalon ) * priceFuel;
+  console.log('total cost')
+  console.log(tollsCost.total + totalFuel + totalExpencesVehicle)
+
   return {
-    total_expenses: Math.ceil(tollsCost.total + (totalFuel * priceFuel) + (value * kms)),
-    toll_expenses: tollsCost,
-    total_vehicle_expenses: value,
-    total_fuel_cost: totalFuel,
+    total_expenses: "$ " + Math.ceil(tollsCost.total + totalFuel + totalExpencesVehicle),
     total_kms: kms,
     duration: dataGoogle.duration.text,
+    total_vehicle_expenses: Math.ceil(totalExpencesVehicle),
+    total_fuel_cost: Math.ceil(totalFuel),
+    toll_expenses: tollsCost,
     total_tolls: tolls.length,
     tolls: tolls,
     path: sections.path

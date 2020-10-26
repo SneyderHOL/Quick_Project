@@ -10,7 +10,11 @@ exports.totalCosts = async (req, res, error) => {
   try {
     const payload = await requestAll(origin, destination, vehicleName);
 
-    if (payload.error !== undefined) return res.status(payload.status).send(payload);
+    if (payload.error !== undefined) {
+      const status = payload.status;
+      delete payload.status;
+      return res.status(status).send(payload);
+    }
 
     return res.status(200).send(payload);
   } catch (e) {
