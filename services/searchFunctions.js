@@ -110,7 +110,7 @@ function definingarea (sectionPoint, area) {
 }
 
 // sorting function
-function  mergeSort (sectionPoints, area) {
+function mergeSort (sectionPoints, area) {
   var arrayLen = sectionPoints.length;
   if (arrayLen < 2) {
     definingarea(sectionPoints[0], area);

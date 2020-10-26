@@ -2,7 +2,6 @@ const requestAll = require('../services/routes-google').requestAll;
 
 // /api/tolls
 exports.totalCosts = async (req, res, error) => {
-
   const origin = req.body.points[0];
   const destination = req.body.points[1];
   const vehicleName = req.body.vehicle.name;

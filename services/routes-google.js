@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const Toll = require('../models/tolls');
 const costTolls = require('./cost-tolls');
 const Vehicle = require('../models/vehicles');
-const { response } = require('express');
 const findTollInSection = require('./searchFunctions').findTollInSection;
 const validateArea = require('./area').limits;
 // const redisClient = require('../app').redis;
@@ -82,7 +81,7 @@ const requestRoutesAsync = async (origin, destination) => {
   if (!validateArea(responseData.start_location) || !validateArea(responseData.end_location)) {
     console.log(!validateArea(responseData.start_location), !validateArea(responseData.end_location));
     console.error('The direction is out of the colombia');
-    return { error: "out of colombia", status: 401 };
+    return { error: 'out of colombia', status: 401 };
   }
 
   return responseData;
@@ -181,7 +180,7 @@ const requestAll = async (origin, destination, vehicleName) => {
 
   let totalExpencesVehicle = 0;
   Object.values(vehicle[0].features).forEach((element) => { totalExpencesVehicle += element; });
-  totalExpencesVehicle *= kms
+  totalExpencesVehicle *= kms;
 
   let priceFuel;
   if (vehicle[0].fuel_type === 'gas') {
@@ -192,13 +191,11 @@ const requestAll = async (origin, destination, vehicleName) => {
 
   // first calculate how many liters consume the vehicles, and after that pass to galons
   // and for the last multiplicate the price of the galon in colombia
-  const literPerGalon = 4.54609
-  const totalFuel = ((vehicle[0].literPer100Kilometer * (kms / 100)) / literPerGalon ) * priceFuel;
-  console.log('total cost')
-  console.log(tollsCost.total + totalFuel + totalExpencesVehicle)
+  const literPerGalon = 4.54609;
+  const totalFuel = ((vehicle[0].literPer100Kilometer * (kms / 100)) / literPerGalon) * priceFuel;
 
   return {
-    total_expenses: "$ " + Math.ceil(tollsCost.total + totalFuel + totalExpencesVehicle),
+    total_expenses: '$ ' + Math.ceil(tollsCost.total + totalFuel + totalExpencesVehicle),
     total_kms: kms,
     duration: dataGoogle.duration.text,
     total_vehicle_expenses: Math.ceil(totalExpencesVehicle),
