@@ -123,12 +123,12 @@ exports.deleteFeaturesForVehicle = async (req, res) => {
 };
 
 exports.updateTheWholeFeature = async (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).send({ error: 'Input validation failed' });
+  }
   try {
     const updatedVehicle = await Vehicles.updateWholeVehicles(req.body);
-    if (updatedVehicle === null) {
-      return res.status(400).send({ error: 'The vehicle it cant update' });
-    }
-    return res.status(202).send({ state: `Update succes ${updatedVehicle.n} values` });
+    return res.status(202).send({ state: `Update succes ${updatedVehicle.n} of vehicles` });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: 'Internal Server Error' });
@@ -136,10 +136,16 @@ exports.updateTheWholeFeature = async (req, res) => {
 };
 
 exports.updateFeaturesById = async (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).send({ error: 'Input validation failed' });
+  }
+  const vehicle = await Vehicles.findVehicleById(req.params.id);
+  if (!vehicle) return res.status(404).send({ error: 'Vehicle Not Found' });
+
   try {
     const updatedVehicle = await Vehicles.updateFeaturesByid(req.params.id, req.body);
     if (updatedVehicle === null) {
-      return res.status(400).send({ error: 'The vehicle it cant update' });
+      return res.status(401).send({ error: 'The vehicle it cant update' });
     }
     return res.status(202).send({ state: 'Update succes values' });
   } catch (error) {

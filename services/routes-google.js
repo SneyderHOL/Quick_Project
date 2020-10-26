@@ -68,26 +68,20 @@ const requestRoutesAsync = async (origin, destination) => {
   const url = 'https://maps.googleapis.com/maps/api/directions/json?' +
   `origin=${origin}&destination=${destination}&key=${keyGoogle}`;
 
-  // console.log(url)
   const responseApi = await fetch(url);
-  // console.log(responseApi)
-  if (responseApi.status === 400) {
-    console.error('Wrong coordinates');
-    return null;
-  }
 
   let responseData = await responseApi.json();
-  // console.log(responseData)
-  if (responseData.status === 'ZERO_RESULTS' || responseData.status === 'NOT_FOUND') {
+  if (responseApi.status === 400 || responseData.status === 'ZERO_RESULTS' || responseData.status === 'NOT_FOUND') {
     console.error('Wrong coordinates');
-    return null;
+    return { error: 'Bad gateway', status: 502 };
   }
 
   responseData = responseData.routes[0].legs[0];
+
   if (!validateArea(responseData.start_location) || !validateArea(responseData.end_location)) {
     console.log(!validateArea(responseData.start_location), !validateArea(responseData.end_location));
     console.error('The direction is out of the colombia');
-    return null;
+    return { error: 'out of colombia', status: 401 };
   }
 
   return responseData;
@@ -109,12 +103,7 @@ const requestAll = async (origin, destination, vehicleName) => {
   }
 
   const dataGoogle = await requestRoutesAsync(origin, destination);
-  // check for wrong request or missing key
-  if (!dataGoogle) {
-    console.log('wrong request or missing key from google API');
-    console.log(dataGoogle === null);
-    return null;
-  }
+  if (dataGoogle.error !== undefined) return dataGoogle;
 
   // variables to use cache
   let isCache = false;
@@ -123,7 +112,6 @@ const requestAll = async (origin, destination, vehicleName) => {
   const sections = findSection(dataGoogle.steps, missingTolls);
   const tolls = [];
 
-  // console.log(sections.tolls)
   for (const section in sections.tolls) {
     isCache = false;
     const startSection = sections.tolls[section].start_location;
@@ -190,24 +178,29 @@ const requestAll = async (origin, destination, vehicleName) => {
   let kms = dataGoogle.distance.value;
   if (kms > 0) { kms /= 1000; }
 
-  let value = 0;
-  Object.values(vehicle[0].features).forEach((element) => { value += element; });
-  const totalFuel = vehicle[0].literPer100Kilometer * (kms / 100);
-  let priceFuel;
+  let totalExpencesVehicle = 0;
+  Object.values(vehicle[0].features).forEach((element) => { totalExpencesVehicle += element; });
+  totalExpencesVehicle *= kms;
 
+  let priceFuel;
   if (vehicle[0].fuel_type === 'gas') {
-    priceFuel = 8.500;
+    priceFuel = 8500;
   } else {
-    priceFuel = 6.000;
+    priceFuel = 6900;
   }
 
+  // first calculate how many liters consume the vehicles, and after that pass to galons
+  // and for the last multiplicate the price of the galon in colombia
+  const literPerGalon = 4.54609;
+  const totalFuel = ((vehicle[0].literPer100Kilometer * (kms / 100)) / literPerGalon) * priceFuel;
+
   return {
-    total_expenses: Math.ceil(tollsCost.total + (totalFuel * priceFuel) + (value * kms)),
-    toll_expenses: tollsCost,
-    vehicle_expenses: value,
-    total_fuel: totalFuel,
+    total_expenses: '$ ' + Math.ceil(tollsCost.total + totalFuel + totalExpencesVehicle),
     total_kms: kms,
     duration: dataGoogle.duration.text,
+    total_vehicle_expenses: Math.ceil(totalExpencesVehicle),
+    total_fuel_cost: Math.ceil(totalFuel),
+    toll_expenses: tollsCost,
     total_tolls: tolls.length,
     tolls: tolls,
     path: sections.path
