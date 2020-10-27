@@ -60,10 +60,12 @@ function tollsInSection (originPoint, destinationPoint, TotalTolls) {
       }
     }
     if (validToll === false || validToll === true) {
+      /*
       console.log('Peaje');
       console.log(tolls[index]);
       console.log('valor de valid: ', validToll);
       console.log('');
+      */
     }
     if (validToll) {
       tollArray.push(tolls[index]);
@@ -171,60 +173,60 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
   const sectionDirection = findDirection(originPoint, destinationPoint);
   // const searchAreaPoints = findSearchArea(sectionPoints);
 
-  // fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', '\norigin\n', function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', '\ndestination\n', function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
+  fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', '\norigin\n', function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', '\ndestination\n', function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
 
-  // const searchAreaPoints = {
-  //   lat: {
-  //     min: sectionPoints[0][1],
-  //     max: sectionPoints[0][1]
-  //   },
-  //   lng: {
-  //     min: sectionPoints[0][0],
-  //     max: sectionPoints[0][0]
-  //   }
-  // };
-  // const sortedSectionPoints = mergeSort(sectionPoints, searchAreaPoints);
-  // adjustSearchAreaPoints(searchAreaPoints, originPoint, destinationPoint, sectionDirection);
+  const searchAreaPoints = {
+    lat: {
+      min: sectionPoints[0][1],
+      max: sectionPoints[0][1]
+    },
+    lng: {
+      min: sectionPoints[0][0],
+      max: sectionPoints[0][0]
+    }
+  };
+  const sortedSectionPoints = mergeSort(sectionPoints, searchAreaPoints);
+  adjustSearchAreaPoints(searchAreaPoints, originPoint, destinationPoint, sectionDirection);
 
-  // fs.appendFile('datos.txt', sortedSectionPoints, function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', '\npuntos\n', function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', '\noriginp\n', function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
-  // fs.appendFile('datos.txt', '\ndestinationp\n', function (err) {
-  //   if (err) return console.log(err);
-  //   console.log('Saved');
-  // });
+  fs.appendFile('datos.txt', sortedSectionPoints, function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', '\npuntos\n', function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', '\noriginp\n', function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', JSON.stringify(destinationPoint), function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
+  fs.appendFile('datos.txt', '\ndestinationp\n', function (err) {
+    if (err) return console.log(err);
+    console.log('Saved');
+  });
 
   // const sectionTolls = tollsInSection(originPoint, destinationPoint, TotalTolls);
   // console.log('area points: ', searchAreaPoints);
@@ -238,14 +240,14 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
   */
   const tollList = [];
   for (const toll in sectionTolls) {
-    // fs.appendFile('datos.txt', '\nPossible tolls\n', function (err) {
-    //   if (err) return console.log(err);
-    //   console.log('Saved');
-    // });
-    // fs.appendFile('datos.txt', sectionTolls[toll], function (err) {
-    //   if (err) return console.log(err);
-    //   console.log('Saved');
-    // });
+    fs.appendFile('datos.txt', '\nPossible tolls\n', function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
+    fs.appendFile('datos.txt', sectionTolls[toll], function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
 
     const auxLatitude = sectionTolls[toll].coordinates.lat;
     const auxString = auxLatitude.toString().split('.');
@@ -261,18 +263,19 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
     let foundIt = false;
     let searchIndex = 0;
     const searchArray = [searchRangeLatitudeMin, tollLatitude, searchRangeLatitudeMax];
-    for (const searchRange in searchArray) {
-      searchIndex = binarySearchLeft(sortedSectionPoints, searchRange);
+    for (const searchIdx in searchArray) {
+      console.log(searchArray[searchIdx]);
+      searchIndex = binarySearchLeft(sortedSectionPoints, searchArray[searchIdx]);
       if (searchIndex !== 0) { break; }
     }
-    // fs.appendFile('datos.txt', '\nFirstIndex\n' + searchIndex + '\n', function (err) {
-    //   if (err) return console.log(err);
-    //   console.log('Saved');
-    // });
-    // fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
-    //   if (err) return console.log(err);
-    //   console.log('Saved');
-    // });
+    fs.appendFile('datos.txt', '\nFirstIndex\n' + searchIndex + '\n', function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
+    fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
+      if (err) return console.log(err);
+      console.log('Saved');
+    });
 
     for (; searchIndex < sortedSectionPoints.length; searchIndex++) {
       const minimum = searchRangeLatitudeMin - 0.003;
@@ -286,25 +289,25 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
       }
     }
     if (foundIt === false) {
-      // fs.appendFile('datos.txt', '\nLastIndex\n' + searchIndex + '\n', function (err) {
-      //   if (err) return console.log(err);
-      //   console.log('Saved');
-      // });
-      // fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
-      //   if (err) return console.log(err);
-      //   console.log('Saved');
-      // });
+      fs.appendFile('datos.txt', '\nLastIndex\n' + searchIndex + '\n', function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
+      fs.appendFile('datos.txt', sortedSectionPoints[searchIndex], function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
 
       continue;
     } else {
-      // fs.appendFile('datos.txt', '\nTollFound\n', function (err) {
-      //   if (err) return console.log(err);
-      //   console.log('Saved');
-      // });
-      // fs.appendFile('datos.txt', sectionTolls[toll], function (err) {
-      //   if (err) return console.log(err);
-      //   console.log('Saved');
-      // });
+      fs.appendFile('datos.txt', '\nTollFound\n', function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
+      fs.appendFile('datos.txt', sectionTolls[toll], function (err) {
+        if (err) return console.log(err);
+        console.log('Saved');
+      });
 
       tollList.push(sectionTolls[toll]);
     }
