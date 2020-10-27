@@ -58,5 +58,89 @@ exports.missingTollsArray = [
       lat: 5.377361899999999,
       lng: -75.6127552
     }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893e91',
+    inRoute: false,
+    surNorte: {
+      lat: 0,
+      lng: 0
+    },
+    norteSur: {
+      lat: 4.5018478,
+      lng: -74.36408159999999
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893e92',
+    inRoute: false,
+    surNorte: {
+      lat: 0,
+      lng: 0
+    },
+    norteSur: {
+      lat: 3.5047693,
+      lng: -76.4345086
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893e0f',
+    inRoute: false,
+    surNorte: {
+      lat: 0,
+      lng: 0
+    },
+    norteSur: {
+      lat: 5.377361899999999,
+      lng: -75.6127552
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893dfd',
+    inRoute: false,
+    surNorte: {
+      lat: 10.9542374,
+      lng: -74.7653804
+    },
+    norteSur: {
+      lat: 10.9748072,
+      lng: -74.76923099999999
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893dec',
+    inRoute: false,
+    surNorte: {
+      lat: 6.333577,
+      lng: -75.543773
+    },
+    norteSur: {
+      lat: 0,
+      lng: 0
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893e84',
+    inRoute: false,
+    surNorte: {
+      lat: 9.2743261,
+      lng: -75.409562
+    },
+    norteSur: {
+      lat: 9.4524809,
+      lng: -75.44495309999999
+    }
+  },
+  {
+    _id: '5f6eb01217ce1e3104893e2d',
+    inRoute: false,
+    surNorte: {
+      lat: 8.378954199999999,
+      lng: -75.5720674
+    },
+    norteSur: {
+      lat: 8.3794621,
+      lng: -75.57220280000001
+    }
   }
 ];
