@@ -81,7 +81,7 @@ const requestRoutesAsync = async (origin, destination) => {
   if (!validateArea(responseData.start_location) || !validateArea(responseData.end_location)) {
     console.log(!validateArea(responseData.start_location), !validateArea(responseData.end_location));
     console.error('The direction is out of the colombia');
-    return { error: 'out of colombia', status: 401 };
+    return { error: 'Bad request', status: 400 };
   }
 
   return responseData;
