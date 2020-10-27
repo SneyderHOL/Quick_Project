@@ -1,6 +1,5 @@
 const area = require('./area');
 const adjustSearchAreaPoints = area.adjustSearchAreaPoints;
-const fs = require('fs');
 
 /**
  * Checks if a toll have the have the same route/section direction
@@ -154,7 +153,7 @@ function binarySearchLeft (points, search) {
   return left;
 }
 
-function threeDecimals(num) {
+function threeDecimals (num) {
   let strToNum = num.toString().split('.');
   strToNum = parseFloat(strToNum[0] + '.' + strToNum[1].slice(0, 3));
   return strToNum;
