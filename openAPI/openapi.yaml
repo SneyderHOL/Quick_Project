@@ -5,7 +5,7 @@ info:
     includes fixed and variable expenses as well as the costs incurred in tolls
     according to the route.
   version: '1.0'
-  title: Smart Route Rest API
+  title: SmartRoute Rest API
   contact:
     name: FullDevs Team
     email: fulldevs0@gmail.com
