@@ -1,5 +1,5 @@
 const area = require('./area');
-// const findSearchArea = area.findSearchArea;
+const findSearchArea = area.findSearchArea;
 const adjustSearchAreaPoints = area.adjustSearchAreaPoints;
 const fs = require('fs');
 
