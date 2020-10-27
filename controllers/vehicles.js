@@ -135,7 +135,6 @@ exports.deleteFeaturesForVehicle = async (req, res) => {
   }
 };
 
-
 exports.updateTheWholeFeature = async (req, res) => {
   if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });
