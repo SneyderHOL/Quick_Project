@@ -103,25 +103,6 @@ exports.updateVehicles = async (req, res) => {
   }
 };
 
-exports.deleteFeaturesForVehicle = async (req, res) => {
-  try {
-    let vehicle = null;
-    vehicle = await Vehicles.findVehicleById(req.params.id);
-    if (!vehicle) {
-      res.status(404).send({ error: 'Vehicle Not Found' });
-      return;
-    }
-    const updatedVehicle = await Vehicles.deleteFeaturesById(req.params.id, req.body);
-    if (updatedVehicle === null) {
-      return res.status(400).send({ error: 'The vehicle it cant update' });
-    }
-    return res.status(202).send(updatedVehicle);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ error: 'Internal Server Error' });
-  }
-};
-
 function validateNumbers (body) {
   let validation = true;
   Object.values(body).forEach((element) => {
@@ -132,6 +113,28 @@ function validateNumbers (body) {
 
   return validation;
 }
+
+exports.deleteFeaturesForVehicle = async (req, res) => {
+  if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
+    return res.status(400).send({ error: 'Input validation failed' });
+  }
+
+  try {
+    let vehicle = null;
+    vehicle = await Vehicles.findVehicleById(req.params.id);
+    if (!vehicle) {
+      res.status(404).send({ error: 'Vehicle Not Found' });
+      return;
+    }
+
+    const updatedVehicle = await Vehicles.deleteFeaturesById(req.params.id, req.body);
+    return res.status(202).send(updatedVehicle);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
 
 exports.updateTheWholeFeature = async (req, res) => {
   if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
