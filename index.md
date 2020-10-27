@@ -7,21 +7,7 @@ Quick Project is a RestAPI Portfolio Project where the main funcionality is the 
 The Quick Project is developed with nodeJS and Express Framework for the back-end, MongoDB Atlas for storage and Redis for cache, the front-end implementation is developed with Gatsby that is a React-based open source framework. The API integration with the FrontEnd allows to display the main service of the API.
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Esto es una prueba
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
