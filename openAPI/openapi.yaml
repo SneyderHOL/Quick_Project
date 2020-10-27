@@ -1,5 +1,4 @@
 openapi: 3.0.1
-host: petstore.swagger.io
 info:
   description: >-
     API Rest that performs the calculation of expenses incurred in a route that
@@ -11,8 +10,6 @@ info:
     name: FullDevs Team
     email: fulldevs0@gmail.com
 servers:
-  - url: 'http://localhost:3000'
-    description: Local server
   - url: 'https://api.fulldevs.software'
     description: Production server
 basePath: /
@@ -384,7 +381,7 @@ paths:
     patch:
       tags:
         - Vehicle's CRUD
-      summary: add and modify the prices of all vehicles
+      summary: add and modify the costs of all vehicles in features property
       requestBody:
         description: >-
           The following payload is an example of how you can go about adding
@@ -393,11 +390,36 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/vechicleRequestFeaturePayload'
+      responses:
+        '200':
+          description: >-
+            Correct response from server returning the success updated features
+            message of the vehicle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateFeaturesVehicleMessage'
+        '400':
+          description: >-
+            Response from server returning an object with an Input validation
+            failed message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorInputMessage'
+        '500':
+          description: >-
+            Response from server returning an object with an Internal Server
+            Error message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorInternalMessage'
   /vehicles/features/id:
     patch:
       tags:
         - Vehicle's CRUD
-      summary: add and modify the prices of certain vehicle
+      summary: add and modify the costs of a certain vehicle in features property
       requestBody:
         description: >-
           The following payload is an example of how you can go about adding
@@ -417,18 +439,12 @@ paths:
                 $ref: '#/components/schemas/vehiclesFeaturesResponseById'
         '400':
           description: >-
-            Response from server returning an object with an missing information
+            Response from server returning an object with an Input validation
             failed message
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInputMessage'
-        '401':
-          description: the vehicle it cant update
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorCantUpdate'
         '404':
           description: Response from server returning a Vehicle not found message
           content:
@@ -453,7 +469,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Vehicle's id to perform an update operation of features
+          description: Vehicle's id to perform a delete operation of features
       requestBody:
         description: >-
           The following payload is an example of how you can go about deleting
@@ -513,14 +529,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorInputMessage'
-        '401':
-          description: >-
-            Response from server returning an object with an message that says
-            is out of colombia
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorOutColombia'
         '500':
           description: >-
             Response from server returning an object with an Internal Server
@@ -641,10 +649,38 @@ components:
           group3: 5
     features:
       type: object
-      description: Vehicle's features
+      description: Vehicle's features including costs
+      properties:
+        filter:
+          type: numeric
+          description: Filter's costs per kilometer
+        insurance:
+          type: numeric
+          description: Insurance's costs per kilometer
+        lubricant:
+          type: numeric
+          description: Lubricant's costs per kilometer
+        services:
+          type: numeric
+          description: Services's costs per kilometer
+        unexpected:
+          type: numeric
+          description: Unexpected costs per kilometer
+        wearAndTear:
+          type: numeric
+          description: WearAndTear's costs per kilometer
+        wheels:
+          type: numeric
+          description: Wheels's costs per kilometer
       example:
         features:
-          fuel_consumption_per_km: 3
+          filter: 18
+          insurance : 4.06
+          lubricant : 80.32
+          services : 31.9634
+          unexpected : 9
+          wearAndTear : 4
+          wheels : 440.53
     axis:
       type: integer
       description: Vehicle's axis
@@ -716,7 +752,13 @@ components:
           group2: 3
           group3: 5
         features:
-          fuel_consumption_per_km: 3
+          filter: 18
+          insurance : 4.06
+          lubricant : 80.32
+          services : 31.9634
+          unexpected : 9
+          wearAndTear : 4
+          wheels : 440.53
         status: true
         name: MiniMula hasta 34 Ton
         axis: 3
@@ -791,7 +833,13 @@ components:
           group2: 3
           group3: 5
         features:
-          fuel_consumption_per_km: 3
+          filter: 18
+          insurance : 4.06
+          lubricant : 80.32
+          services : 31.9634
+          unexpected : 9
+          wearAndTear : 4
+          wheels : 440.53
         status: true
         _id: 5f6eb01217cele3104893ce14
         name: MiniMula hasta 34 Ton
@@ -810,13 +858,13 @@ components:
     ErrorBadgateway:
       type: object
       description: >-
-        an object that represents that we recive a lot of request or some of our
+        an object that represents that we recieve a lot of request or some of our
         API's are fallaing
       example:
         error: Bad gateway
     ErrorOutColombia:
       type: object
-      description: an object that represents that we recive coordinate out of colombias
+      description: an object that represents that we recieve coordinate out of colombia
       example:
         error: out of colombia
     vehiclesFeaturesResponseById:
@@ -946,8 +994,16 @@ components:
         Payload of a success response, containing the route's distance, time,
         tolls, path, total_expenses
       example:
+        total_expenses: '$ 1621497'
         total_kms: 535.36
-        duration: 1 hour 35 minutes
+        duration: '1 hour 35 minutes'
+        total_vehicle_expenses: 659719
+        total_fuel_cost: 641279
+        toll_expenses:
+          total: 29600
+          byTolls:
+            - 29600
+        total_tolls: 1
         tolls:
           - coordinates:
               lat: 3.2462
@@ -971,13 +1027,9 @@ components:
           - end:
               lat: 6.624
               lng: -75.025
-        toll_expenses:
-          total: 29600
-          byTolls:
-            - 29600
     vechicleRequestFeaturePayload:
       type: object
-      description: This payload contains will ask the information
+      description: This payload contains the costs of a vehicle in features property
       example:
         wearAndTear: 3
         filter: 19.9771
@@ -1002,17 +1054,6 @@ components:
         - error
       example:
         error: Input validation failed
-    errorCantUpdate:
-      type: object
-      description: Object with an error message
-      properties:
-        error:
-          type: string
-          description: Error Input message from server
-      required:
-        - error
-      example:
-        error: The vehicle it cant update
     errorInternalMessage:
       type: object
       description: Object with an error message
@@ -1068,3 +1109,14 @@ components:
         - status
       example:
         status: The Vehicle was deleted successfully
+    updateFeaturesVehicleMessage:
+      type: object
+      description: Object with a succesful message
+      properties:
+        status:
+          type: string
+          description: Successful features update of all vehicles message from server
+      required:
+        - status
+      example:
+        status: Updated succcess 6 of vehicles
