@@ -169,7 +169,7 @@ function binarySearchLeft (points, search) {
  */
 exports.findTollInSection = function (sectionPoints, originPoint, destinationPoint, TotalTolls) {
   const sectionDirection = findDirection(originPoint, destinationPoint);
-  const searchAreaPoints = findSearchArea(sectionPoints);
+  // const searchAreaPoints = findSearchArea(sectionPoints);
 
   // fs.appendFile('datos.txt', JSON.stringify(originPoint), function (err) {
   //   if (err) return console.log(err);
