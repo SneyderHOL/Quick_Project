@@ -1,5 +1,5 @@
 const area = require('./area');
-// const findSearchArea = area.findSearchArea;
+const findSearchArea = area.findSearchArea;
 const adjustSearchAreaPoints = area.adjustSearchAreaPoints;
 const fs = require('fs');
 
@@ -188,18 +188,18 @@ exports.findTollInSection = function (sectionPoints, originPoint, destinationPoi
   //   console.log('Saved');
   // });
 
-  // const searchAreaPoints = {
-  //   lat: {
-  //     min: sectionPoints[0][1],
-  //     max: sectionPoints[0][1]
-  //   },
-  //   lng: {
-  //     min: sectionPoints[0][0],
-  //     max: sectionPoints[0][0]
-  //   }
-  // };
-  // const sortedSectionPoints = mergeSort(sectionPoints, searchAreaPoints);
-  // adjustSearchAreaPoints(searchAreaPoints, originPoint, destinationPoint, sectionDirection);
+  const searchAreaPoints = {
+     lat: {
+       min: sectionPoints[0][1],
+       max: sectionPoints[0][1]
+     },
+     lng: {
+       min: sectionPoints[0][0],
+       max: sectionPoints[0][0]
+     }
+   };
+   const sortedSectionPoints = mergeSort(sectionPoints, searchAreaPoints);
+   adjustSearchAreaPoints(searchAreaPoints, originPoint, destinationPoint, sectionDirection);
 
   // fs.appendFile('datos.txt', sortedSectionPoints, function (err) {
   //   if (err) return console.log(err);
