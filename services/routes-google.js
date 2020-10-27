@@ -147,7 +147,7 @@ const requestAll = async (origin, destination, vehicleName) => {
       // save data to redis
       if (redisClient) {
         console.log('usando redis');
-        redisClient.setex(key, 1440, JSON.stringify(toll));
+        redisClient.setex(key, 43200, JSON.stringify(toll));
       }
 
       if (toll) {
