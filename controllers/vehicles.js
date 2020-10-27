@@ -122,10 +122,22 @@ exports.deleteFeaturesForVehicle = async (req, res) => {
   }
 };
 
+function validateNumbers (body) {
+  let validation = true;
+  Object.values(body).forEach((element) => {
+    if (typeof (element) !== typeof (1)) {
+      validation = false;
+    }
+  });
+
+  return validation;
+}
+
 exports.updateTheWholeFeature = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
+  if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });
   }
+
   try {
     const updatedVehicle = await Vehicles.updateWholeVehicles(req.body);
     return res.status(202).send({ state: `Update succes ${updatedVehicle.n} of vehicles` });
@@ -136,17 +148,15 @@ exports.updateTheWholeFeature = async (req, res) => {
 };
 
 exports.updateFeaturesById = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
+  if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });
   }
+
   const vehicle = await Vehicles.findVehicleById(req.params.id);
   if (!vehicle) return res.status(404).send({ error: 'Vehicle Not Found' });
 
   try {
-    const updatedVehicle = await Vehicles.updateFeaturesByid(req.params.id, req.body);
-    if (updatedVehicle === null) {
-      return res.status(401).send({ error: 'The vehicle it cant update' });
-    }
+    await Vehicles.updateFeaturesByid(req.params.id, req.body);
     return res.status(202).send({ state: 'Update succes values' });
   } catch (error) {
     console.error(error);
