@@ -17,7 +17,7 @@ router.use('/vehicles', limiter.limiterCrud, vehicle);
 // router.use('/tokens', autheknticated);
 
 router.get('/', function (req, res) {
-  res.status(200).send({ status: 'Welcome to SmartRout Rest API, if you need information please go to the /api-docs' });
+  res.status(200).json({ status: 'Welcome to SmartRout Rest API, if you need information please go to the /api-docs' });
 });
 
 module.exports = router;
