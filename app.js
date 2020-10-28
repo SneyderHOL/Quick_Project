@@ -56,13 +56,6 @@ redis.on('error', (err) => console.error('Redis error encountered', err));
 
 exports.redis = redis;
 
-/**
- * Redirection
- */
-app.get('/', function (req, res) {
-  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
-});
-
 app.use('/', require('./routes/index.js'));
 
 /**
