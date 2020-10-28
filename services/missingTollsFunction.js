@@ -67,8 +67,8 @@ exports.missingTollsArray = [
       lng: 0
     },
     norteSur: {
-      lat: 4.5018478,
-      lng: -74.36408159999999
+      lat: 4.456713199999999,
+      lng: -75.79217469999999
     }
   },
   {
@@ -111,8 +111,8 @@ exports.missingTollsArray = [
     _id: '5f6eb01217ce1e3104893dec',
     inRoute: false,
     surNorte: {
-      lat: 6.333577,
-      lng: -75.543773
+      lat: 6.3373433,
+      lng: -75.5437786
     },
     norteSur: {
       lat: 0,
@@ -135,8 +135,8 @@ exports.missingTollsArray = [
     _id: '5f6eb01217ce1e3104893e2d',
     inRoute: false,
     surNorte: {
-      lat: 8.378954199999999,
-      lng: -75.5720674
+      lat: 8.225012999999999,
+      lng: -75.484653
     },
     norteSur: {
       lat: 8.3794621,
