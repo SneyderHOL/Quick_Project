@@ -21,3 +21,9 @@ This information was provided incompletely, so we had to charge a route with ina
 New requirements also emerged that had not been requested at first as a graphical interface, for which we had to renegotiate the business case to be able to add this new requirement and set the deadlines in which it must be delivered. This brought more workload to the group but we handled the situation by implementing an interface with a minimalist style. Initially handling the functions and calls to the api by a vanilla Javascript file to later migrate it to React if time permits.
 Additionally we had to acquire credentials with google to be able to use and implement the following APIS: Directions - Geocoding - Maps JavaScript and Places. This development will be implemented using the services offered by Heroku for the deployment of applications.
 
+
+The difficulties during this development helped us to grow in knowledge, work as a team in a proactive
+and organized way to persevere in every detail in order to create a reliable and quality product,
+implementing documentation, good practices and implementing reliable technologies and APIS.
+This project will be part of our repository on GitHub along with other work done during our preparation
+at the Holberton software academy, which helped us in our training process as full stack developers..
