@@ -43,6 +43,7 @@ Before starting, it is necessary to have already installed and configured in you
   - MongoDB ver. 4.2.10+
   
 Google Maps and OpenRouteService Maps API KEY's.
+
 Check these pages for more information about API KEY's:
 
 - https://cloud.google.com/maps-platform/
@@ -86,6 +87,7 @@ You can check the API documentation within a browser in:
 ## Built with 🛠️
 
 Programming Language: JavaScript
+
 JavaScript Runtime Environment:
 - NodeJS
 
