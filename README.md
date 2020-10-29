@@ -21,8 +21,7 @@ Screenshot:
 ![](img/webapp.png)
 
 
-[Web Application](https://smartroute.fulldevs.software): It is a service with updated toll prices
-in Colombia
+[Web Application](https://smartroute.fulldevs.software): Web application that uses the API to provide a visualization of the service
 
 (*) Web application located in another repository
 
