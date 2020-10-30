@@ -25,7 +25,7 @@ Screenshot:
 
 (*) Web application located in another repository
 
-[SmartRoute Web Application](https://github.com/juankarlos999/Tolls-routes): Web application repository
+[SmartRoute Web Application](https://github.com/jeffleon/Front-End-Quick): Web application repository
 
 
 ## Why this project is useful?
