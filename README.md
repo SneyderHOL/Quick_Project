@@ -129,9 +129,7 @@ in Colombia
 which is the most suitable route to reach the destination.
 
 
-## By 🗒
-
-FullDevs Team:
+## By FullDevs Team: 🗒
 
 - Juan Carlos Rengifo      - Front-end
 - Jefferson Alexander Leon - Front-end/Back-end
