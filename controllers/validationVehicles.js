@@ -206,7 +206,6 @@ function validateNumber (input) {
   return false;
 }
 
-
 /**
  * This function validate if the input is a boolean
  * @param {input} object The parameter contains any kind of input

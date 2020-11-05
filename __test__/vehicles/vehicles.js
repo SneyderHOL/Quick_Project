@@ -46,7 +46,6 @@ describe('Test delete vehicles of the endpoint /vehicles', () => {
     // expect(validated.body.error).toBe('Not Found');
     done();
   });
-
 });
 
 describe('Test the status code of the each endpoint', () => {

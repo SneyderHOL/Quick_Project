@@ -11,7 +11,7 @@ router.use('/routes/tolls', limiter.limiterRouting, auth, tollsInRoute);
 router.use('/vehicles', limiter.limiterCrud, auth, vehicle);
 
 // private endpoint
-router.use('/tokens', autheknticated);
+router.use('/tokens', authenticated);
 
 /**
  * This function is for the init of the API

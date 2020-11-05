@@ -136,7 +136,7 @@ exports.updateVehicles = async (req, res) => {
  * This function validate if the input is a number
  * @param {input} object The parameter contains any kind of input
  */
-function validateNumber (input) {
+function validateNumbers (input) {
   if (typeof (input) !== 'number') {
     return true;
   }
