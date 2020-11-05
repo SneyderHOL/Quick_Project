@@ -19,47 +19,6 @@ describe('Test create tolls of the endpoint /tolls', () => {
     delete response.body.update_at;
     expect(response.body).toMatchObject(newToll);
 
-    // const newTolltest = {
-    //   name: 'test',
-    //   coordinates: {
-    //     dest: 1.1
-    //   },
-    //   costs: {
-    //     I: 1000
-    //   }
-    // };
-    // const test = await request.post('/tolls').send(newTolltest);
-    // expect(test.status).toBe(201);
-
-    done();
-  });
-
-  it('test the endpoint /tolls for catch errors', async (done) => {
-    // const responseError = 'Send the complete information, missing coordinates or the name of toll';
-
-    // const responseTwo = await request.post('/tolls').send({});
-    // expect(Object.is(responseTwo.body.error, responseError)).toBe(true);
-    // expect(responseTwo.status).toBe(400);
-
-    // const responseThree = await request.post('/tolls').send('This is not a json');
-    // expect(Object.is(responseThree.body.error, 'Server requires application/json')).toBe(true);
-    // expect(responseThree.status).toBe(400);
-
-    // const responseFour = await request.post('/tolls').send({ name: 'Nice' });
-    // expect(Object.is(responseFour.body.error, responseError)).toBe(true);
-    // expect(responseFour.status).toBe(400);
-
-    // const newTolltest = {
-    //   name: 'test',
-    //   coordinates: {
-    //     dest: 1.1
-    //   },
-    //   costs: {}
-    // };
-    // const responseFive = await request.post('/tolls').send(newTolltest);
-    // expect(Object.is(responseFive.body.error, 'Please give costs of tolls')).toBe(true);
-    // expect(responseFive.status).toBe(400);
-
     done();
   });
 });
@@ -81,10 +40,7 @@ describe('Test update tolls of the endpoint /tolls', () => {
   it('test the endpoint /tolls for good behavior', async (done) => {
     const response = await request.get('/tolls');
     const body = response.body.data.tolls[1];
-    // const testToll = {
-    //   name: uuidv4(),
-    //   newAttribute: true
-    // };
+
     const testToll = {
       name: uuidv4()
     };
@@ -135,16 +91,6 @@ describe('Test update tolls of the endpoint /tolls', () => {
 
     update = await request.patch(`/tolls/${toll._id}`).send(testA.testFour);
     expect(update.body.costs).toMatchObject(testA.testFour.costs);
-    // expect(update.body.costs).not.toMatchObject(oldTold.costs);
-
-    // request.patch(`/tolls/${bodyfive._id}`).send(testTollfive);
-    // update = await request.get(`/tolls/${bodyfive._id}`);
-    // expect(update.body.coordinates).toMatchObject(testTollfive.coordinates);
-    // expect(newToll.coordinates).not.toMatchObject(update.coordinates);
-
-    //   operator: 'INCO'
-    //   status: true,
-    //   group: 2
 
     done();
   });
@@ -158,7 +104,6 @@ describe('Test delete tolls of the endpoint /tolls', () => {
     expect(body.status).toBe(200);
     const validated = await request.get(`/tolls/${response.body._id}`);
     expect(validated.status).toBe(404);
-    // expect(validated.body.error).toBe('Not Found');
     done();
   });
 
@@ -167,7 +112,6 @@ describe('Test delete tolls of the endpoint /tolls', () => {
     const body = r.body.data.tolls[4];
     const response = await request.patch(`/tolls/${body._id}`).send({});
     expect(response.status).toBe(200);
-    // expect(Object.is(response.body.error, 'Bad Request, please send complete information')).toBe(true);
     done();
   });
 });

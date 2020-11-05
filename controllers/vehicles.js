@@ -2,6 +2,11 @@ const Vehicles = require('../models/vehicles');
 const validateCreation = require('./validationVehicles').validateCreation;
 const validateUpdate = require('./validationVehicles').validateUpdate;
 
+/**
+ * This function is for get the total of vehicles of the compani
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.getVehicles = async (req, res) => {
   try {
     const vehicles = { vehicles: await Vehicles.findAllVehicles() };
@@ -12,6 +17,11 @@ exports.getVehicles = async (req, res) => {
   }
 };
 
+/**
+ * This function get certain toll of the compani by id
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.findVehicleById = async (req, res) => {
   try {
     var vehicle = await Vehicles.findVehicleById(req.params.id);
@@ -26,6 +36,11 @@ exports.findVehicleById = async (req, res) => {
   }
 };
 
+/**
+ * This function is create a new vehicle, this will validated first before create
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.createVehicles = async (req, res) => {
   // use of middleware validation for creation
   const validation = validateCreation(req);
@@ -52,8 +67,12 @@ exports.createVehicles = async (req, res) => {
   }
 };
 
+/**
+ * This function is to delete a vehicle
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.deleteVehicles = async (req, res) => {
-  // console.log('A eliminar');
   try {
     const vehicle = await Vehicles.deleteVehicle(req.params.id);
     if (vehicle) {
@@ -67,6 +86,11 @@ exports.deleteVehicles = async (req, res) => {
   }
 };
 
+/**
+ * This function is to bringing the whole vehicles by axis
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.getVehiclesByFeatures = async (req, res) => {
   try {
     var vehicle = await Vehicles.findBySpecification(req.params.axis);
@@ -81,6 +105,11 @@ exports.getVehiclesByFeatures = async (req, res) => {
   }
 };
 
+/**
+ * This function is to update the vehicle and change the information about it
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.updateVehicles = async (req, res) => {
   // use of middleware validation for update
   const validation = validateUpdate(req);
@@ -103,17 +132,22 @@ exports.updateVehicles = async (req, res) => {
   }
 };
 
-function validateNumbers (body) {
-  let validation = true;
-  Object.values(body).forEach((element) => {
-    if (typeof (element) !== typeof (1)) {
-      validation = false;
-    }
-  });
-
-  return validation;
+/**
+ * This function validate if the input is a number
+ * @param {input} object The parameter contains any kind of input
+ */
+function validateNumber (input) {
+  if (typeof (input) !== 'number') {
+    return true;
+  }
+  return false;
 }
 
+/**
+ * This function is to delete the whole characteristics for all vehicles
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.deleteFeaturesForVehicle = async (req, res) => {
   if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });
@@ -135,6 +169,11 @@ exports.deleteFeaturesForVehicle = async (req, res) => {
   }
 };
 
+/**
+ * This function is to update the whole characteristics for all vehicles
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.updateTheWholeFeature = async (req, res) => {
   if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });
@@ -149,6 +188,11 @@ exports.updateTheWholeFeature = async (req, res) => {
   }
 };
 
+/**
+ * This function is to update the characteristic of certain vehicles by the id
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.updateFeaturesById = async (req, res) => {
   if (Object.keys(req.body).length === 0 || validateNumbers(req.body) === false) {
     return res.status(400).send({ error: 'Input validation failed' });

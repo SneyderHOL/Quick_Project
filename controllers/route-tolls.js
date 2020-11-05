@@ -1,6 +1,13 @@
 const requestAll = require('../services/routes-google').requestAll;
 
-// /api/tolls
+/**
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the api
+ * @param {error} object The parameter contains the error if there is a error in the
+ * moment when the API fails
+ */
 exports.totalCosts = async (req, res, error) => {
   const origin = req.body.points[0];
   const destination = req.body.points[1];

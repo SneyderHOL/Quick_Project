@@ -25,6 +25,11 @@ const TollSchema = new Schema({
   group: { type: Number, default: 1, min: 1, max: 3 }
 }, { versionKey: false, timestamps: true });
 
+/**
+ * This function send a request to our db and create a new toll
+ * @param {newToll} object The parameter is content of the request to the API, and
+ * contain the new toll already validated it
+ */
 TollSchema.statics.createToll = async function (newToll) {
   // the object.keys is for test how long is the object
   if (Object.keys(newToll).length === 0) return null;
@@ -37,23 +42,39 @@ TollSchema.statics.createToll = async function (newToll) {
   }
 };
 
+/**
+ * This function send a request to our db and delete by id a toll
+ * @param {id} string The parameter is the id of the toll
+ */
 TollSchema.statics.deleteToll = async function (id) {
   // will check the id of the value
   if (!isValid(id)) { return null; }
   return await this.findByIdAndDelete(id);
 };
 
+/**
+ * This function is to find a toll by id
+ * @param {id} string The parameter is the id of the toll
+ */
 TollSchema.statics.findTollById = async function (id) {
   let toll = null;
   if (mongoose.isValidObjectId(id)) { toll = await this.findById(id).exec(); }
   return toll;
 };
 
+/**
+ * This function send a request to our db and bringing all tolls
+ */
 TollSchema.statics.getTolls = async function () {
   const tolls = await this.find();
   return tolls;
 };
 
+/**
+ * This function is to update the toll and the characteristic
+ * @param {id} string The id of the toll
+ * @param {data} object The parameter contains the content of the new values of the tolls
+ */
 TollSchema.statics.updateToll = async function (id, data) {
   let toll = null;
   // console.log(Array.isArray(data))
@@ -81,16 +102,12 @@ TollSchema.statics.updateToll = async function (id, data) {
   return toll;
 };
 
+/**
+ * This function send a request to our db and bringging the tolls that actually works
+ * @param {status} bool Is a variable to bringging the validated tolls in colombia
+ */
 TollSchema.statics.findBySpecification = async function (status) {
   const tolls = await this.find({ status: status });
-  return tolls;
-};
-
-TollSchema.statics.findTollbyCoordinates = async function (latStart, latEnd, lngStart, lngEnd) {
-  const tolls = await this.find({
-    'coordinates.lat': { $gte: latStart, $lte: latEnd },
-    'coordinates.lng': { $gte: lngStart, $lte: lngEnd }
-  });
   return tolls;
 };
 

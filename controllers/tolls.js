@@ -2,6 +2,11 @@ const Toll = require('../models/tolls');
 const validateCreation = require('./validationTolls').validateCreation;
 const validateUpdate = require('./validationTolls').validateUpdate;
 
+/**
+ * This function is for get the total tolls of whole colombia
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.getTolls = async (req, res) => {
   try {
     const tolls = { tolls: await Toll.getTolls() };
@@ -12,6 +17,11 @@ exports.getTolls = async (req, res) => {
   }
 };
 
+/**
+ * This function get certain toll of colombia by id
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.getTollById = async (req, res) => {
   try {
     var toll = await Toll.findTollById(req.params.id);
@@ -26,6 +36,11 @@ exports.getTollById = async (req, res) => {
   }
 };
 
+/**
+ * This function is create a new toll, this will validated first before create
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.createToll = async (req, res) => {
   // validation move to middleware
   const validation = validateCreation(req);
@@ -33,13 +48,8 @@ exports.createToll = async (req, res) => {
     const message = 'Input validation failed' + ' ' + validation.message;
     return res.status(400).send({ error: message });
   }
-  // validation is out of the range
-  // if (!validateArea(req.body.direction)) {
-  //   return res.status(400).send({ error: "The coordinates is out of the colombia" });
-  // }
 
   try {
-    // console.lof(req.body)
     const newToll = new Toll({ ...req.body });
     newToll.coordinates = req.body.coordinates;
     if (req.body.direction) {
@@ -60,6 +70,11 @@ exports.createToll = async (req, res) => {
   }
 };
 
+/**
+ * This function is to delete a toll
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.deleteToll = async (req, res) => {
   try {
     const toll = await Toll.deleteToll(req.params.id);
@@ -74,6 +89,11 @@ exports.deleteToll = async (req, res) => {
   }
 };
 
+/**
+ * This function is to update the toll and change the information about it
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ */
 exports.updateToll = async (req, res) => {
   if (req.body.group === 0) {
     return res.status(400).send({ error: 'Input validation failed Wrong value' });

@@ -23,6 +23,11 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 app.use(logger('dev'));
 app.use(express.json());
 
+/**
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 app.use(function (err, req, res, next) {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     // Handle the error here
@@ -98,7 +103,9 @@ function normalizePort (val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
  */
 function onError (error) {
   if (error.syscall !== 'listen') {
@@ -123,7 +130,9 @@ function onError (error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
  */
 function onListening () {
   const addr = server.address();

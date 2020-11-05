@@ -1,5 +1,10 @@
 const geolib = require('geolib');
 
+/**
+ * This function is to validate all possibles parameters the client sent to the API and
+ * avoid errors in the typing
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 function checkForRequired (req) {
   // check for vehicle
   if (validateString(req.body.vehicle.name)) {
@@ -21,7 +26,6 @@ function checkForRequired (req) {
     }
   }
 
-  // validate the destination
   if (validateObject(req.body.points[1])) {
     if (validateNumber(req.body.points[1].lat)) return errorTypeMessage();
     if (validateNumber(req.body.points[1].lng)) return errorTypeMessage();
@@ -31,15 +35,12 @@ function checkForRequired (req) {
     }
   }
 
-  // if (!validateObject(req.body.points[1]) || !validateObject(req.body.points[0])) {
-  //   if (!validateString(req.body.points[0]) || !validateString(req.body.points[1])) {
-  //     return errorTypeMessage();
-  //   }
-  // }
-
   return ok();
 }
 
+/**
+ * This function return a message for missing values in the API response
+ */
 function errorMissingMessage () {
   return {
     status: true,
@@ -47,6 +48,9 @@ function errorMissingMessage () {
   };
 }
 
+/**
+ * This function return a message for error type when send a request to the API
+ */
 function errorTypeMessage () {
   return {
     status: true,
@@ -54,26 +58,41 @@ function errorTypeMessage () {
   };
 }
 
+/**
+ * This function return a good status
+ */
 function ok () {
   return { status: false };
 }
 
+/**
+ * This function validate if the input is an array
+ * @param {arr} object The parameter contains any kind of input
+ */
 const isArray = (arr) => {
   return (!!arr) && (arr.constructor === Array);
 };
 
+/**
+ * This function validate if the input is a object
+ * @param {input} object The parameter contains any kind of input
+ */
 const validateObject = (obj) => {
   return (!!obj) && (obj.constructor === Object);
 };
 
 /**
- * This function will check if theres is the type, if is not the type will be true
- * To further use this value and handle the error
+ * This function validate if the input is a string
+ * @param {input} object The parameter contains any kind of input
  */
 const validateString = (input) => {
   return (typeof (input) !== 'string');
 };
 
+/**
+ * This function validate if is valid the number
+ * @param {number} object The parameter contains any kind of input
+ */
 function validateNumber (input) {
   if (typeof (input) !== 'number') {
     return true;
@@ -81,6 +100,10 @@ function validateNumber (input) {
   return false;
 }
 
+/**
+ * This function manage the message will send
+ * @param {req} object The parameter contains any kind of input
+ */
 const validate = (req) => {
   // check for required properties
   if (!req.body.points || !req.body.vehicle) {
@@ -89,17 +112,13 @@ const validate = (req) => {
   return checkForRequired(req);
 };
 
+/**
+ * This function is to validate the message of the request to send it
+ * @param {req} object The parameter contains the content of the request to the API
+ * @param {res} object The parameter contains the content of the response to the API
+ * @param {next} object The parameter to pass the argument
+ */
 exports.validateRoutes = async function (req, res, next) {
-  // if (req.headers['content-type'] !== 'application/json') {
-  // if (req.body === undefined || Object.keys(req.body).length === 0) {
-  // if (req.body.id) { return badRes(res, 400); }
-  // if (validWrongObj(req.body.points) || validWrongObj(req.body.vehicle)) {
-  // if (Object.keys(req.body.points).length !== 2) { return badRes(res, 400); }
-  // if (validWrongObj(req.body.points[0]) || validWrongObj(req.body.points[1])) {
-  // if (!geolib.isValidCoordinate([req.body.points[0].lat, req.body.points[0].lng])) {
-  // if (!geolib.isValidCoordinate([req.body.points[1].lat, req.body.points[1].lng])) {
-  // if (Object.keys(req.body.vehicle).length < 1 || validWrongStr(req.body.vehicle.name)) {
-
   const validation = validate(req);
   if (validation.status) {
     const message = 'Input validation failed' + ' ' + validation.message;
