@@ -1,3 +1,7 @@
+/**
+ * This function is to validate when the toll is create, make the whole logic
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 exports.validateCreation = (req) => {
   // check for required properties
   if (!req.body.name || !req.body.coordinates || !req.body.costs) {
@@ -6,6 +10,10 @@ exports.validateCreation = (req) => {
   return checkForRequired(req);
 };
 
+/**
+ * This function if there is a wrong type in the object when it pass from the request
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 function checkForRequired (req) {
   let moreCosts = false;
   // check for name
@@ -73,6 +81,9 @@ function checkForRequired (req) {
   return ok();
 }
 
+/**
+ * This function return a message for missing values in the API response
+ */
 function errorMissingMessage () {
   return {
     status: true,
@@ -80,6 +91,9 @@ function errorMissingMessage () {
   };
 }
 
+/**
+ * This function return a message for error type when send a request to the API
+ */
 function errorTypeMessage () {
   return {
     status: true,
@@ -87,21 +101,36 @@ function errorTypeMessage () {
   };
 }
 
+/**
+ * This function return a message for error value when send a request to the API
+ */
 function errorValueMessage () {
   return {
     status: true,
     message: 'Wrong Value'
   };
 }
+
+/**
+ * This function return a good status
+ */
 function ok () {
   return { status: false };
 }
 
+/**
+ * This function if the toll information is true to update
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 exports.validateUpdate = (req) => {
   // check for optional properties
   return checkForOptional(req);
 };
 
+/**
+ * This function is to make a middleware for check the viriables in the request
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 function checkForOptional (req) {
   // check for operator
   if (req.body.operator && validateString(req.body.operator)) {
@@ -185,14 +214,11 @@ function checkForOptional (req) {
   }
   return ok();
 }
-/*
-function validateObject(input) {
-  if (typeof(input) !== 'object') {
-    return true;
-  }
-  return false;
-}
-*/
+
+/**
+ * This function validate if the input is a string
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateString (input) {
   if (typeof (input) !== 'string') {
     return true;
@@ -200,6 +226,10 @@ function validateString (input) {
   return false;
 }
 
+/**
+ * This function validate if the input is a number
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateNumber (input) {
   if (typeof (input) !== 'number') {
     return true;
@@ -207,6 +237,10 @@ function validateNumber (input) {
   return false;
 }
 
+/**
+ * This function validate if the input is a boolean
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateBoolean (input) {
   if (typeof (input) !== 'boolean') {
     return true;

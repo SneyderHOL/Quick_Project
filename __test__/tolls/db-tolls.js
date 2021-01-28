@@ -1,6 +1,8 @@
 const dbHandler = require('../jest.config');
 const toll = require('../../models/tolls');
 
+jest.setTimeout(11000);
+
 /**
  * Connect to a new in-memory database before running any tests.
  */
@@ -27,8 +29,7 @@ afterAll(async () => {
  */
 describe('Test create tolls in data base', () => {
   it('This will create a new toll and validate return an object', async () => {
-    return expect(typeof (await toll.createToll(newToll)))
-      .toEqual(typeof ({}));
+    expect(typeof (await toll.createToll(newToll))).toEqual(typeof ({}));
   });
 
   it('It will validate if return the correct object and has not __v', async () => {
@@ -45,14 +46,15 @@ describe('Test create tolls in data base', () => {
   });
 
   it('Will validate the schema and validate to recive an incorrect parameters', async () => {
-    newToll.testing = 'This will not save it';
-    expect(await toll.createToll(newToll)).not.toHaveProperty('testing');
-
-    const newTollTest = new toll({ coordinates: null, direction: 112 });
-    const err = await newTollTest.validate();
-    expect(err).toBe(undefined);
-
-    expect(toll.createToll({})).resolves.toBeNull();
+    // This is for avoid modificated the actual object and get an errors in the others test
+    cNewToll = { ...newToll };
+    cNewToll.testing = 'This will not save it';
+    expect(await toll.createToll(cNewToll)).not.toHaveProperty('testing');
+    expect(await toll.createToll({ name: 'new' })).toBeNull();
+    expect(await toll.createToll({ newVar: 'Not' })).toBeNull();
+    expect(await toll.createToll({ coordinates: {} })).toBeNull();
+    cNewToll.coordinates = 0;
+    expect(await toll.createToll(cNewToll)).toBeNull();
   });
 });
 
@@ -60,9 +62,8 @@ describe('Test create tolls in data base', () => {
  * Test the function createToll data base
  */
 describe('Test the function read to bringing data', () => {
-  it('create & save user successfully', async () => {
-    const validToll = new toll(newToll);
-    const savedToll = await validToll.save();
+  it('create & save tolls successfully', async () => {
+    const savedToll = await toll.createToll(newToll);
 
     // Object Id should be defined when successfully saved to MongoDB.
     expect(savedToll._id).toBeDefined();
@@ -71,6 +72,7 @@ describe('Test the function read to bringing data', () => {
     expect(savedToll.cost).toEqual(newToll.cost);
     expect(savedToll.direction).toBe(newToll.direction);
     expect(savedToll.group).toBe(newToll.group);
+    expect(savedToll.status).toBe(true);
   });
 
   it('This will check the good functioning of the methods', async () => {
@@ -87,18 +89,28 @@ describe('Test the function read to bringing data', () => {
     expect(newTestToll[0]._id).toEqual(id);
     expect(newTestToll[0].status).toEqual(status);
   });
-
+});
+describe('Test the function get to bringing data', () => {
   it('This will to avoid errors on the function', async () => {
-    // console.log(await toll.createToll(newToll))
     expect(await toll.getTolls('Hello world')).not.toBeNull();
     expect(await toll.findTollById('Hello world')).toBeNull();
     expect(await toll.findTollById(123)).toBeNull();
     expect(await toll.findTollById([])).toBeNull();
     expect(await toll.findTollById({})).toBeNull();
   });
+});
 
-  it('This will check the function of update toll', async () => {
-    const newsToll = await toll.createToll({ name: 'testing' });
+describe('Test the function get to bringing data', () => {
+  it('This will check the correct function of update toll', async () => {
+    const allTolls = toll.getTolls;
+    const id = allTolls[10];
+    const test = await toll.updateToll(id, { costs: 0 });
+    // expect(test.name).tobe(id)
+    // console.log(test);
+  });
+
+  it('This will test and send wrong input to update toll', async () => {
+    const newsToll = await toll.createToll(newToll);
     const id = newsToll._id;
 
     expect(await toll.updateToll({})).toBeNull();
@@ -118,11 +130,10 @@ describe('Test the function read to bringing data', () => {
     expect(await toll.updateToll(id, [])).toBeNull();
     expect(await toll.updateToll(id, 'delete it')).toBeNull();
     expect(await toll.updateToll(id, 'delete it')).toBeNull();
-
-    const test = await toll.updateToll(id, { costs: 0 });
-    expect(test.costs).toBe(0);
   });
+});
 
+describe('Test the function get to bringing data', () => {
   it('This check the function of delete an toll', async () => {
     expect(await toll.deleteToll('Hello-world')).toBeNull();
     // keep in mind
@@ -130,7 +141,7 @@ describe('Test the function read to bringing data', () => {
     expect(await toll.deleteToll([])).toBeNull();
     expect(await toll.deleteToll({})).toBeNull();
 
-    const newsToll = await toll.createToll({ name: 'testing' });
+    const newsToll = await toll.createToll(newToll);
     const id = newsToll._id;
     expect(await toll.deleteToll(id)).not.toBeNull();
 
@@ -141,8 +152,8 @@ describe('Test the function read to bringing data', () => {
 
 const newToll = {
   coordinates: {
-    lat: 0,
-    lng: -1
+    lat: 111111,
+    lng: 1111111
   },
   direction: 0,
   department: 'ANTIOQUIA',
@@ -151,11 +162,11 @@ const newToll = {
   costs: {
     I: 16800,
     II: 19000,
-
     III: 41400,
     IV: 53900,
-    V: 64500
+    V: 64500,
+    VI: 342232,
+    VII: 2423243
   },
-  status: 1,
-  group: 0
+  group: 1
 };

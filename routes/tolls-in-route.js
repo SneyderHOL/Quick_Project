@@ -1,7 +1,9 @@
+// const validateRoute = require('./validationRoutes').validateRoutes;
 const router = require('express').Router();
-const controllerTollsInRoute = require('../controllers/route-tolls');
-// const middleware = require('./middleware/val-route').validateRoutes;
+const controlerTotal = require('../controllers/route-tolls');
+const middleware = require('./middleware/validation-routes').validateRoutes;
 
-router.post('/', controllerTollsInRoute.totalCosts);
+//  router.post('/', controlerTotal.totalCosts);
+router.post('/', middleware, controlerTotal.totalCosts);
 
 module.exports = router;

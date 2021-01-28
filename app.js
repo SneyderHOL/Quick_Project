@@ -10,7 +10,6 @@ const logger = require('morgan');
 const yaml = require('yamljs');
 const Redis = require('ioredis');
 const cors = require('cors');
-
 require('dotenv').config();
 
 // will use in the future
@@ -24,6 +23,11 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJS));
 app.use(logger('dev'));
 app.use(express.json());
 
+/**
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 app.use(function (err, req, res, next) {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     // Handle the error here
@@ -33,6 +37,7 @@ app.use(function (err, req, res, next) {
   // Pass the error to the next middleware if it wasn't a JSON parse error
   next(err);
 });
+
 app.use(express.urlencoded({ extended: false }));
 const mongoDB = process.env.URL_DB;
 
@@ -56,13 +61,6 @@ redis.on('error', (err) => console.error('Redis error encountered', err));
 
 exports.redis = redis;
 
-/**
- * Redirection
- *//*
-app.get('/', function (req, res) {
-  res.status(200).send('Welcome to the LaDificil API, If you need information please go to the /api-docs');
-});
-*/
 app.use('/', require('./routes/index.js'));
 
 /**
@@ -105,7 +103,9 @@ function normalizePort (val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
  */
 function onError (error) {
   if (error.syscall !== 'listen') {
@@ -130,7 +130,9 @@ function onError (error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * This function is to calculate the total cost of a route,
+ * this is the main fucntion
+ * @param {req} object The parameter contains the content of the request to the API
  */
 function onListening () {
   const addr = server.address();

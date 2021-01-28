@@ -1,3 +1,8 @@
+/**
+ * This function is to validate with others functios if the request is valid, works
+ * like a middlware
+ * @param {req} object The parameter contains the content of the request to the API
+*/
 exports.validateRoutes = (req) => {
   // check for required properties
   if (!req.body.points || !req.body.vehicle) {
@@ -6,6 +11,11 @@ exports.validateRoutes = (req) => {
   return checkForRequired(req);
 };
 
+/**
+ * This function is to validate all possibles parameters the client sent to the API and
+ * avoid errors in the typing
+ * @param {req} object The parameter contains the content of the request to the API
+ */
 function checkForRequired (req) {
   // check for vehicle
   if (validateString(req.body.vehicle.name)) {
@@ -33,6 +43,9 @@ function checkForRequired (req) {
   return ok();
 }
 
+/**
+ * This function return a message for missing values in the API response
+ */
 function errorMissingMessage () {
   return {
     status: true,
@@ -40,24 +53,27 @@ function errorMissingMessage () {
   };
 }
 
+/**
+ * This function return a message for error type when send a request to the API
+ */
 function errorTypeMessage () {
   return {
     status: true,
     message: 'Wrong type'
   };
 }
-/*
-function errorValueMessage () {
-  return {
-    status: true,
-    message: 'Wrong Value'
-  };
-}
-*/
+
+/**
+ * This function return a good status
+ */
 function ok () {
   return { status: false };
 }
 
+/**
+ * This function validate if the input is a object
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateObject (input) {
   if (typeof (input) !== 'object') {
     return true;
@@ -65,6 +81,10 @@ function validateObject (input) {
   return false;
 }
 
+/**
+ * This function validate if the input is a string
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateString (input) {
   if (typeof (input) !== 'string') {
     return true;
@@ -72,17 +92,13 @@ function validateString (input) {
   return false;
 }
 
+/**
+ * This function validate if the input is a number
+ * @param {input} object The parameter contains any kind of input
+ */
 function validateNumber (input) {
   if (typeof (input) !== 'number') {
     return true;
   }
   return false;
 }
-/*
-function validateBoolean (input) {
-  if (typeof (input) !== 'boolean') {
-    return true;
-  }
-  return false;
-}
-*/
